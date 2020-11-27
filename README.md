@@ -47,5 +47,15 @@ Talent Data Flow Diagram
 
 ![Talent Data Flow Diagram](docs/talent_dfd.png)
 
+---------------------------
+
+Talent Application Architecture Diagram
+
+![Talent Application Architecture Diagram](docs/talent_app_arch.png)
+
 ----------------------------
+
+Trello Screen Shots
+
+![Trello screenshot from 27/11/20](docs/trello271120.png)
 
