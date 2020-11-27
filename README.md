@@ -40,3 +40,22 @@ Talent is designed to be used by event producers/organisers to better share data
 - React: React was used as the front end application, sending queries to the express server in order to render dynamically and populate data.
 - MongoDB: MongoDB was used as the database that communicated with express. There was no overt advantage in using a non-relational over a relational database in this application other than potential speed improvements.
 - Bootstrap: Bootstrap was used to style the React front end components
+
+----------------------------
+
+Talent Data Flow Diagram
+
+![Talent Data Flow Diagram](docs/talent_dfd.png)
+
+---------------------------
+
+Talent Application Architecture Diagram
+
+![Talent Application Architecture Diagram](docs/talent_app_arch.png)
+
+----------------------------
+
+Trello Screen Shots
+
+![Trello screenshot from 27/11/20](docs/trello271120.png)
+
