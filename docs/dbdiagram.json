@@ -15,37 +15,39 @@
   "companies": [
     {
       "_id": 1,
-      "name": "company name",
-      "venues": [
-        {
-          "_id": 1,
-          "venue_shows": ["2","6","3"],
-          "name": "venue name",
-          "address": "address",
-          "contact": "email & number",
-          "capacity": "x pax",
-          "details": "specific details for venue",
-          "website": "URL"
-        }
-      ],
-      "shows": [
-        {
-          "_id": 1,
-          "venue_id": 2,
-          "artist_ids": [],
-          "ticket_sale_id": 1,
-          "name": "show name",
-          "datetime" : "datetime object thing",
-          "description": "show description",
-          "is_completed": "boolean"
-        }
-      ],
-      "ticket_sales": [
-        {
-          "_id": 1,
-          "datetime": "datetime object"
-        }
-      ]
+      "name": "company name"
+    }
+  ],
+  "shows": [
+    {
+      "_id": 1,
+      "venue_id": 2,
+      "artist_ids": [],
+      "ticket_sale_id": 1,
+      "company_id": 1,
+      "name": "show name",
+      "datetime" : "datetime object thing",
+      "description": "show description",
+      "is_completed": "boolean"
+    }
+  ],
+  "venues": [
+    {
+      "_id": 1,
+      "company_id": 1,
+      "venue_shows": ["2","6","3"],
+      "name": "venue name",
+      "address": "address",
+      "contact": "email & number",
+      "capacity": "x pax",
+      "details": "specific details for venue",
+      "website": "URL"
+    }
+  ],
+  "ticket_sales": [
+    {
+      "_id": 1,
+      "datetime": "datetime object"
     }
   ]
 }
