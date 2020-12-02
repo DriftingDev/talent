@@ -8,7 +8,10 @@ __Purpose__
 Talent is a event management platform designed for the easy collation and synthesis of show, venue, producer, ticket and performing artist information. It aims to bring all these sources of information together into an intuitive and easy to navigate interface. The goal of Talent is to simplify and standardize the sharing and flow of information between all producers and performing artists, ensuring the most relevant data is displayed in easy to navigate ways.
 
 __Features__
+
 -  Producers can sign up to the platform.
+
+
 -  New producers can create a "company" database entry for a particular event/organisation/period of time.
 -  Producers can create and add, or add existing producers to a company.
 -  Producers can create and add, or add existing artists to a company.
@@ -37,6 +40,8 @@ Talent is designed to be used by event producers/organisers to better share data
 
 __Tech Stack__
 - Node.js: Node was used as the server side, out of browser JS environment.
+
+
 - Express: Express was used as the server framework, which React used as a backend API
 - Mongoose: Used to interface with MongoDB within express.
 - React: React was used as the front end application, sending queries to the express server in order to render dynamically and populate data.
@@ -211,19 +216,37 @@ __As Gary:__
 
 ----------------------------
 
-Talent Data Flow Diagram
+__Talent Data Flow Diagram__
 
 ![Talent Data Flow Diagram](docs/talent_dfd.png)
 
 ---------------------------
 
-Talent Application Architecture Diagram
+__Talent Application Architecture Diagram__
 
 ![Talent Application Architecture Diagram](docs/talent_app_arch.png)
 
 ----------------------------
 
-Trello Screen Shots
+__Trello Screen Shots__
 
 ![Trello screenshot from 27/11/20](docs/trello271120.png)
+
+---------------------------
+
+__Wireframes__
+
+We did all our first wireframes using Whimsical, which allowed us to quickly mock up a relatively full, rough application wireframe. We used Whimsical due to its fast, user friendly UI that allowed us to work quickly and dynamically with our ideas. This allowed us to be more agile in our approach to designing the web application.
+
+![Whimsical wireframes for talent](docs/wireframes_v1.png)
+
+Once we were happy with our initial wireframes, we moved onto Figma and created a full prototype for mobile with full styling and colour scheme. This allowed us to come back around to our client and show them a working prototype which we received feedback on. In the last week of documentation we went through the wire frames a final time to finalise the design and flow. 
+
+![Figma wireframes for talent](docs/wireframes_v2.png)
+
+You can access the full Figma file for our wireframe design here:
+-  https://www.figma.com/file/T5HOM9IrUyHqvRUAxnjtAf/Talent-App-Coder-Final-Project?node-id=3%3A0
+
+And get access to just the prototype here:
+-  https://www.figma.com/proto/T5HOM9IrUyHqvRUAxnjtAf/Talent-App-Coder-Final-Project?node-id=76%3A52&scaling=scale-down
 
