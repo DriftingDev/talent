@@ -1,10 +1,11 @@
 # Talent
 
-Logo thingy maybe
+![Talent Logo](docs/talentlogo2.png)
 
 ## Description
 
 __Purpose__
+
 Talent is a event management platform designed for the easy collation and synthesis of show, venue, producer, ticket and performing artist information. It aims to bring all these sources of information together into an intuitive and easy to navigate interface. The goal of Talent is to simplify and standardize the sharing and flow of information between all producers and performing artists, ensuring the most relevant data is displayed in easy to navigate ways.
 
 __Features__
@@ -22,12 +23,7 @@ __Features__
 -  Producers can look at lists of Artists, Venues and Shows.
 -  Shows are listed by their upcoming date and separated into past and future.
 -  All Artists, Venues, Shows and Producers have their own information display page. 
--  Producers can send emails from the application using mailto and mailgun
-
-__STRETCH FEATURES__
-
-- Producers can attach and view ticket sales for particular shows.
-- The application will SMS artists an hour before their show begins.
+-  Venues will have an a map displaying their location if one is assigned.
 
 - Artists can log into the portal using a created login.
 - Artists can access companies they have shows with.
@@ -35,10 +31,22 @@ __STRETCH FEATURES__
 - Artists can look at ticket sales for upcoming and past shows.
 - Artists can access producer information for the company.
 
+__STRETCH FEATURES__
+
+- The application will SMS artists an hour before their show begins.
+- Producers can send emails from the application using mailto and mailgun
+- Producers can enter their Red61 login details which will give them the ability to;
+  - Populate the database with venues and shows
+  - Create a door list for a particular show
+
+
+
 __Target Audience__
+
 Talent is designed to be used by event producers/organisers to better share data between themselves and artists. While artists are integral to the platform in its current iteration, and they certainly have access to information also in the expanded version of the platform, the platform itself was designed with the producers in mind first and foremost. It was also developed in conjunction with two producers running Adelaide Fringe shows for 2021.
 
 __Tech Stack__
+
 - Node.js: Node was used as the server side, out of browser JS environment.
 
 
@@ -111,6 +119,7 @@ On our third and final iteration of user stories, we fully embraced the user per
 __Third Iteration__
 
 __Producer__
+
 App dependant (Name: Cali)
 Uses the application for almost all of their production administration. Consistently interacts with the platform, tweaking information to best help them stay on top of their workload. Wants to access the application quickly and easily from a range of devices and easily get a broad overview of information. Wants the ability to drill down into specific data points and communicate via the application
 
@@ -230,7 +239,22 @@ __Talent Application Architecture Diagram__
 
 __Trello Screen Shots__
 
+Trello was used as a work tracking platform from the outset of the project. As we neared completion, we ended up populating a second Trello board for the next phase of the project. Both Trello boards are accessible here:
+
+- Part A: https://trello.com/b/2P0YWFXL/talent
+- Part B: https://trello.com/b/qExm8rzv/talent-pt-2
+
+__27/11/20__
+
 ![Trello screenshot from 27/11/20](docs/trello271120.png)
+
+__4/12/20__
+
+![Trello screenshot from 4/12/20](docs/trello041220.png)
+
+__8/12/20__
+
+![Trello screenshot from 8/12/20](docs/trello081220.png)
 
 ---------------------------
 
