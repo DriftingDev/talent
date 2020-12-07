@@ -1,14 +1,18 @@
 # Talent
 
-Logo thingy maybe
+![Talent Logo](docs/talentlogo2.png)
 
 ## Description
 
 __Purpose__
+
 Talent is a event management platform designed for the easy collation and synthesis of show, venue, producer, ticket and performing artist information. It aims to bring all these sources of information together into an intuitive and easy to navigate interface. The goal of Talent is to simplify and standardize the sharing and flow of information between all producers and performing artists, ensuring the most relevant data is displayed in easy to navigate ways.
 
 __Features__
+
 -  Producers can sign up to the platform.
+
+
 -  New producers can create a "company" database entry for a particular event/organisation/period of time.
 -  Producers can create and add, or add existing producers to a company.
 -  Producers can create and add, or add existing artists to a company.
@@ -19,12 +23,7 @@ __Features__
 -  Producers can look at lists of Artists, Venues and Shows.
 -  Shows are listed by their upcoming date and separated into past and future.
 -  All Artists, Venues, Shows and Producers have their own information display page. 
--  Producers can send emails from the application using mailto and mailgun
-
-__STRETCH FEATURES__
-
-- Producers can attach and view ticket sales for particular shows.
-- The application will SMS artists an hour before their show begins.
+-  Venues will have an a map displaying their location if one is assigned.
 
 - Artists can log into the portal using a created login.
 - Artists can access companies they have shows with.
@@ -32,11 +31,25 @@ __STRETCH FEATURES__
 - Artists can look at ticket sales for upcoming and past shows.
 - Artists can access producer information for the company.
 
+__STRETCH FEATURES__
+
+- The application will SMS artists an hour before their show begins.
+- Producers can send emails from the application using mailto and mailgun
+- Producers can enter their Red61 login details which will give them the ability to;
+  - Populate the database with venues and shows
+  - Create a door list for a particular show
+
+
+
 __Target Audience__
+
 Talent is designed to be used by event producers/organisers to better share data between themselves and artists. While artists are integral to the platform in its current iteration, and they certainly have access to information also in the expanded version of the platform, the platform itself was designed with the producers in mind first and foremost. It was also developed in conjunction with two producers running Adelaide Fringe shows for 2021.
 
 __Tech Stack__
+
 - Node.js: Node was used as the server side, out of browser JS environment.
+
+
 - Express: Express was used as the server framework, which React used as a backend API
 - Mongoose: Used to interface with MongoDB within express.
 - React: React was used as the front end application, sending queries to the express server in order to render dynamically and populate data.
@@ -106,6 +119,7 @@ On our third and final iteration of user stories, we fully embraced the user per
 __Third Iteration__
 
 __Producer__
+
 App dependant (Name: Cali)
 Uses the application for almost all of their production administration. Consistently interacts with the platform, tweaking information to best help them stay on top of their workload. Wants to access the application quickly and easily from a range of devices and easily get a broad overview of information. Wants the ability to drill down into specific data points and communicate via the application
 
@@ -211,19 +225,52 @@ __As Gary:__
 
 ----------------------------
 
-Talent Data Flow Diagram
+__Talent Data Flow Diagram__
 
 ![Talent Data Flow Diagram](docs/talent_dfd.png)
 
 ---------------------------
 
-Talent Application Architecture Diagram
+__Talent Application Architecture Diagram__
 
 ![Talent Application Architecture Diagram](docs/talent_app_arch.png)
 
 ----------------------------
 
-Trello Screen Shots
+__Trello Screen Shots__
+
+Trello was used as a work tracking platform from the outset of the project. As we neared completion, we ended up populating a second Trello board for the next phase of the project. Both Trello boards are accessible here:
+
+- Part A: https://trello.com/b/2P0YWFXL/talent
+- Part B: https://trello.com/b/qExm8rzv/talent-pt-2
+
+__27/11/20__
 
 ![Trello screenshot from 27/11/20](docs/trello271120.png)
+
+__4/12/20__
+
+![Trello screenshot from 4/12/20](docs/trello041220.png)
+
+__8/12/20__
+
+![Trello screenshot from 8/12/20](docs/trello081220.png)
+
+---------------------------
+
+__Wireframes__
+
+We did all our first wireframes using Whimsical, which allowed us to quickly mock up a relatively full, rough application wireframe. We used Whimsical due to its fast, user friendly UI that allowed us to work quickly and dynamically with our ideas. This allowed us to be more agile in our approach to designing the web application.
+
+![Whimsical wireframes for talent](docs/wireframes_v1.png)
+
+Once we were happy with our initial wireframes, we moved onto Figma and created a full prototype for mobile with full styling and colour scheme. This allowed us to come back around to our client and show them a working prototype which we received feedback on. In the last week of documentation we went through the wire frames a final time to finalise the design and flow. 
+
+![Figma wireframes for talent](docs/wireframes_v2.png)
+
+You can access the full Figma file for our wireframe design here:
+-  https://www.figma.com/file/T5HOM9IrUyHqvRUAxnjtAf/Talent-App-Coder-Final-Project?node-id=3%3A0
+
+And get access to just the prototype here:
+-  https://www.figma.com/proto/T5HOM9IrUyHqvRUAxnjtAf/Talent-App-Coder-Final-Project?node-id=76%3A52&scaling=scale-down
 
