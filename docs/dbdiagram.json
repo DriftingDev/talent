@@ -2,22 +2,26 @@
   "users": [
     {
       "_id":1,
+      "company_ids":[],
       "email": "email",
       "password": "password",
       "name":"username",
+      "nickname": "nickname",
       "is_artist": "boolean",
       "contact": "number",
-      "fringe_link": "URL",
-      "companies":[]
+      "fringe_link": "URL"
     }
   ],
 
   "companies": [
     {
       "_id": 1,
-      "name": "company name"
+      "name": "company name",
+      "red61_username": "username",
+      "red61_password": "password"
     }
   ],
+
   "shows": [
     {
       "_id": 1,
@@ -31,6 +35,7 @@
       "is_completed": "boolean"
     }
   ],
+
   "venues": [
     {
       "_id": 1,
@@ -44,6 +49,7 @@
       "website": "URL"
     }
   ],
+  
   "ticket_sales": [
     {
       "_id": 1,
