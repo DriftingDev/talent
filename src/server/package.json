@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "chai",
-    "start": "nodemon"
+    "test": "mocha",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -24,5 +24,8 @@
     "chai-http": "*",
     "mocha": "*",
     "nodemon": "*"
+  },
+  "engines": {
+    "node": "14.8.0"
   }
 }
