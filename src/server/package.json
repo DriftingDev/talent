@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "chai"
+    "test": "chai",
+    "start": "nodemon"
   },
   "author": "",
   "license": "ISC",
