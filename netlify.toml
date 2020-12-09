@@ -1,5 +1,4 @@
 [build]
   command = "yarn build"
-  publish="/src/client/build"
+  publish="/build"
   base = "/src/client/"
-
