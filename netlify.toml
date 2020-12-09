@@ -1,0 +1,5 @@
+[build]
+  command = "yarn build"
+  publish="/src/client/build"
+  base = "/src/client/"
+
