@@ -115,6 +115,15 @@ $card-border-color:                 rgba($black, .125) !default;
 $card-cap-bg:                       rgba($black, .03) !default;
 $card-cap-color:                    null !default;
 
+// Modals
+$modal-content-border-color:        rgba($black, .2) !default;
+$modal-backdrop-bg:                 $black !default;
+$modal-content-color:               $white !default;
+$modal-content-bg:                  $dark !default;
+
+
+$modal-header-border-color:         $indigo !default;
+// $modal-footer-border-color:         $modal-header-border-color !default;
 
 
 
