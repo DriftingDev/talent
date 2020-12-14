@@ -1,15 +1,11 @@
 import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import WelcomeModal from '../components/WelcomeModal';
 
-function LoginForm() {
+const SignUp = () => {
   return (
     <Form className='login-form'>
       <div className='d-flex'>
-        <h4>Login</h4>
-        <h4 className='ml-auto'>
-          <WelcomeModal />
-        </h4>
+        <h4>Create Producer Account</h4>
       </div>
       <Form.Group controlId='formBasicEmail'>
         <Form.Label>Email address</Form.Label>
@@ -24,6 +20,6 @@ function LoginForm() {
       </Button>
     </Form>
   );
-}
+};
 
-export default LoginForm;
+export default SignUp;
