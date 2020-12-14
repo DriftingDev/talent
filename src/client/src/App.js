@@ -4,10 +4,13 @@ import './App.scss';
 import NavBar from './components/NavBar';
 import LoginForm from './components/LoginForm';
 import SignUp from './components/SignUp';
+import BookForm from './components/BookForm'
+
 //Router
 import { Switch, Route } from 'react-router-dom';
 
 function App() {
+   
   return (
     <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
       <NavBar />
@@ -17,6 +20,9 @@ function App() {
         </Route>
         <Route path='/signup' exact>
           <SignUp />
+        </Route>
+        <Route>
+          <BookForm path='/bookform' exact />
         </Route>
       </Switch>
     </Container>
