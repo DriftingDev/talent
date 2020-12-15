@@ -13,7 +13,6 @@ chai.use(chaiHttp);
 describe("Auth routes", () => {
 
   const userObject = {
-    '_method': 'put',
     'name': 'nick',
     'nickname': 'funky duck',
     'is_artist': false,
@@ -54,12 +53,11 @@ describe("Auth routes", () => {
     it('should return 200OK with valid inputs'), (done) => {
       chai.request(app)
         .post('/auth/register')
-        .type('form')
         .send(userObject)
         .end((err, res) => {
-          expect(res).to.have.status(200)
-          done()
+          res.should.have.status(200)
         })
+        done()
     }
 
     it('should not return 200OK without valid inputs'), (done) => {
@@ -69,25 +67,20 @@ describe("Auth routes", () => {
         .send({nothing: "nadie"})
         .end((err, res) => {
           expect(res).to.not.have.status(200)
-          done()
         })
+        done()
     }
 
     it('should have inserted a new user into the DB', async () => {
       const firstUser = await User.find()
-      console.log(firstUser)
       expect(firstUser).to.be.an('array'),
       expect(firstUser[0].email).to.equal('user@email.com')
-      
     })
   })
 
   describe('POST /login', () => {
 
-
-    console.log(userObject)
-    console.log('/////////////')
-    userSave(userObject)
+    // userSave(userObject)
     
     it('should return 200OK with valid inputs and have a user attached'), (done) => {
       chai.request(app)
@@ -97,8 +90,8 @@ describe("Auth routes", () => {
         .end((err, res) => {
           expect(res).to.have.status(200)
           expect(res.user).to.not.be.null
-          done()
         })
+        done()
     }
 
     it('should not return 200OK with invalid inputs'), (done) => {
@@ -109,8 +102,8 @@ describe("Auth routes", () => {
         .end((err, res) => {
           expect(res).not.to.have.status(200)
           expect(res.user).to.not.be.null
-          done()
         })
+        done()
     }
   })
 
@@ -122,8 +115,8 @@ describe("Auth routes", () => {
         .end((err, res) => {
           expect(res).not.to.have.status(200)
           expect(res.user).to.be.null
-          done()
         })
+        done()
     }
 
   })
