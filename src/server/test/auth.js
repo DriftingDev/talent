@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test'
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../server');
+const { app } = require('../server');
 const mongoose = require('mongoose')
 const User = require('../models/User.js')
 
@@ -50,26 +50,29 @@ describe("Auth routes", () => {
  
   describe('POST /register', () => {
 
-    it('should return 200OK with valid inputs'), (done) => {
+    it('should return 200OK with valid inputs', (done) => {
       chai.request(app)
         .post('/auth/register')
         .send(userObject)
         .end((err, res) => {
-          res.should.have.status(200)
+          if(err) {
+            console.log(err)
+          }
+          expect(res).to.have.status(200)
         })
         done()
-    }
+    })
 
-    it('should not return 200OK without valid inputs'), (done) => {
+    it('should not return 200OK without valid inputs', (done) => {
       chai.request(app)
         .post('/auth/register')
         .type('form')
         .send({nothing: "nadie"})
         .end((err, res) => {
-          expect(res).to.not.have.status(200)
+          expect(res).to.have.status(500)
         })
         done()
-    }
+    })
 
     it('should have inserted a new user into the DB', async () => {
       const firstUser = await User.find()
@@ -79,10 +82,8 @@ describe("Auth routes", () => {
   })
 
   describe('POST /login', () => {
-
-    // userSave(userObject)
     
-    it('should return 200OK with valid inputs and have a user attached'), (done) => {
+    it('should return 200OK with valid inputs and have a user attached', (done) => {
       chai.request(app)
         .post('/auth/login')
         .type('form')
@@ -92,9 +93,9 @@ describe("Auth routes", () => {
           expect(res.user).to.not.be.null
         })
         done()
-    }
+    })
 
-    it('should not return 200OK with invalid inputs'), (done) => {
+    it('should not return 200OK with invalid inputs', (done) => {
       chai.request(app)
         .post('/auth/login')
         .type('form')
@@ -104,7 +105,7 @@ describe("Auth routes", () => {
           expect(res.user).to.not.be.null
         })
         done()
-    }
+    })
   })
 
   describe('GET /logout', () => {

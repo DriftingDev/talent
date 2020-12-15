@@ -4,17 +4,14 @@ const passport = require('passport')
 const registerNew = (req, res) => {
   const { email, password, name, nickname, is_artist, contact, link } = req.body
 
-  User.create({email , password, name, nickname, is_artist, contact, link})
-    .then(
-      req.login(user, (err) => {
-        if (err) {
-          console.log(err)
-          next(err)
-        } else {
-          res.redirect('/')
-        }
-      })
-    )
+  new User({email:email, password:password, name:name, nickname:nickname, is_artist:is_artist, contact:contact, link:link}).save((err, user) => {
+    if (err) {
+      res.status(500)
+      res.send(err)
+    } else {
+      res.send('Ya win')
+    }
+  })
 }
 
 module.exports = {
