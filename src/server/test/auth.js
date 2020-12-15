@@ -110,7 +110,7 @@ describe("Auth routes", () => {
 
   describe('GET /logout', () => {
 
-    it('should return an empty user'), (done) => {
+    it('should return an empty user', (done) => {
       chai.request(app)
         .get('/auth/logout')
         .end((err, res) => {
@@ -118,7 +118,7 @@ describe("Auth routes", () => {
           expect(res.user).to.be.null
         })
         done()
-    }
+    })
 
   })
 

@@ -1,5 +1,12 @@
 const User = require('../models/User');
-const passport = require('passport')
+const passport = require('passport');
+
+const userLogin = (req, res) => {
+  passport.authenticate('local', {
+    successRedirect: '/success',
+    failureRedirect: '/'
+  })
+}
 
 const registerNew = (req, res) => {
   const { email, password, name, nickname, is_artist, contact, link } = req.body
@@ -9,11 +16,12 @@ const registerNew = (req, res) => {
       res.status(500)
       res.send(err)
     } else {
-      res.send('Ya win')
+      userLogin(req,res)
     }
   })
 }
 
 module.exports = {
-  registerNew
+  registerNew,
+  userLogin
 }
