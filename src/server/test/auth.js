@@ -25,18 +25,6 @@ describe("Auth routes", () => {
     "password": "password"
   }
 
-  const userSave = (user) => {
-    const newUser = new User ({
-      ...user
-    })
-
-    newUser.save((err) => {
-      if (err) {
-        console.log("New user didnt save:", err)
-      } 
-    })
-  }
-
   after(() => {
     console.log('dropping db') 
     User.deleteMany({},(err) => {
