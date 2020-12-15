@@ -138,21 +138,22 @@ describe("User routes", () => {
   describe("GET /all", () => {
     it('should return all users', (done) => {
       chai.request(app)
-        .get('/all')
+        .get('/user/all')
         .end((err,res) => {
           if (err) {
             console.log(err)
           }
           expect(res).to.have.status(200)
+          expect(res.body).to.be.an('array')
         })
         done()
     })
   })
 
   describe("GET /allArtists", () => {
-    it('should return only artists tied to user', (done) => {
+    it('should return only artists tied to user through a company', (done) => {
       chai.request(app)
-        .get('/allArtists')
+        .get('/user/allArtists')
         .end((err,res) => {
           if (err) {
             console.log(err)
@@ -163,8 +164,8 @@ describe("User routes", () => {
     })
   })
 
-  describe("GET /allProducers", () => {
-    it('should return only producers tied to user', (done) => {
+  describe("GET /user/allProducers", () => {
+    it('should return only producers tied to user through a company', (done) => {
       chai.request(app)
         .get('/allProducers')
         .end((err,res) => {
@@ -177,10 +178,10 @@ describe("User routes", () => {
     })
   })
 
-  describe("GET /:id", () => {
+  describe("GET :id", () => {
     it('should return only one specific user', (done) => {
       chai.request(app)
-        .get('/5')
+        .get('/user/5')
         .end((err,res) => {
           if (err) {
             console.log(err)
@@ -199,7 +200,7 @@ describe("User routes", () => {
       }
 
       chai.request(app)
-        .post('/5')
+        .post('/user/5')
         .send(newDetails)
         .end((err,res) => {
           if (err) {
@@ -215,7 +216,7 @@ describe("User routes", () => {
   describe("POST /:id/company", () => {
     it('should add a company to a specific user', (done) => {
       chai.request(app)
-        .post('/5')
+        .post('/user/5/company')
         .send('1')
         .end((err,res) => {
           if (err) {
@@ -231,7 +232,7 @@ describe("User routes", () => {
   describe("DELETE /:id", () => {
     it('should delete profile of logged in user', (done) => {
       chai.request(app)
-        .delete('/5')
+        .delete('/user/5')
         .end((err,res) => {
           if (err) {
             console.log(err)

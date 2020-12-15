@@ -17,8 +17,10 @@ const registerNew = (req, res) => {
 
   new User({email:email, password:password, name:name, nickname:nickname, is_artist:is_artist, contact:contact, link:link}).save((err, user) => {
     if (err) {
-      res.status(500)
-      res.send(err)
+      res.status(500);
+      return res.json({
+        error: err.message
+      })
     } else {
       userLogin(req,res)
     }

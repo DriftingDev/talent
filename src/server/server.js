@@ -6,6 +6,7 @@ const expressSession = require('express-session')
 const passport = require('passport')
 
 const authRouter = require('./routes/authRouter')
+const userRouter = require('./routes/userRouter')
 
 //Check for port if in production, else use 3007
 const port = process.env.PORT || 3001
@@ -57,6 +58,7 @@ app.use(passport.initialize());
 app.use(passport.session())
 
 app.use('/auth', authRouter);
+app.use('/user', userRouter);
 
 app.get('/', (req, res) => {
   res.send("hi there") 
