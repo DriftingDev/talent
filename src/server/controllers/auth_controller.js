@@ -8,6 +8,10 @@ const userLogin = (req, res) => {
   })
 }
 
+const userLogout = (req, res) => {
+  req.logout();
+}
+
 const registerNew = (req, res) => {
   const { email, password, name, nickname, is_artist, contact, link } = req.body
 
@@ -23,5 +27,6 @@ const registerNew = (req, res) => {
 
 module.exports = {
   registerNew,
-  userLogin
+  userLogin,
+  userLogout
 }
