@@ -99,7 +99,6 @@ $theme-colors: map-merge(
   $theme-colors
 );
 
-
 // Body
 $body-bg:                   $black !default;
 // $body-color:                $gray-900 !default;
@@ -109,9 +108,9 @@ $input-bg:                              $input-black !default;
 $input-disabled-bg:                     $gray-200 !default;
 
 // Cards
-$card-bg:                           $nav-black !default;
+$card-bg:                           $dark !default;
 $card-color:                        $white !default;
-$card-border-color:                 rgba($black, .125) !default;
+$card-border-color:                 rgba($dark, .125) !default;
 $card-cap-bg:                       rgba($black, .03) !default;
 $card-cap-color:                    null !default;
 
@@ -125,6 +124,12 @@ $modal-content-bg:                  $dark !default;
 $modal-header-border-color:         $indigo !default;
 // $modal-footer-border-color:         $modal-header-border-color !default;
 
+
+// Typography
+$enable-responsive-font-sizes:                true !default;
+$font-size-base:              0.9rem !default; // Assumes the browser default, typically `16px`
+$font-size-lg:                $font-size-base * 1 !default;
+$font-size-sm:                $font-size-base * .875 !default;
 
 
 /* import bootstrap to set changes */
