@@ -1,5 +1,11 @@
-import { Button, Form } from 'react-bootstrap';
+//Bootstrap
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+//Formik & Yup
+// import { Formik, Form as BaseForm } from 'formik';
+// import { object, string } from 'yup';
+//Custom Component
 import WelcomeModal from '../components/WelcomeModal';
 
 function LoginForm() {

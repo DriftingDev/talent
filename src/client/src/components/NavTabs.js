@@ -2,9 +2,9 @@ import { Navbar, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 
-function NavBar() {
+const NavTabs = () => {
   return (
-    <Navbar bg='dark' variant='dark'>
+    <Navbar fixed='bottom' bg='dark' variant='dark'>
       <Navbar.Brand as={Link} to='/'>
         Talent
       </Navbar.Brand>
@@ -21,6 +21,6 @@ function NavBar() {
       </Nav>
     </Navbar>
   );
-}
+};
 
-export default NavBar;
+export default NavTabs;
