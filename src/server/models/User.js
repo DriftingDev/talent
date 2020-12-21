@@ -13,8 +13,8 @@ const User = new Schema ({
     required: true
   },  
   accname: {
-    type: String
-    //required: true
+    type: String,
+    required: true
   },
   nickname: {
     type: String
