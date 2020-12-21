@@ -27,8 +27,13 @@ router.post(
       'login',
       async (err, user, info) => {
         try {
+          
           if (err || !user) {
-            return next(err);
+            if (err) {
+              return res.json(err)
+            } else {
+              return res.json(info)
+            }
           }
 
           req.login(

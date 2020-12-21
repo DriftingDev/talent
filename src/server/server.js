@@ -11,7 +11,7 @@ const userRouter = require('./routes/userRouter')
 const companyRouter = require('./routes/companyRouter')
 
 //Check for port if in production, else use 3001
-const port = process.env.PORT || 3003
+const port = process.env.PORT || 3010
 
 //Require dotenv if running in development & set dbConn relative to this
 if(process.env.NODE_ENV !== 'production') {
