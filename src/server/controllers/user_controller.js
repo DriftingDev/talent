@@ -1,5 +1,6 @@
 const {
-  allUsers
+  allUsers,
+  userById
 } = require('../utils/user_utils')
 
 const getAllUsers = (req, res) => {
@@ -14,6 +15,20 @@ const getAllUsers = (req, res) => {
   })
 }
 
+const getUserById = (req,res) => {
+  userById(req).exec((err, user) => {
+    if (err) {
+      res.status(500);
+      return res.json({
+        message: 'no user found',
+        error: err.message
+      })
+    }
+    return res.json(user)
+  })
+}
+
 module.exports = {
-  getAllUsers
+  getAllUsers,
+  getUserById
 }

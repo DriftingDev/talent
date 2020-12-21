@@ -4,10 +4,12 @@ const passport = require('passport')
 
 
 const {
-  getAllUsers
+  getAllUsers,
+  getUserById
 } = require('../controllers/user_controller')
 
 router.get('/all', getAllUsers)
+router.get('/:id', getUserById)
 router.get('/protected', 
 (req,res,next) => {
   res.json({
