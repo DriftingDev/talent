@@ -21,9 +21,15 @@ const getUserErrorHandle = (err, res) => {
     })
 }
 
+const userUpdate = (req) => {
+  console.log(req.body)
+  return User.findByIdAndUpdate(req.user._id, req.body, { new: true })
+}
+
 module.exports = {
   allUsers,
   userById,
   addCompany,
-  getUserErrorHandle
+  getUserErrorHandle,
+  userUpdate
 }

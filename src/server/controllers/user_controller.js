@@ -1,7 +1,8 @@
 const {
   allUsers,
   userById,
-  getUserErrorHandle
+  getUserErrorHandle,
+  userUpdate
 } = require('../utils/user_utils')
 
 const {
@@ -71,8 +72,19 @@ const addCompanyToUser = (req,res) => {
   })
 }
 
+const editUserById = (req,res) => {
+  userUpdate(req).exec((err,user) => {
+    if (err) {
+      res.json(err)
+    }
+
+    res.json(user)
+  })
+}
+
 module.exports = {
   getAllUsers,
   getUserById,
-  addCompanyToUser
+  addCompanyToUser,
+  editUserById
 }
