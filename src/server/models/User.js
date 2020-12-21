@@ -1,11 +1,20 @@
 const mongoose = require('mongoose')
 const Schema  = mongoose.Schema;
-const passportLocalMongoose = require('passport-local-mongoose');
+const bcrypt = require('bcrypt')
 
 const User = new Schema ({
-  name: {
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
     type: String,
     required: true
+  },  
+  accname: {
+    type: String
+    //required: true
   },
   nickname: {
     type: String
@@ -26,6 +35,22 @@ const User = new Schema ({
   }]
 })
 
-User.plugin(passportLocalMongoose, { usernameField : 'email' });
+User.pre(
+  'save',
+  async function(next) {
+    let user = this;
+    const hash = await bcrypt.hash(user.password, 10);
+
+    user.password = hash;
+    next();
+  }
+);
+
+User.methods.isValidPassword = async function(password) {
+  const user = this;
+  const compare = await bcrypt.compare(password, user.password)
+
+  return compare
+}
 
 module.exports = mongoose.model('User', User)

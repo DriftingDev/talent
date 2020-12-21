@@ -2,14 +2,15 @@ const express = require('express')
 const app = express()
 const mongoose  = require('mongoose')
 const cors = require('cors')
-const expressSession = require('express-session')
 const passport = require('passport')
+const bodyParser = require('body-parser')
+require('./middleware/passport')
 
 const authRouter = require('./routes/authRouter')
 const userRouter = require('./routes/userRouter')
 
-//Check for port if in production, else use 3007
-const port = process.env.PORT || 3001
+//Check for port if in production, else use 3001
+const port = process.env.PORT || 3003
 
 //Require dotenv if running in development & set dbConn relative to this
 if(process.env.NODE_ENV !== 'production') {
@@ -42,27 +43,16 @@ mongoose.connect(dbConn, {
 
 app.use(cors())
 app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-
-app.use(expressSession({
-  secret: "Bernard is a giant floof",
-  resave: false,
-  saveUninitialized: false
-}))
-
-app.use(passport.initialize());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize())
 app.use(passport.session())
-
-app.use('/auth', authRouter);
-app.use('/user', userRouter);
 
 app.get('/', (req, res) => {
   res.send("hi there") 
 })
+
+app.use('/auth', authRouter);
+app.use('/user', passport.authenticate('jwt', { session: false }), userRouter);
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`)
