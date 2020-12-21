@@ -5,7 +5,8 @@ const bcrypt = require('bcrypt')
 const Company = new Schema ({
   name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   red61_username: String,
   red61_password: String
@@ -49,4 +50,4 @@ Company.pre(
 
 /// ADD COMPANY.METHODS for providing plaintext red61 details
 
-module.exports = mongoose.model("Company", company)
+module.exports = mongoose.model("Company", Company)
