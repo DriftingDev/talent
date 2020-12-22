@@ -9,7 +9,12 @@ const companyById = (id) => {
   return Company.findById(id)
 }
 
+const deleteCompany = (id) => {
+  return Company.deleteOne({_id: id})
+}
+
 module.exports = {
   createCompany,
-  companyById
+  companyById,
+  deleteCompany
 }
