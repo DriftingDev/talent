@@ -22,8 +22,8 @@ const getUserErrorHandle = (err, res) => {
     })
 }
 
-const validatePassword = (id, password) => {
-  
+const deleteUser = (id) => {
+  return User.deleteOne({_id: id})
 }
 
 module.exports = {
@@ -31,5 +31,5 @@ module.exports = {
   userById,
   addCompany,
   getUserErrorHandle,
-  validatePassword
+  deleteUser
 }

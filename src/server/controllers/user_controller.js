@@ -2,7 +2,7 @@ const {
   allUsers,
   userById,
   getUserErrorHandle,
-  validatePassword
+  deleteUser
 } = require('../utils/user_utils')
 
 const {
@@ -107,10 +107,21 @@ const passwordValidator =  (req, res) => {
   })
 }
 
+const destroyUser = (req, res) => {
+  deleteUser(req.user._id).exec((err) => {
+    if (err) {
+      res.json(err)
+    }
+    
+    res.json("user deleted")
+  })
+}
+
 module.exports = {
   getAllUsers,
   getUserById,
   addCompanyToUser,
   editUserById,
-  passwordValidator
+  passwordValidator,
+  destroyUser
 }
