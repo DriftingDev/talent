@@ -3,9 +3,11 @@ const router = express.Router();
 
 const {
   createNewCompany,
-  getCompanyById
+  getCompanyById,
+  getCompaniesTiedToUser
 } = require('../controllers/company_controller');
 
+router.get("/userCompanies", getCompaniesTiedToUser)
 router.post('/new', createNewCompany)
 router.get("/:id", getCompanyById)
 

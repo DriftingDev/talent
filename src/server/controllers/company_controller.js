@@ -3,6 +3,10 @@ const {
  companyById
 } = require('../utils/company_utils')
 
+const { 
+  userById 
+} = require('../utils/user_utils')
+
 const createNewCompany = async (req,res) => {
   try {
     const company = await createCompany(req)
@@ -22,7 +26,26 @@ const getCompanyById = (req, res) => {
   })
 }
 
+const getCompaniesTiedToUser = (req, res) => {
+
+  userById(req.user._id).exec( async (err, user) => {
+    if (err) {
+      res.json(err)
+    }
+
+    user.populate('companies', ((err, user) => {
+      if (err) {
+        res.json(err)
+      }
+
+      res.json(user.companies)
+
+    }))
+  })
+}
+
 module.exports = {
   createNewCompany,
-  getCompanyById
+  getCompanyById,
+  getCompaniesTiedToUser
 }

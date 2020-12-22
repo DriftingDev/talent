@@ -8,7 +8,6 @@ const {
 const {
   companyById
 } = require('../utils/company_utils');
-const { json } = require('body-parser');
 
 const getAllUsers = (req, res) => {
   allUsers(req).exec((err, users) => {
@@ -32,7 +31,7 @@ const getUserById = (req,res) => {
 }
 
 const addCompanyToUser = (req,res) => {
-  userById(req).exec((err, user) => {
+  userById(req.params.id).exec((err, user) => {
     if (err) {
       getUserErrorHandle(err, res)
     } else if (!user) {
