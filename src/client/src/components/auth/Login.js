@@ -6,9 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import { Formik, Form as BaseForm } from 'formik';
 // import { object, string } from 'yup';
 //Custom Component
-import WelcomeModal from '../components/WelcomeModal';
+import WelcomeModal from './WelcomeModal';
 
-function LoginForm() {
+function Register() {
   return (
     <Form className='login-form'>
       <div className='d-flex'>
@@ -32,4 +32,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default Register;
