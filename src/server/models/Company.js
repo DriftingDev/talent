@@ -20,12 +20,12 @@ Company.pre(
   'save',
   async function(next) {
     let company = this;
-    if(company.red61_username) {
+    if(company.red61_username && company.isNew || company.isModified('red61_username')) {
       const hash = await bcrypt.hash(company.red61_username, 10)
       company.red61_username = hash
     }
 
-    if(company.red61_password) {
+    if(company.red61_password && company.isNew || company.isModified('red61_password')) {
       const hash = await bcrypt.hash(company.red61_password, 10)
       company.red61_password = hash
     }
