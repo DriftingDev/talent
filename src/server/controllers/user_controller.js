@@ -1,12 +1,14 @@
 const {
   allUsers,
   userById,
-  getUserErrorHandle
+  getUserErrorHandle,
+  validatePassword
 } = require('../utils/user_utils')
 
 const {
   companyById
-} = require('../utils/company_utils')
+} = require('../utils/company_utils');
+const { json } = require('body-parser');
 
 const getAllUsers = (req, res) => {
   allUsers(req).exec((err, users) => {
@@ -78,7 +80,7 @@ const editUserById = (req,res) => {
     }
 
     for (const [key, value] of Object.entries(req.body)) {
-      user.key = value
+      user[key] = value
     }
 
     user.save((err, user) => {
@@ -92,9 +94,23 @@ const editUserById = (req,res) => {
   })
 }
 
+const passwordValidator =  (req, res) => {
+  
+  userById(req.user._id).exec( async (err,user) => {
+    if (err) {
+      res.json(err)
+    }
+
+    const bool = await user.isValidPassword(req.body.password)
+
+    res.json(bool)
+  })
+}
+
 module.exports = {
   getAllUsers,
   getUserById,
   addCompanyToUser,
-  editUserById
+  editUserById,
+  passwordValidator
 }

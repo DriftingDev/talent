@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const Company = require('../models/Company')
 
+
 const allUsers = (req) => {
   return User.find()
 }
@@ -21,11 +22,14 @@ const getUserErrorHandle = (err, res) => {
     })
 }
 
-
+const validatePassword = (id, password) => {
+  
+}
 
 module.exports = {
   allUsers,
   userById,
   addCompany,
-  getUserErrorHandle
+  getUserErrorHandle,
+  validatePassword
 }

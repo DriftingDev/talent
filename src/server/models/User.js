@@ -39,10 +39,14 @@ User.pre(
   'save',
   async function(next) {
     let user = this;
-    const hash = await bcrypt.hash(user.password, 10);
+    if (user.isModified("password") || user.isNew) {
+      const hash = await bcrypt.hash(user.password, 10);
 
-    user.password = hash;
-    next();
+      user.password = hash;
+      next();
+    } else {
+      next();
+    }
   }
 );
 
