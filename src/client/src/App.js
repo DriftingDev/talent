@@ -35,7 +35,7 @@ function App() {
         <NavBar fixed='top' />
         <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
           <Route path='/' component={Login} exact />
-          <Route path='/signup' component={Register} exact />
+          <Route path='/register' component={Register} exact />
           <Route path='/artists' component={ArtistList} exact />
           <Route path='/artists/:id' component={ArtistScreen} />
         </Container>

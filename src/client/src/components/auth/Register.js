@@ -1,7 +1,7 @@
 import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const SignUp = () => {
+const Register = () => {
   return (
     <Form className='login-form'>
       <div className='d-flex'>
@@ -22,4 +22,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;
