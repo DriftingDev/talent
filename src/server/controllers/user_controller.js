@@ -47,7 +47,7 @@ const addCompanyToUser = (req,res) => {
         res.json(err)
       }
 
-      companyById(req).exec((err,company) => {
+      companyById(req.body.company_id).exec((err,company) => {
 
         if (err) {
           res.json(err)

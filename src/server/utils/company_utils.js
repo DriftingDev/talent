@@ -5,8 +5,8 @@ const createCompany = (req) => {
   return Company.create({ name, red61_username, red61_password })
 }
 
-const companyById = (req) => {
-  return Company.findById(req.body.company_id)
+const companyById = (id) => {
+  return Company.findById(id)
 }
 
 module.exports = {
