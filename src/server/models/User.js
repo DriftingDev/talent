@@ -13,8 +13,8 @@ const User = new Schema ({
     required: true
   },  
   accname: {
-    type: String
-    //required: true
+    type: String,
+    required: true
   },
   nickname: {
     type: String
@@ -37,6 +37,21 @@ const User = new Schema ({
 
 User.pre(
   'save',
+  async function(next) {
+    let user = this;
+    if (user.isModified("password") || user.isNew) {
+      const hash = await bcrypt.hash(user.password, 10);
+
+      user.password = hash;
+      next();
+    } else {
+      next();
+    }
+  }
+);
+
+User.pre(
+  'updateOne',
   async function(next) {
     let user = this;
     const hash = await bcrypt.hash(user.password, 10);

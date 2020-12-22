@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport')
-
 
 const {
-  getAllUsers
+  getAllUsers,
+  getUserById,
+  addCompanyToUser,
+  editUserById,
+  passwordValidator,
+  destroyUser
 } = require('../controllers/user_controller')
 
+router.post('/:id/addCompany', addCompanyToUser)
 router.get('/all', getAllUsers)
-router.get('/protected', 
-(req,res,next) => {
-  res.json({
-    message: "You win!",
-    user: req.user,
-    token: req.query.secret_token
-  })
-})
+router.get('/:id', getUserById)
+router.post('/edit', editUserById)
+router.post('/validPassword', passwordValidator)
+router.delete('/delete', destroyUser)
 
 module.exports = router
