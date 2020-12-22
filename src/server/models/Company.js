@@ -13,6 +13,10 @@ const Company = new Schema ({
   users: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
+  }],
+  shows: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Show'
   }]
 })
 
