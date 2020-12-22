@@ -8,8 +8,6 @@ const Company = new Schema ({
     required: true,
     unique: true
   },
-  red61_username: String,
-  red61_password: String,
   users: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -17,7 +15,10 @@ const Company = new Schema ({
   shows: [{
     type: Schema.Types.ObjectId,
     ref: 'Show'
-  }]
+  }],
+  red61_username: String,
+  red61_password: String,
+  
 })
 
 Company.pre(
