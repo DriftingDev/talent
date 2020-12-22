@@ -45,6 +45,8 @@ router.post(
               const body = { _id: user._id, email: user.email };
               const token = jwt.sign({ user: body }, 'BERNARD_IS_BEST');
 
+              user.password = null
+
               return res.json({ 
                 token: token,
                 user: user
