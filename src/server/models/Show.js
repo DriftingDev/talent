@@ -12,7 +12,8 @@ const Show = new Schema ({
   }],
   company: {
     type: Schema.Types.ObjectId,
-    ref: 'Company'
+    ref: 'Company',
+    required: true
   },
   showName: {
     type: String,
