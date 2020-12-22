@@ -1,8 +1,7 @@
 const {
   allUsers,
   userById,
-  getUserErrorHandle,
-  userUpdate
+  getUserErrorHandle
 } = require('../utils/user_utils')
 
 const {
@@ -22,7 +21,7 @@ const getAllUsers = (req, res) => {
 }
 
 const getUserById = (req,res) => {
-  userById(req).exec((err, user) => {
+  userById(req.params.id).exec((err, user) => {
     if (err) {
       getUserErrorHandle(err, res)
     }
@@ -73,12 +72,23 @@ const addCompanyToUser = (req,res) => {
 }
 
 const editUserById = (req,res) => {
-  userUpdate(req).exec((err,user) => {
+  userById(req.user._id).exec((err,user) => {
     if (err) {
       res.json(err)
     }
 
-    res.json(user)
+    for (const [key, value] of Object.entries(req.body)) {
+      user.key = value
+    }
+
+    user.save((err, user) => {
+      if(err) {
+        res.json(err)
+      }
+
+      res.json(user)
+    })
+    
   })
 }
 

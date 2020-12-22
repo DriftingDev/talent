@@ -5,8 +5,8 @@ const allUsers = (req) => {
   return User.find()
 }
 
-const userById = (req) => {
-  return User.findById(req.params.id)
+const userById = (id) => {
+  return User.findById(id)
 }
 
 const addCompany = (req) => {
@@ -21,15 +21,11 @@ const getUserErrorHandle = (err, res) => {
     })
 }
 
-const userUpdate = (req) => {
-  console.log(req.body)
-  return User.findByIdAndUpdate(req.user._id, req.body, { new: true })
-}
+
 
 module.exports = {
   allUsers,
   userById,
   addCompany,
-  getUserErrorHandle,
-  userUpdate
+  getUserErrorHandle
 }

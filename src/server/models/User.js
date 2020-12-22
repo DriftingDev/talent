@@ -46,6 +46,17 @@ User.pre(
   }
 );
 
+User.pre(
+  'updateOne',
+  async function(next) {
+    let user = this;
+    const hash = await bcrypt.hash(user.password, 10);
+
+    user.password = hash;
+    next();
+  }
+);
+
 User.methods.isValidPassword = async function(password) {
   const user = this;
   const compare = await bcrypt.compare(password, user.password)
