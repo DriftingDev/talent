@@ -7,23 +7,17 @@ const createVenue = (req) => {
 const venueById = (id) => {
   return Venue.findById(id)
 }
-
-const venuesByUser = (user_id) => {
-  
-}
-
 const venuesByCompany = (company_id) => {
-  
+  return Venue.find({company: company_id})
 }
 
 const deleteVenue = (id) => {
-  
+  return Venue.remove({_id: id})
 }
 
 module.exports = {
   createVenue,
   venueById,
-  venuesByUser,
   venuesByCompany,
   deleteVenue
 }
