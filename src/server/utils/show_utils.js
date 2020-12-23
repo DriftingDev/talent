@@ -16,9 +16,14 @@ const showsByCompany = (company_id) => {
   return Show.find({company: company_id})
 }
 
+const deleteShow = (id) => {
+  return Show.deleteOne({_id: id})
+}
+
 module.exports = {
   createShow,
   showById,
   showsByUser,
-  showsByCompany
+  showsByCompany,
+  deleteShow
 }

@@ -6,7 +6,8 @@ const {
   editShowById,
   getShowById,
   getShowsByUser,
-  getShowsByCompany
+  getShowsByCompany,
+  destroyShowById
 } = require('../controllers/show_controller')
 
 router.post("/new", createNewShow)
@@ -17,7 +18,7 @@ router.get("/showsByUser/:id", getShowsByUser)
 
 router.get("/:id", getShowById)
 router.post("/:id", editShowById)
-// router.delete("/:id")
+router.delete("/:id", destroyShowById)
 
 
 module.exports = router

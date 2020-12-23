@@ -1,3 +1,4 @@
+const { json } = require('body-parser')
 const { 
   companyById 
 } = require('../utils/company_utils')
@@ -5,7 +6,8 @@ const {
   createShow,
   showById,
   showsByUser,
-  showsByCompany
+  showsByCompany,
+  deleteShow
 } = require('../utils/show_utils')
 
 const createNewShow = async (req,res) => {
@@ -101,10 +103,22 @@ const getShowsByCompany = (req, res) => {
   })
 }
 
+const destroyShowById = (req, res) => {
+  try {
+    deleteShow(req.params.id).exec((err) => {
+      res.json('Show deleted')
+    })
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
+}
+
 module.exports = {
   createNewShow,
   editShowById,
   getShowById,
   getShowsByUser,
-  getShowsByCompany
+  getShowsByCompany,
+  destroyShowById
 }
