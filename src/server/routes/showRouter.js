@@ -2,17 +2,21 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  createNewShow
+  createNewShow,
+  editShowById,
+  getShowById,
+  getShowsByUser,
+  getShowsByCompany
 } = require('../controllers/show_controller')
 
-// router.get("/showsByCompany")
-// router.get("/showsByUser")
-
 router.post("/new", createNewShow)
-// router.post("/addUserToShow")
 
-// router.get("/:id")
-// router.post("/:id")
+router.get("/showsByCompany/:id", getShowsByCompany)
+router.get("/showsByUser/:id", getShowsByUser)
+
+
+router.get("/:id", getShowById)
+router.post("/:id", editShowById)
 // router.delete("/:id")
 
 

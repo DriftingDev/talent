@@ -4,6 +4,21 @@ const createShow = (req) => {
   return Show.create(req.body)
 }
 
+const showById = (id) => {
+  return Show.findById(id)
+}
+
+const showsByUser = (user_id) => {
+  return Show.find({artists: user_id})
+}
+
+const showsByCompany = (company_id) => {
+  return Show.find({company: company_id})
+}
+
 module.exports = {
-  createShow
+  createShow,
+  showById,
+  showsByUser,
+  showsByCompany
 }
