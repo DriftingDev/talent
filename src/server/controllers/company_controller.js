@@ -1,6 +1,7 @@
 const {
  createCompany, 
- companyById
+ companyById,
+ deleteCompany
 } = require('../utils/company_utils')
 
 const { 
@@ -44,8 +45,41 @@ const getCompaniesTiedToUser = (req, res) => {
   })
 }
 
+const editCompanyById = (req,res) => {
+  companyById(req.params.id).exec((err,company) => {
+    if (err) {
+      res.json(err)
+    }
+
+    for (const [key, value] of Object.entries(req.body)) {
+      company[key] = value
+    }
+
+    company.save((err, company) => {
+      if(err) {
+        res.json(err)
+      }
+
+      res.json(company)
+    })
+    
+  })
+}
+
+const destroyCompany = (req, res) => {
+  deleteCompany(req.params.id).exec((err) => {
+    if (err) {
+      res.json(err)
+    }
+    
+    res.json("company deleted")
+  })
+}
+
 module.exports = {
   createNewCompany,
   getCompanyById,
-  getCompaniesTiedToUser
+  getCompaniesTiedToUser,
+  editCompanyById,
+  destroyCompany
 }

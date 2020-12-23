@@ -42,7 +42,7 @@ router.post(
             async (error) => {
               if (error) return next(error);
 
-              const body = { _id: user._id, email: user.email };
+              const body = { _id: user._id, email: user.email, is_artist: user.is_artist };
               const token = jwt.sign({ user: body }, 'BERNARD_IS_BEST');
 
               user.password = null

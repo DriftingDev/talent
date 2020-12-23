@@ -9,6 +9,7 @@ require('./middleware/passport')
 const authRouter = require('./routes/authRouter')
 const userRouter = require('./routes/userRouter')
 const companyRouter = require('./routes/companyRouter')
+const showRouter = require('./routes/showRouter')
 
 //Check for port if in production, else use 3001
 const port = process.env.PORT || 3010
@@ -55,6 +56,7 @@ app.get('/', (req, res) => {
 app.use('/auth', authRouter);
 app.use('/user', passport.authenticate('jwt', { session: false }), userRouter);
 app.use('/company', passport.authenticate('jwt', { session: false }), companyRouter);
+app.use('/show', passport.authenticate('jwt', { session: false }), showRouter);
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`)
