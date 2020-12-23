@@ -1,7 +1,7 @@
 const Company = require('../models/Company')
 
 const createCompany = (req) => {
-  return Company.create(req.body)
+  return Company.create({users: req.user._id, ...req.body})
 }
 
 const companyById = (id) => {

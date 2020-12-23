@@ -5,7 +5,7 @@ const {
   createNewVenue,
   // getVenuesByCompany,
   // getVenuesByUser,
-  // getVenueById,
+  getVenueById,
   // editVenueById,
   // destroyVenueById
 } = require('../controllers/venue_controller')
@@ -15,7 +15,7 @@ router.post("/new", createNewVenue)
 // router.get("/venuesByCompany/:id", getVenuesByCompany)
 // router.get("/venuesByUser/", getVenuesByUser)
 
-// router.get("/:id", getVenueById)
+router.get("/:id", getVenueById)
 // router.post("/:id", editVenueById)
 // router.delete("/:id", destroyVenueById)
 

@@ -8,6 +8,9 @@ const {
   showsByCompany,
   deleteShow
 } = require('../utils/show_utils')
+const { 
+  venueById 
+} = require('../utils/venue_utils')
 
 const createNewShow = async (req,res) => {
   try {
@@ -17,10 +20,19 @@ const createNewShow = async (req,res) => {
     companyById(show.company).exec((err, company) => {
       company.shows.push(show._id)
       company.save((err, company) => {
-        res.json({
-          show: show,
-          company: company
-        })
+
+        if (show.venue) {
+          venueById(show.venue).exec((err, venue) => {
+            venue.shows.push(show._id) 
+            venue.save((err, venue) => {
+              res.json({
+                show: show,
+                company: company,
+                venue: venue
+              })
+            })
+          })
+        }
       })
     })
 

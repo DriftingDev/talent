@@ -13,6 +13,7 @@ const createNewCompany = async (req,res) => {
     const company = await createCompany(req)
     res.json(company)
   } catch (err) {
+    res.status(500)
     res.json(err)
   }  
 }
