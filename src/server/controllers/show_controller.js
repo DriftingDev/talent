@@ -1,4 +1,3 @@
-const { json } = require('body-parser')
 const { 
   companyById 
 } = require('../utils/company_utils')
