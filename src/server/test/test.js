@@ -218,6 +218,26 @@ describe('Route testing', () => {
         })
       }) 
     })
+
+    describe("POST /:id", () => {
+      it("should update the name of the existing company and return the updated company", (done) => {
+        chai.request(app)
+          .post(`/company/${newCompanyId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            name: "company1"
+          })
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty("company")
+            expect(res.body.company.name).to.equal("company1")
+            done()
+          })
+      })
+    })
   })
 
 })

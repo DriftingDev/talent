@@ -57,24 +57,23 @@ const getCompaniesTiedToUser = (req, res) => {
 }
 
 const editCompanyById = (req,res) => {
-  companyById(req.params.id).exec((err,company) => {
-    if (err) {
-      res.json(err)
-    }
-
-    for (const [key, value] of Object.entries(req.body)) {
-      company[key] = value
-    }
-
-    company.save((err, company) => {
-      if(err) {
-        res.json(err)
+  try {
+    companyById(req.params.id).exec((err,company) => {
+      
+      for (const [key, value] of Object.entries(req.body)) {
+        company[key] = value
       }
 
-      res.json(company)
+      company.save((err, company) => {
+        res.json({
+          company: company
+        })
+      })
     })
-    
-  })
+  } catch (err) {
+    res.status(200)
+    res.json(err)
+  }  
 }
 
 const destroyCompany = (req, res) => {
