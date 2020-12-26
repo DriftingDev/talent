@@ -1,93 +1,93 @@
-process.env.NODE_ENV = 'test'
+// process.env.NODE_ENV = 'test'
 
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const { app } = require('../server');
-const mongoose = require('mongoose')
-const User = require('../models/User.js')
+// const chai = require('chai');
+// const chaiHttp = require('chai-http');
+// const { app } = require('../server');
+// const mongoose = require('mongoose')
+// const User = require('../models/User.js')
 
-const { expect } = chai;
+// const { expect } = chai;
 
-chai.use(chaiHttp);
+// chai.use(chaiHttp);
 
 
-describe("Route testing", () => {
+// describe("Route testing", () => {
 
-  before(() => {
-    console.log('dropping db') 
-    User.deleteMany({},(err) => {
-      if (err) {
-        console.log('There was a problem clearing the DB:', err)
-      } else {
-        console.log('DB successfully dropped')
-      }
-    }
-  )})
+//   before(() => {
+//     console.log('dropping db') 
+//     User.deleteMany({},(err) => {
+//       if (err) {
+//         console.log('There was a problem clearing the DB:', err)
+//       } else {
+//         console.log('DB successfully dropped')
+//       }
+//     }
+//   )})
 
   ///// AUTH ROUTE TESTS ///////
 
-  describe('Auth routes', () => {
+  // describe('Auth routes', () => {
    
-    describe('POST /register', () => {
+  //   describe('POST /register', () => {
   
-      it('should return 200OK with valid user creation inputs', (done) => {
-        chai.request(app)
-          .post('/auth/register')
-          .send({
-            name: "nickmate",
-            email: "anemail",
-            password: "password"
-          })
-          .end((err, res) => {
-            if(err) {
-              console.log(err)
-            }
-            expect(res).to.have.status(200)
-            done()
-          })
+  //     it('should return 200OK with valid user creation inputs', (done) => {
+  //       chai.request(app)
+  //         .post('/auth/register')
+  //         .send({
+  //           name: "nickmate",
+  //           email: "anemail",
+  //           password: "password"
+  //         })
+  //         .end((err, res) => {
+  //           if(err) {
+  //             console.log(err)
+  //           }
+  //           expect(res).to.have.status(200)
+  //           done()
+  //         })
           
-      })
+  //     })
   
-      it('should not return 200OK without valid user credentials', (done) => {
-        chai.request(app)
-          .post('/auth/register')
-          .type('form')
-          .send({ 
-            name: "nadie",
-            email: "email@email.com"
-            })
-          .end((err, res) => {
-            expect(res).to.have.status(500)
-            done()
-          })
+  //     it('should not return 200OK without valid user credentials', (done) => {
+  //       chai.request(app)
+  //         .post('/auth/register')
+  //         .type('form')
+  //         .send({ 
+  //           name: "nadie",
+  //           email: "email@email.com"
+  //           })
+  //         .end((err, res) => {
+  //           expect(res).to.have.status(500)
+  //           done()
+  //         })
           
-      })
+  //     })
   
-      it('should have inserted a new user into the DB', async () => {
-        const firstUser = await User.findOne({email: 'anemail'}).exec()
-        expect(firstUser).to.be.an('object'),
-        expect(firstUser.email).to.equal('anemail')
-      })
+  //     it('should have inserted a new user into the DB', async () => {
+  //       const firstUser = await User.findOne({email: 'anemail'}).exec()
+  //       expect(firstUser).to.be.an('object'),
+  //       expect(firstUser.email).to.equal('anemail')
+  //     })
       
-    })
+  //   })
   
-     describe('POST /login', () => {
+  //    describe('POST /login', () => {
       
-      it('should return 200OK with valid inputs and have a user attached', (done) => {
-        chai.request(app)
-          .post('/auth/login')
-          .send({
-            "email": 'anemail',
-            "password": 'password'
-          })
-          .end((err, res) => {
-            console.log(err)
-            expect(res).to.have.status(200)
-            expect(res.user).to.not.be.null
-            done()
-          })
+  //     it('should return 200OK with valid inputs and have a user attached', (done) => {
+  //       chai.request(app)
+  //         .post('/auth/login')
+  //         .send({
+  //           "email": 'anemail',
+  //           "password": 'password'
+  //         })
+  //         .end((err, res) => {
+  //           console.log(err)
+  //           expect(res).to.have.status(200)
+  //           expect(res.user).to.not.be.null
+  //           done()
+  //         })
           
-      })
+  //     })
   
   //     it('should not return 200OK with invalid inputs', (done) => {
   //       chai.request(app)
@@ -100,7 +100,7 @@ describe("Route testing", () => {
   //         })
   //         done()
   //     })
-     })
+    //  })
   
   //   describe('GET /logout', () => {
   
@@ -249,7 +249,7 @@ describe("Route testing", () => {
   //   })
     
   // })
-  })
-})
+//   })
+// })
 
 

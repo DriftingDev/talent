@@ -30,9 +30,11 @@ router.post(
           
           if (err || !user) {
             if (err) {
-              return res.json(err)
+              res.status(500)
+              res.json(err)
             } else {
-              return res.json(info)
+              res.status(500)
+              res.json(info)
             }
           }
 
@@ -54,6 +56,7 @@ router.post(
             }
           );
         } catch (error) {
+          res.status(500)
           return next(error);
         }
       }
