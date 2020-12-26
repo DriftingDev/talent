@@ -63,6 +63,7 @@ describe('Route testing', () => {
   let userID;
   let newUserId;
   let newCompanyId;
+  let newVenueId
 
   ////////// AUTH ROUTES /////////////
   describe('Auth Routes', () => {    
@@ -515,12 +516,54 @@ describe('Route testing', () => {
         })
     })
 
-    // describe("POST /new/", () => {
-    //   it('should create and return 200 and a venue with valid inputs', (done) => {
-    //     chai.request(app)
-    //       .post('/venue/new')
-    //   })
-    // })
+    describe("POST /new/", () => {
+      it('should create and return 200, a venue and its company with valid inputs', (done) => {
+        chai.request(app)
+          .post('/venue/new')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            company: newCompanyId,
+            name: "company1"
+          })
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('venue')
+            newVenueId = res.body.venue._id
+            expect(res.body).to.haveOwnProperty('company')
+            expect(res.body.venue.company).to.equal(newCompanyId)
+            expect(res.body.company.venues[0]).to.equal(newVenueId)
+            done()
+          })
+      })
+
+      it('should return 500 and a matching string without valid inputs', (done) => {
+        chai.request(app)
+          .post('/venue/new')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            company: "notanid",
+            name: "company1"
+          })
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal("No company found")
+            done()
+          })
+      })
+    })
+
+    
+  })
+
+  //DO THESE LAST
+  describe("Delete routes", () => {
+
   })
 
 })

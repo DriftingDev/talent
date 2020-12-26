@@ -13,11 +13,17 @@ const {
   deleteVenue
 } = require('../utils/venue_utils')
 
-const createNewVenue = async (req,res) => {
+const createNewVenue = (req,res) => {
   try {
-    const venue = await createVenue(req)
+
+    companyById(req.body.company).exec( async (err,company) => {
+      if(!company){
+        res.status(500)
+        return res.json("No company found")
+      }
+
+      const venue = await createVenue(req)
     
-    companyById(venue.company).exec((err,company) => {
       company.venues.push(venue._id)
       company.save((err, company) => {
         res.json({
