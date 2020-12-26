@@ -11,8 +11,14 @@ const {
 const createNewCompany = async (req,res) => {
   try {
     const company = await createCompany(req)
-    res.json({
-      company: company
+
+    userById(company.users).exec((err, user) => {
+      user.companies.push(company._id)
+      user.save((err, user) => {
+        res.json({
+          company: company
+        })
+      })
     })
   } catch (err) {
     res.status(500)
@@ -39,21 +45,19 @@ const getCompanyById = (req, res) => {
 }
 
 const getCompaniesTiedToUser = (req, res) => {
-
-  userById(req.user._id).exec( async (err, user) => {
-    if (err) {
-      res.json(err)
-    }
-
-    user.populate('companies', ((err, user) => {
-      if (err) {
-        res.json(err)
-      }
-
-      res.json(user.companies)
-
-    }))
-  })
+  try {
+    userById(req.user._id).exec( async (err, user) => {
+      user.populate('companies', ((err, user) => {
+        res.json({
+          companies: user.companies
+        })
+      }))
+    })
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
+  
 }
 
 const editCompanyById = (req,res) => {

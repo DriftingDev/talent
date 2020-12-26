@@ -250,8 +250,38 @@ describe('Route testing', () => {
               console.log(err)
             }
             expect(res).to.have.status(500)
-            // expect(res.body).to.haveOwnProperty("company")
-            // expect(res.body.company.name).to.equal("company1")
+            done()
+          })
+      })
+    })
+
+    describe("GET /userCompanies", () => {
+      it("should return all the companies tied to the user ID from the auth token", (done) => {
+        chai.request(app)
+          .get('/company/userCompanies')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('companies')
+            expect(res.body.companies.length).to.equal(1)
+            done()
+          })
+      })
+
+      it("should return and empty array if no companies are tied to a user ID", (done) => {
+        chai.request(app)
+          .get('/company/userCompanies')
+          .set({"Authorization": `Bearer ${artistToken}`})
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('companies')
+            expect(res.body.companies.length).to.equal(0)
             done()
           })
       })
