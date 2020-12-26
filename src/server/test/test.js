@@ -60,7 +60,7 @@ describe('Route testing', () => {
       
   })
 
-  /// .set({"Authorization": `Bearer ${producerToken}`})
+  
 
   ////////// AUTH ROUTES /////////////
   describe('Auth Routes', () => {    
@@ -380,6 +380,57 @@ describe('Route testing', () => {
           })
       })
     })
+
+    describe("POST /edit", () => {
+      it("Should modify and return the details of the user passed by the token", (done) => {
+        chai.request(app)
+          .post('/user/edit')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            accname: "producer1"
+          })
+          .end((err,res) => {
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty("user")
+            expect(res.body.user.accname).to.equal("producer1")
+            done()
+          })
+      })
+    })
+
+    describe("POST /validPassword", () => {
+      it('should return true when given a matching password to the token user', (done) => {
+        chai.request(app)
+          .post('/user/validPassword')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            password: "producer"
+          })
+          .end((err,res) => {
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty("passwordBool")
+            expect(res.body.passwordBool).to.be.true
+            done()
+          })
+      })
+
+      it('should return false when given a non-matching password to the token user', (done) => {
+        chai.request(app)
+          .post('/user/validPassword')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            password: "wrong"
+          })
+          .end((err,res) => {
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty("passwordBool")
+            expect(res.body.passwordBool).to.be.false
+            done()
+          })
+      })
+    })
   })
 
 })
+
+/// .set({"Authorization": `Bearer ${producerToken}`})

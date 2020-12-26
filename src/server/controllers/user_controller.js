@@ -77,24 +77,24 @@ const addCompanyToUser = (req,res) => {
 }
 
 const editUserById = (req,res) => {
-  userById(req.user._id).exec((err,user) => {
-    if (err) {
-      res.json(err)
-    }
-
-    for (const [key, value] of Object.entries(req.body)) {
-      user[key] = value
-    }
-
-    user.save((err, user) => {
-      if(err) {
-        res.json(err)
+  try {
+    userById(req.user._id).exec((err,user) => {
+      
+      for (const [key, value] of Object.entries(req.body)) {
+        user[key] = value
       }
-
-      res.json(user)
+  
+      user.save((err, user) => {
+  
+        res.json({
+          user: user
+        })
+      })
     })
-    
-  })
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
 }
 
 const passwordValidator =  (req, res) => {
@@ -106,7 +106,9 @@ const passwordValidator =  (req, res) => {
 
     const bool = await user.isValidPassword(req.body.password)
 
-    res.json(bool)
+    res.json({
+      passwordBool: bool
+    })
   })
 }
 
