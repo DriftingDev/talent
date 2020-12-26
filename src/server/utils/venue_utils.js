@@ -12,7 +12,7 @@ const venuesByCompany = (company_id) => {
 }
 
 const deleteVenue = (id) => {
-  return Venue.remove({_id: id})
+  return Venue.deleteOne({_id: id})
 }
 
 module.exports = {
