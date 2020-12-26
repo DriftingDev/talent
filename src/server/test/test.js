@@ -60,7 +60,7 @@ describe('Route testing', () => {
       
   })
 
-  
+  /// .set({"Authorization": `Bearer ${producerToken}`})
 
   ////////// AUTH ROUTES /////////////
   describe('Auth Routes', () => {    
@@ -313,6 +313,38 @@ describe('Route testing', () => {
             }
             expect(res).to.have.status(500)
             expect(res.body).to.equal("No company found")
+            done()
+          })
+      })
+    })
+  })
+
+  describe("User Routes", () => {
+
+    it("should return 401 without a valid token", (done) => {
+      chai.request(app)
+        .get('/user/all')
+        .end((err,res) => {
+          expect(res).to.have.status(401)
+          done()
+        })
+    })
+
+    let userID;
+
+    describe("GET /all", () => {
+      it("Should return all users in the db", (done) => {
+        chai.request(app)
+          .get('/user/all')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('users')
+            expect(res.body.users.length).to.equal(3)
+            userID = res.body.users[0]._id
             done()
           })
       })

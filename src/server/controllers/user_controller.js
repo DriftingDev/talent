@@ -10,15 +10,17 @@ const {
 } = require('../utils/company_utils');
 
 const getAllUsers = (req, res) => {
-  allUsers(req).exec((err, users) => {
-    if (err) {
-      res.status(500);
-      return res.json({
-        error: err.message
+  try {
+    allUsers(req).exec((err, users) => {
+      res.json({
+        users: users
       })
-    }
-    res.json(users)
-  })
+    })
+    
+  } catch (err) {
+    res.status(500);
+    res.json(err);
+  }
 }
 
 const getUserById = (req,res) => {
