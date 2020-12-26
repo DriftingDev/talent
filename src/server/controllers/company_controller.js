@@ -34,6 +34,7 @@ const getCompanyById = (req, res) => {
           company: company
         })
       } else {
+        res.status(500)
         res.json("No company found")
       }
       
@@ -93,10 +94,33 @@ const destroyCompany = (req, res) => {
   })
 }
 
+const getUsersTiedToCompany = (req, res) => {
+  try {
+    companyById(req.params.id).exec((err, company) => {
+      
+      if(!company) {
+        res.status(500)
+        return res.json("No company found")
+      }
+
+      company.populate('users', (err,company) => {
+        res.json({
+          users: company.users
+        })
+      })
+    })
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
+
+}
+
 module.exports = {
   createNewCompany,
   getCompanyById,
   getCompaniesTiedToUser,
   editCompanyById,
-  destroyCompany
+  destroyCompany,
+  getUsersTiedToCompany
 }

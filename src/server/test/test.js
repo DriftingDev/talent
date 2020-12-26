@@ -204,7 +204,7 @@ describe('Route testing', () => {
           })
       })
 
-      it("Should return 200 and an empty json file if passed a non matching ID", (done) => {
+      it("Should return 500 and a string if passed a non matching ID", (done) => {
         chai.request(app)
         .get('/company/:id')
         .set({"Authorization": `Bearer ${producerToken}`})
@@ -212,7 +212,7 @@ describe('Route testing', () => {
           if (err) {
             console.log(err)
           }
-          expect(res).to.have.status(200)
+          expect(res).to.have.status(500)
           expect(res.body).to.equal('No company found')
           done()
         })
@@ -282,6 +282,37 @@ describe('Route testing', () => {
             expect(res).to.have.status(200)
             expect(res.body).to.haveOwnProperty('companies')
             expect(res.body.companies.length).to.equal(0)
+            done()
+          })
+      })
+    })
+
+    describe("GET /companyUsers/:id", () => {
+      it('Should return and array of users connected to the company', (done) => {
+        chai.request(app)
+          .get(`/company/companyUsers/${newCompanyId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty("users")
+            expect(res.body.users.length).to.equal(1)
+            done()
+          })
+      })
+
+      it("Should return 500 and a string if no company matches the parameter ID", (done) => {
+        chai.request(app)
+          .get(`/company/companyUsers/notanid`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal("No company found")
             done()
           })
       })
