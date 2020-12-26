@@ -50,11 +50,15 @@ const addCompanyToUser = (req,res) => {
       }
   
       if(user.companies.findIndex((ele) => ele == req.body.company_id) === -1) {
-        user.companies.push(req.body.company_id)
-        user.save((err,user) => {
-  
-          companyById(req.body.company_id).exec((err,company) => {
-  
+        
+        companyById(req.body.company_id).exec((err,company) => {
+          if (!company) {
+            res.status(500)
+            return res.json("No company found")
+          }
+          
+          user.companies.push(req.body.company_id)
+          user.save((err,user) => {
             company.users.push(user._id)
             company.save((err, savedCompany) => {
   

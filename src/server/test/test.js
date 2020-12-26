@@ -60,7 +60,9 @@ describe('Route testing', () => {
       
   })
 
-  
+  let userID;
+  let newUserId;
+  let newCompanyId;
 
   ////////// AUTH ROUTES /////////////
   describe('Auth Routes', () => {    
@@ -81,6 +83,7 @@ describe('Route testing', () => {
             }
             expect(res).to.have.status(200)
             expect(res.body).to.haveOwnProperty("user")
+            newUserId = res.body.user._id
             done()
           })
       })
@@ -150,8 +153,6 @@ describe('Route testing', () => {
           done()
         })
     })
-
-    let newCompanyId;
 
     describe("POST /new", () => {
       it("should create and return a new company with attached user ID from token", (done) => {
@@ -330,8 +331,6 @@ describe('Route testing', () => {
         })
     })
 
-    let userID;
-
     describe("GET /all", () => {
       it("Should return all users in the db", (done) => {
         chai.request(app)
@@ -428,6 +427,80 @@ describe('Route testing', () => {
             done()
           })
       })
+    })
+
+    describe("POST /:id/addCompany", () => {
+      it('Should return 500 and a matching string if an invalid company ID is passed', (done) => {
+        chai.request(app)
+          .post(`/user/${newUserId}/addCompany`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            company_id: "notanID"
+          })
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal("No company found")
+            done()
+          })
+      })
+
+      it('Should add the user according to the params to the company sent through the body', (done) => {
+        chai.request(app)
+          .post(`/user/${newUserId}/addCompany`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            company_id: newCompanyId
+          })
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty("user")
+            expect(res.body).to.haveOwnProperty("company")
+            const lastItem = res.body.company.users.length - 1
+            expect(res.body.company.users[lastItem]).to.equal(newUserId)
+            expect(res.body.user.companies[0]).to.equal(newCompanyId)
+            done()
+          })
+      })
+
+      it('Should return 500 and a matching string if user already belongs to company', (done) => {
+        chai.request(app)
+          .post(`/user/${newUserId}/addCompany`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            company_id: newCompanyId
+          })
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal("Company already belongs to user")
+            done()
+          })
+      })
+
+      it('Should return 500 and a matching string if an invalid user id is passed', (done) => {
+        chai.request(app)
+          .post(`/user/notanid/addCompany`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            company_id: newCompanyId
+          })
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal("No user found")
+            done()
+          })
+      })      
     })
   })
 
