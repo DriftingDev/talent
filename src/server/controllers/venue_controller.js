@@ -1,3 +1,4 @@
+const { restart } = require('nodemon')
 const { 
   companyById 
 } = require('../utils/company_utils')
@@ -64,7 +65,10 @@ const getVenuesByCompany = (req,res) => {
 const getVenuesByUser = (req,res) => {
   try {
     showsByUser(req.user._id).exec((err, shows) => {
-      if (shows) {
+      if (shows.length == 0) {
+        res.status(500)
+        return res.json("No venues attached to user")
+      } else {
         let venueArray = []
         shows.forEach(async (show, index, array) => {
           await show.populate('venue').execPopulate()
@@ -74,8 +78,6 @@ const getVenuesByUser = (req,res) => {
             res.json(uniqueVenues)
           }
         })
-      } else {
-        res.json(shows)
       }
     })
   } catch (err) {

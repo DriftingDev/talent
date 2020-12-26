@@ -44,6 +44,8 @@ describe('Route testing', () => {
 
   let producerToken;
   let artistToken;
+  let producerId;
+  let artistId;
 
   before((done) => {
     dropUsers()
@@ -52,9 +54,11 @@ describe('Route testing', () => {
     const producer = new User(defaultProducer) 
     const artist = new User(defaultArtist) 
     producer.save((err, user) => {
+      producerId = user._id
       producerToken = createToken(user)
     })
     artist.save((err, user) => {
+      artistId = user._id
       artistToken = createToken(user)
     })
 
@@ -661,6 +665,19 @@ describe('Route testing', () => {
               console.log(err)
             }
             expect(res).to.have.status(401)
+            done()
+          })
+      })
+    })
+
+    describe("GET /venuesByUser/", () => {
+      it("Should return 500 and a matching string if no venues are attached to the token user", (done) => {
+        chai.request(app)
+          .get('/venue/venuesByUser')
+          .set({"Authorization": `Bearer ${artistToken}`})
+          .end((err,res) => {
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal('No venues attached to user')
             done()
           })
       })
