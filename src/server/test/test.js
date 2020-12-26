@@ -504,6 +504,25 @@ describe('Route testing', () => {
     })
   })
 
+  describe("Venue Routes", () => {
+    it("should return 401 if no valid token is set", (done) => {
+      chai.request(app)
+        .post('/venue/new')
+        .send(null)
+        .end((err,res) => {
+          expect(res).to.have.status(401)
+          done()
+        })
+    })
+
+    // describe("POST /new/", () => {
+    //   it('should create and return 200 and a venue with valid inputs', (done) => {
+    //     chai.request(app)
+    //       .post('/venue/new')
+    //   })
+    // })
+  })
+
 })
 
 /// .set({"Authorization": `Bearer ${producerToken}`})
