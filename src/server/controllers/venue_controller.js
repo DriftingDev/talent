@@ -43,14 +43,22 @@ const createNewVenue = (req,res) => {
 const getVenuesByCompany = (req,res) => {
   if (req.user.is_artist) {
     res.status(401)
+    return res.json('Unauthorized')
   }
-  venuesByCompany(req.params.id).exec((err, venues) => {
-    if (err) {
-      res.status(500)
-      res.json(err)
-    }
-    res.json(venues)
-  })
+  try {
+    venuesByCompany(req.params.id).exec((err, venues) => {
+      if(!venues){
+        res.status(500)
+        return res.json("No venues found")
+      }
+      res.json({
+        venues: venues
+      })
+    })
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
 }
 
 const getVenuesByUser = (req,res) => {
@@ -77,26 +85,38 @@ const getVenuesByUser = (req,res) => {
 }
 
 const getVenueById = (req,res) => {
-  venueById(req.params.id).exec((err, venue) => {
-    if (err) {
-      res.status(500)
-      res.json(err)
-    }
-
-    res.json(venue)
-  })
+  try {
+    venueById(req.params.id).exec((err, venue) => {
+      if(!venue){
+        res.status(500)
+        return res.json('No venue found')
+      }
+      res.json({
+        venue: venue
+      })
+    })
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
 }
 
 const editVenueById = (req,res) => {
   try {
     venueById(req.params.id).exec((err,venue) => {
+      if(!venue) {
+        res.status(500)
+        return res.json("No venue found")
+      }
       
       for (const [key, value] of Object.entries(req.body)) {
         venue[key] = value
       }
 
       venue.save((err, venue) => {
-        res.json(venue)
+        res.json({
+          venue: venue
+        })
       })
     })
   } catch (err) {

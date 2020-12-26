@@ -11,6 +11,7 @@ const {
   dropUsers,
   dropCompanies 
 } = require('./test_utils/test_utils');
+const { post } = require('../routes/authRouter');
 
 
 const { expect } = chai;
@@ -30,7 +31,8 @@ describe('Route testing', () => {
   const defaultArtist = {
     accname: "artist",
     email: "artist",
-    password: "artist"
+    password: "artist",
+    is_artist: true
   }
 
   const createToken = (user) => {
@@ -558,7 +560,111 @@ describe('Route testing', () => {
       })
     })
 
-    
+    describe("GET /:id/", () => {
+      it("should return a single venue with a valid id parameter", (done) => {
+        chai.request(app)
+          .get(`/venue/${newVenueId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('venue')
+            expect(res.body.venue._id).to.equal(newVenueId)
+            done()
+          })
+      })
+
+      it("should return a 500 and a matching string if no venue is found", (done) => {
+        chai.request(app)
+          .get(`/venue/notanid`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal('No venue found')
+            done()
+          })
+      })
+    })
+
+    describe("POST /:id", () => {
+      it("should return 200 and the updated venue object with valid input", (done) => {
+        chai.request(app)
+          .post(`/venue/${newVenueId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            name: "testVenue"
+          })
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('venue')
+            expect(res.body.venue.name).to.equal('testVenue')
+            done()
+          })
+      })
+
+      it("should return 500 if passed an invalid venue parameter", (done) => {
+        chai.request(app)
+          .post(`/venue/notanid`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            name: "testVenue"
+          })
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal('No venue found')
+            done()
+          })
+      })
+    })
+
+    describe("GET /venuesByCompany/:id", () => {
+      it("should return 200 and an array of unique venues attached to a company", (done) => {
+        chai.request(app)
+          .get(`/venue/venuesByCompany/${newCompanyId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('venues')
+            expect(res.body.venues.length).to.equal(1)
+            done()
+          })
+      })
+
+      it("should return 500 and a matching string if the company id is not valid", (done) => {
+        chai.request(app)
+          .get(`/venue/venuesByCompany/notanid`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal('No venues found')
+            done()
+          })
+      })
+
+      it("should return 401 if the token is attached to an artist user", (done) => {
+        chai.request(app)
+          .get(`/venue/venuesByCompany/${newCompanyId}`)
+          .set({"Authorization": `Bearer ${artistToken}`})
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(401)
+            done()
+          })
+      })
+    })
   })
 
   //DO THESE LAST
