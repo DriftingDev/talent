@@ -189,7 +189,34 @@ describe('Route testing', () => {
     })
 
     describe('GET /:id', () => {
-      
+      it('Should return a company with the ID matching the passed parameter', (done) => {
+        chai.request(app)
+          .get(`/company/${newCompanyId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('company')
+            expect(res.body.company).to.not.equal(null)
+            done()
+          })
+      })
+
+      it("Should return 200 and an empty json file if passed a non matching ID", (done) => {
+        chai.request(app)
+        .get('/company/:id')
+        .set({"Authorization": `Bearer ${producerToken}`})
+        .end((err, res) => {
+          if (err) {
+            console.log(err)
+          }
+          expect(res).to.have.status(200)
+          expect(res.body).to.equal('No company found')
+          done()
+        })
+      }) 
     })
   })
 
