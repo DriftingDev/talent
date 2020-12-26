@@ -24,54 +24,56 @@ const getAllUsers = (req, res) => {
 }
 
 const getUserById = (req,res) => {
-  userById(req.params.id).exec((err, user) => {
-    if (err) {
-      getUserErrorHandle(err, res)
-    }
-    return res.json(user)
-  })
+  try {
+    userById(req.params.id).exec((err, user) => {
+      if(user){
+        res.json({
+          user: user
+        })
+      } else {
+        res.status(500)
+        res.json("No user found")
+      }
+    })
+  } catch (err) {
+    res.status(500);
+    res.json(err);
+  }
 }
 
 const addCompanyToUser = (req,res) => {
-  userById(req.params.id).exec((err, user) => {
-    if (err) {
-      getUserErrorHandle(err, res)
-    } else if (!user) {
-      res.json("No user found")
-    }
-
-    if(user.companies.findIndex((ele) => ele == req.body.company_id) === -1) {
-      user.companies.push(req.body.company_id)
-      user.save((err,user) => {
-
-      if (err) {
-        res.json(err)
+  try {
+    userById(req.params.id).exec((err, user) => {
+      if (!user) {
+        res.status(500)
+        return res.json("No user found")
       }
-
-      companyById(req.body.company_id).exec((err,company) => {
-
-        if (err) {
-          res.json(err)
-        }
-
-        company.users.push(user._id)
-        company.save((err, savedCompany) => {
-          if (err) {
-            res.json(err)
-          }
-
-          res.json({
-            user: user,
-            company: savedCompany
+  
+      if(user.companies.findIndex((ele) => ele == req.body.company_id) === -1) {
+        user.companies.push(req.body.company_id)
+        user.save((err,user) => {
+  
+          companyById(req.body.company_id).exec((err,company) => {
+  
+            company.users.push(user._id)
+            company.save((err, savedCompany) => {
+  
+              res.json({
+                user: user,
+                company: savedCompany
+              })
+            })
           })
         })
-      })
-
-      })
-    } else {
-      res.json("Company already belongs to user")
-    }
-  })
+      } else {
+        res.status(500)
+        res.json("Company already belongs to user")
+      }
+    })
+  } catch (err) {
+    res.status(500);
+    res.json(err);
+  }
 }
 
 const editUserById = (req,res) => {

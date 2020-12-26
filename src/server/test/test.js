@@ -349,6 +349,37 @@ describe('Route testing', () => {
           })
       })
     })
+
+    describe("GET /:id", () => {
+      it("Should return a single user matching the params ID", (done) => {
+        chai.request(app)
+          .get(`/user/${userID}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty("user")
+            expect(res.body.user._id).to.equal(userID)
+            done()
+          })
+      })
+
+      it("Should return 500 and a string if no user matches the params ID", (done) => {
+        chai.request(app)
+          .get(`/user/notanid`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal("No user found")
+            done()
+          })
+      })
+    })
   })
 
 })
