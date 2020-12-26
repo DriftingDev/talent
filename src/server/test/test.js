@@ -8,7 +8,8 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/User.js')
 
 const {
-  dropUsers 
+  dropUsers,
+  dropCompanies 
 } = require('./test_utils/test_utils');
 
 
@@ -44,14 +45,16 @@ describe('Route testing', () => {
 
   before((done) => {
     dropUsers()
+    dropCompanies()
 
     const producer = new User(defaultProducer) 
     const artist = new User(defaultArtist) 
-    producer.save()
-    artist.save()
-
-    producerToken = createToken(defaultProducer)
-    artistToken = createToken(defaultArtist)
+    producer.save((err, user) => {
+      producerToken = createToken(user)
+    })
+    artist.save((err, user) => {
+      artistToken = createToken(user)
+    })
 
     done()
       
@@ -132,5 +135,62 @@ describe('Route testing', () => {
     })
     
   }) 
+
+  describe('Company Routes', () => {
+
+    it("Should return 401 without a valid token attached", (done) => {
+      chai.request(app)
+        .post('/company/new')
+        .send(null)
+        .end((err, res) => {
+          if (err) {
+            console.log(err)
+          }
+          expect(res).to.have.status(401)
+          done()
+        })
+    })
+
+    let newCompanyId;
+
+    describe("POST /new", () => {
+      it("should create and return a new company with attached user ID from token", (done) => {
+        chai.request(app)
+          .post('/company/new')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            name: "testCompany1"
+          })
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty("company")
+            newCompanyId = res.body.company._id
+            expect(res.body.company.users[0]).to.be.a("string")
+            done()
+          })
+      })
+
+      it("should return 500 without valid inputs", (done) => {
+        chai.request(app)
+          .post('/company/new')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send(null)
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            done()
+          })
+      })
+    })
+
+    describe('GET /:id', () => {
+      
+    })
+  })
 
 })

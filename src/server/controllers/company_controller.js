@@ -11,7 +11,12 @@ const {
 const createNewCompany = async (req,res) => {
   try {
     const company = await createCompany(req)
-    res.json(company)
+    company.users.push(req.user._id)
+    company.save((err,company) => {
+      res.json({
+        company: company
+      })
+    })
   } catch (err) {
     res.status(500)
     res.json(err)
@@ -24,7 +29,9 @@ const getCompanyById = (req, res) => {
       res.json(err)
     }
 
-    res.json(company)
+    res.json({
+      company: company
+    })
   })
 }
 
