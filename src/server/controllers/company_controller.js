@@ -59,7 +59,10 @@ const getCompaniesTiedToUser = (req, res) => {
 const editCompanyById = (req,res) => {
   try {
     companyById(req.params.id).exec((err,company) => {
-      
+      if (!company) {
+        res.status(500)
+        return res.json("No company found")
+      }
       for (const [key, value] of Object.entries(req.body)) {
         company[key] = value
       }
@@ -71,7 +74,7 @@ const editCompanyById = (req,res) => {
       })
     })
   } catch (err) {
-    res.status(200)
+    res.status(500)
     res.json(err)
   }  
 }

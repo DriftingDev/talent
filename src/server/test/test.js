@@ -237,6 +237,24 @@ describe('Route testing', () => {
             done()
           })
       })
+
+      it("should return 500 if passed an invalid id", (done) => {
+        chai.request(app)
+          .post(`/company/notanid`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            name: "company1"
+          })
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            // expect(res.body).to.haveOwnProperty("company")
+            // expect(res.body.company.name).to.equal("company1")
+            done()
+          })
+      })
     })
   })
 
