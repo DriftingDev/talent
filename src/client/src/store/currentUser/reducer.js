@@ -34,6 +34,6 @@ export const userReducer = (state, action) => {
         token: {}
       }
     default: 
-      throw new Error("Unknown action in User Reducer")
+      throw new Error("Unknown action in Current User Reducer")
   }
 }

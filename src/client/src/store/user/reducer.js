@@ -8,21 +8,21 @@ export const usersReducer = (state, action) => {
     case "setUsers":
       return {
         ...state,
-        user: action.payload,
+        users: action.payload,
         loaded: true
       };
     case "clearUsers":
       return {
         ...state, 
-        user: {}, 
+        users: {}, 
         loaded: false
       }
     case "updateUsers":
       return {
         ...state,
-        user: action.payload
+        users: action.payload
       }
     default: 
-      throw new Error("Unknown action in User Reducer")
+      throw new Error("Unknown action in Users Reducer")
   }
 }
