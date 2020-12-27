@@ -22,11 +22,14 @@ function Login() {
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    // TODO: Update url to be env variable `{ENV[URL]}/auth/login`
+    // TODO: Update url to be env variable `{ENV[URL]}/auth/login
     axios
       .post('http://localhost:3010/auth/login', data)
       .then(function (response) {
+        console.log(response);
         // TODO: Store token locally. Need to do some reaserch into where this should be stored.
+        localStorage.setItem('token', JSON.stringify(response));
+        
       })
       .catch(function (error) {
         console.log(error);
@@ -54,7 +57,7 @@ function Login() {
           <WelcomeModal />
         </h4>
       </div>
-      <Form.Group controlId='formBasicEmail'>
+      <Form.Group controlId='formBasic'>
         <Form.Label>Email address</Form.Label>
         <Form.Control
           type='email'
