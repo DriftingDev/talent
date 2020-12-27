@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useContext, useEffect } from 'react';
 //Bootstrap
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -9,11 +9,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //Custom Component
 import WelcomeModal from './WelcomeModal';
 import axios from 'axios';
+import { CurrentUserContext } from '../../store/currentUser'
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+
+  const {state, dispatch} = useContext(CurrentUserContext)
+
 
   const data = {
     email: email,
