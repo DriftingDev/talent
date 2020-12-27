@@ -16,6 +16,10 @@ const Company = new Schema ({
     type: Schema.Types.ObjectId,
     ref: 'Show'
   }],
+  venues: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Venue'
+  }],
   red61_username: String,
   red61_password: String,
   

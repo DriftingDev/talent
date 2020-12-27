@@ -14,14 +14,6 @@ const addCompany = (req) => {
   return User.findByIdAndUpdate(req.params.id, req.body.company)
 }
 
-const getUserErrorHandle = (err, res) => {
-  res.status(500);
-    return res.json({
-      message: 'no user found',
-      error: err.message
-    })
-}
-
 const deleteUser = (id) => {
   return User.deleteOne({_id: id})
 }
@@ -30,6 +22,5 @@ module.exports = {
   allUsers,
   userById,
   addCompany,
-  getUserErrorHandle,
   deleteUser
 }

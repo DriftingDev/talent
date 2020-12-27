@@ -10,87 +10,95 @@ const {
 } = require('../utils/company_utils');
 
 const getAllUsers = (req, res) => {
-  allUsers(req).exec((err, users) => {
-    if (err) {
-      res.status(500);
-      return res.json({
-        error: err.message
+  try {
+    allUsers(req).exec((err, users) => {
+      res.json({
+        users: users
       })
-    }
-    res.json(users)
-  })
+    })
+    
+  } catch (err) {
+    res.status(500);
+    res.json(err);
+  }
 }
 
 const getUserById = (req,res) => {
-  userById(req.params.id).exec((err, user) => {
-    if (err) {
-      getUserErrorHandle(err, res)
-    }
-    return res.json(user)
-  })
+  try {
+    userById(req.params.id).exec((err, user) => {
+      if(user){
+        res.json({
+          user: user
+        })
+      } else {
+        res.status(500)
+        res.json("No user found")
+      }
+    })
+  } catch (err) {
+    res.status(500);
+    res.json(err);
+  }
 }
 
 const addCompanyToUser = (req,res) => {
-  userById(req.params.id).exec((err, user) => {
-    if (err) {
-      getUserErrorHandle(err, res)
-    } else if (!user) {
-      res.json("No user found")
-    }
-
-    if(user.companies.findIndex((ele) => ele == req.body.company_id) === -1) {
-      user.companies.push(req.body.company_id)
-      user.save((err,user) => {
-
-      if (err) {
-        res.json(err)
+  try {
+    userById(req.params.id).exec((err, user) => {
+      if (!user) {
+        res.status(500)
+        return res.json("No user found")
       }
-
-      companyById(req.body.company_id).exec((err,company) => {
-
-        if (err) {
-          res.json(err)
-        }
-
-        company.users.push(user._id)
-        company.save((err, savedCompany) => {
-          if (err) {
-            res.json(err)
+  
+      if(user.companies.findIndex((ele) => ele == req.body.company_id) === -1) {
+        
+        companyById(req.body.company_id).exec((err,company) => {
+          if (!company) {
+            res.status(500)
+            return res.json("No company found")
           }
-
-          res.json({
-            user: user,
-            company: savedCompany
+          
+          user.companies.push(req.body.company_id)
+          user.save((err,user) => {
+            company.users.push(user._id)
+            company.save((err, savedCompany) => {
+  
+              res.json({
+                user: user,
+                company: savedCompany
+              })
+            })
           })
         })
-      })
-
-      })
-    } else {
-      res.json("Company already belongs to user")
-    }
-  })
+      } else {
+        res.status(500)
+        res.json("Company already belongs to user")
+      }
+    })
+  } catch (err) {
+    res.status(500);
+    res.json(err);
+  }
 }
 
 const editUserById = (req,res) => {
-  userById(req.user._id).exec((err,user) => {
-    if (err) {
-      res.json(err)
-    }
-
-    for (const [key, value] of Object.entries(req.body)) {
-      user[key] = value
-    }
-
-    user.save((err, user) => {
-      if(err) {
-        res.json(err)
+  try {
+    userById(req.user._id).exec((err,user) => {
+      
+      for (const [key, value] of Object.entries(req.body)) {
+        user[key] = value
       }
-
-      res.json(user)
+  
+      user.save((err, user) => {
+  
+        res.json({
+          user: user
+        })
+      })
     })
-    
-  })
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
 }
 
 const passwordValidator =  (req, res) => {
@@ -102,7 +110,9 @@ const passwordValidator =  (req, res) => {
 
     const bool = await user.isValidPassword(req.body.password)
 
-    res.json(bool)
+    res.json({
+      passwordBool: bool
+    })
   })
 }
 

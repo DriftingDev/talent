@@ -30,9 +30,11 @@ router.post(
           
           if (err || !user) {
             if (err) {
-              return res.json(err)
+              res.status(500)
+              res.json(err)
             } else {
-              return res.json(info)
+              res.status(500)
+              res.json(info)
             }
           }
 
@@ -42,8 +44,13 @@ router.post(
             async (error) => {
               if (error) return next(error);
 
-              const body = { _id: user._id, email: user.email, is_artist: user.is_artist };
-              const token = jwt.sign({ user: body }, 'BERNARD_IS_BEST');
+              if (req.body.remember) {
+                const body = { _id: user._id, email: user.email, is_artist: user.is_artist };
+                const token = jwt.sign({ user: body }, 'BERNARD_IS_BEST');
+              } else {
+                const body = { _id: user._id, email: user.email, is_artist: user.is_artist };
+                const token = jwt.sign({ user: body }, 'BERNARD_IS_BEST', {expiresIn: '24h'});
+              }
 
               user.password = null
 
@@ -54,13 +61,12 @@ router.post(
             }
           );
         } catch (error) {
+          res.status(500)
           return next(error);
         }
       }
     )(req, res, next);
   }
 );
-
-router.get('/logout', userLogout);
 
 module.exports = router
