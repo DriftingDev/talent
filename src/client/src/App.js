@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import './App.scss';
@@ -16,30 +16,16 @@ import ArtistScreen from './screens/ArtistScreen';
 import UserContext from './context/UserContext';
 
 function App() {
-  const [userData, setUserData] = useState({
-    token: undefined,
-    user: undefined,
-  });
-
-  useEffect(() => {
-    const checkLoggedIn = async () => {
-      // const token = localStorage.getItem("auth-token");
-    };
-
-    checkLoggedIn();
-  }, []);
 
   return (
     <Router>
-      <UserContext.Provider value={{ userData, setUserData }}>
         <NavBar fixed='top' />
         <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
           <Route path='/' component={Login} exact />
-          <Route path='/signup' component={Register} exact />
+          <Route path='/register' component={Register} exact />
           <Route path='/artists' component={ArtistList} exact />
           <Route path='/artists/:id' component={ArtistScreen} />
         </Container>
-      </UserContext.Provider>
       <NavTabs />
     </Router>
   );

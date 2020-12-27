@@ -10,7 +10,7 @@ export default function AuthOptions() {
       <Nav.Link as={Link} to='/'>
         Login
       </Nav.Link>
-      <Nav.Link as={Link} to='/signup'>
+      <Nav.Link as={Link} to='/register'>
         Sign Up
       </Nav.Link>
       <Nav.Link as={Link} to='/artists'>
