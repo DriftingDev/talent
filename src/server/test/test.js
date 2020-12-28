@@ -706,6 +706,20 @@ describe('Route testing', () => {
     })
   })
 
+  describe("Show Routes", () => {
+    it("should return 401 if no valid token is set", (done) => {
+      chai.request(app)
+        .post('/show/new')
+        .send(null)
+        .end((err,res) => {
+          expect(res).to.have.status(401)
+          done()
+        })
+    })
+
+  
+  })
+
   //DO THESE LAST
   describe("Delete routes", () => {
 
