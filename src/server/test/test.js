@@ -807,6 +807,43 @@ describe('Route testing', () => {
           })
       })
     })
+
+    describe("POST /:id", () => {
+      it("Should return 200 and the updated show object with valid input", (done) => {
+        chai.request(app)
+          .post(`/show/${newShowId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            showName: "testShow1"
+          })
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('show')
+            expect(res.body.show.showName).to.equal('testShow1')
+            done()
+          })
+      })
+
+      it("Should return 500 and a matching string if given an invalid ID", (done) => {
+        chai.request(app)
+          .post(`/show/notanid`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            showName: "testShow1"
+          })
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal('No show found')
+            done()
+          })
+      })
+    })
   })
 
   //DO THESE LAST

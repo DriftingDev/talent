@@ -51,27 +51,28 @@ const createNewShow = (req,res) => {
 }
 
 const editShowById = (req, res) => {
-  showById(req.params.id).exec((err,show) => {
-
-    if(err) {
-      res.status(500)
-      res.json(err)
-    }
-
-    for (const [key, value] of Object.entries(req.body)) {
-      show[key] = value
-    }
-
-    show.save((err, show) => {
-      if(err) {
+  try {
+    showById(req.params.id).exec((err,show) => {
+      
+      if(!show) {
         res.status(500)
-        res.json(err)
+        return res.json("No show found")
       }
 
-      res.json(show)
-
+      for (const [key, value] of Object.entries(req.body)) {
+        show[key] = value
+      }
+  
+      show.save((err, show) => {
+        res.json({
+          show: show
+        })
+      })
     })
-  })
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
 }
 
 const getShowById = (req, res) => {
