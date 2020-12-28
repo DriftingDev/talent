@@ -27,6 +27,7 @@ function App() {
             <Route path='/' component={Login} exact />
             <Route path='/register' component={Register} exact />
             <Route path='/artists' component={ArtistList} exact />
+            <Route path='/redirect' render={"Poop"} exact />
             <Route path='/artists/:id' component={ArtistScreen} />
           </Container>
         <NavTabs />

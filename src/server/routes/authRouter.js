@@ -44,12 +44,15 @@ router.post(
             async (error) => {
               if (error) return next(error);
 
+              let body;
+              let token;
+
               if (req.body.remember) {
-                const body = { _id: user._id, email: user.email, is_artist: user.is_artist };
-                const token = jwt.sign({ user: body }, 'BERNARD_IS_BEST');
+                body = { _id: user._id, email: user.email, is_artist: user.is_artist };
+                token = jwt.sign({ user: body }, 'BERNARD_IS_BEST');
               } else {
-                const body = { _id: user._id, email: user.email, is_artist: user.is_artist };
-                const token = jwt.sign({ user: body }, 'BERNARD_IS_BEST', {expiresIn: '24h'});
+                body = { _id: user._id, email: user.email, is_artist: user.is_artist };
+                token = jwt.sign({ user: body }, 'BERNARD_IS_BEST', {expiresIn: '24h'});
               }
 
               user.password = null
