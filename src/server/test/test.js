@@ -10,7 +10,9 @@ const Show = require('../models/Show')
 
 const {
   dropUsers,
-  dropCompanies 
+  dropCompanies,
+  dropShows,
+  dropVenues
 } = require('./test_utils/test_utils');
 const { post } = require('../routes/authRouter');
 
@@ -51,6 +53,8 @@ describe('Route testing', () => {
   before((done) => {
     dropUsers()
     dropCompanies()
+    dropShows()
+    dropVenues()
 
     const producer = new User(defaultProducer) 
     const artist = new User(defaultArtist) 
@@ -70,7 +74,8 @@ describe('Route testing', () => {
   let userID;
   let newUserId;
   let newCompanyId;
-  let newVenueId
+  let newVenueId;
+  let newShowId;
 
   ////////// AUTH ROUTES /////////////
   describe('Auth Routes', () => {    
@@ -717,7 +722,91 @@ describe('Route testing', () => {
         })
     })
 
-  
+    describe("POST /new/", () => {
+      it("Should return 200 and a new show object with valid inputs", (done) => {
+        chai.request(app)
+          .post('/show/new')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            company: newCompanyId,
+            showName: "show2",
+            datetime: 1609123653
+          })
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('show')
+            newShowId = res.body.show._id
+            done()
+          })
+      })
+
+      it("Should return 500 and a matching string no company found with invalid company ID", (done) => {
+        chai.request(app)
+          .post('/show/new')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            company: "notanid",
+            showName: "show2",
+            datetime: 1609123653
+          })
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal('No company found')
+            done()
+          })
+      })
+
+      it("Should return 500 with invalid inputs", (done) => {
+        chai.request(app)
+          .post('/show/new')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send(null)
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            done()
+          })
+      })
+    })
+
+    describe("GET /:id", () => {
+      it("Should return 200 and the show object with a valid ID param", (done) => {
+        chai.request(app)
+          .get(`/show/${newShowId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty("show")
+            expect(res.body.show._id).to.equal(newShowId)
+            done()
+          })
+      })
+
+      it("Should return 500 and a matching string with an invalid parameter", (done) => {
+        chai.request(app)
+          .get(`/show/notanID`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal('No show found')
+            done()
+          })
+      })
+    })
   })
 
   //DO THESE LAST

@@ -12,12 +12,15 @@ const {
   venueById 
 } = require('../utils/venue_utils')
 
-const createNewShow = async (req,res) => {
-  try {
-    
-    const show = await createShow(req)
+const createNewShow = (req,res) => {
+  try {    
+    companyById(req.body.company).exec( async (err, company) => {
+      if(!company){
+        res.status(500)
+        return res.json("No company found")
+      }
 
-    companyById(show.company).exec((err, company) => {
+      const show = await createShow(req)
       company.shows.push(show._id)
       company.save((err, company) => {
 
@@ -31,6 +34,11 @@ const createNewShow = async (req,res) => {
                 venue: venue
               })
             })
+          })
+        } else {
+          res.json({
+            show: show,
+            company: company,
           })
         }
       })
@@ -67,14 +75,21 @@ const editShowById = (req, res) => {
 }
 
 const getShowById = (req, res) => {
-  showById(req.params.id).exec((err, show) => {
-    if (err) {
-      res.status(500)
-      res.json(err)
-    }
-
-    res.json(show)
-  })
+  try {
+    showById(req.params.id).exec((err, show) => {
+      if(!show){
+        res.status(500)
+        return res.json("No show found")
+      }
+  
+      res.json({
+        show: show
+      })
+    })
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
 }
 
 const getShowsByUser = (req,res) => {
