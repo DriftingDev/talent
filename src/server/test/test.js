@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
 const User = require('../models/User.js')
 const Show = require('../models/Show')
+const Venue = require('../models/Venue')
+const Company = require('../models/Company')
 
 const {
   dropUsers,
@@ -15,8 +17,6 @@ const {
   dropVenues
 } = require('./test_utils/test_utils');
 const { post } = require('../routes/authRouter');
-const Company = require('../models/Company');
-
 
 const { expect } = chai;
 
@@ -908,11 +908,132 @@ describe('Route testing', () => {
           })
       })
     })
+
+    describe("GET /showsByUser/:id", () => {
+      it("Should return 200 and array of shows by id if passed producer token", (done) => {
+        chai.request(app)
+          .get(`/show/showsByUser/${artistId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('shows')
+            expect(res.body.shows.length).to.equal(1)
+            done()
+          })
+      })
+
+      it("Should return 200 and array of shows by artist token id if passed artist token", (done) => {
+        chai.request(app)
+          .get(`/show/showsByUser/${producerId}`)
+          .set({"Authorization": `Bearer ${artistToken}`})
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('shows')
+            expect(res.body.shows.length).to.equal(1)
+            done()
+          })
+      })
+
+      it("Should return 200 and empty array of shows by id if passed producer token and no matches", (done) => {
+        chai.request(app)
+          .get(`/show/showsByUser/${producerId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('shows')
+            expect(res.body.shows.length).to.equal(0)
+            done()
+          })
+      })
+    })
   })
 
   //DO THESE LAST
   describe("Delete routes", () => {
+    describe('DELETE /show/:id', () => {
+      it("Should delete the show, return 200 and a matching string", (done) => {
+        chai.request(app)
+          .delete(`/show/${newShowId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.equal("Show deleted")
+            Show.findById(newShowId, (err,show) => {
+              expect(show).to.equal(null)
+              done()
+            })
+          })
+      })
+    })
 
+    describe("DELETE /venue/:id", () => {
+      it("Should delete the venue, return 200 and a matching string", (done) => {
+        chai.request(app)
+          .delete(`/venue/${newVenueId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.equal("Venue deleted")
+            Venue.findById(newVenueId, (err,venue) => {
+              expect(venue).to.equal(null)
+              done()
+            })
+          })
+      })
+    })
+
+    describe("DELETE /company/:id", () => {
+      it("Should delete the company, return 200 and a matching string", (done) => {
+        chai.request(app)
+          .delete(`/company/${newCompanyId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.equal("Company deleted")
+            Company.findById(newCompanyId, (err,venue) => {
+              expect(venue).to.equal(null)
+              done()
+            })
+          })
+      })
+    })
+
+    describe("DELETE /user/delete", () => {
+      it("Should delete the user by the token, return 200 and a matching string", (done) => {
+        chai.request(app)
+          .delete(`/user/delete`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.equal("User deleted")
+            User.findById(producerId, (err,user) => {
+              expect(user).to.equal(null)
+              done()
+            })
+          })
+      })
+    })
   })
 
 })

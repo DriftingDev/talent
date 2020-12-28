@@ -94,24 +94,23 @@ const getShowById = (req, res) => {
 }
 
 const getShowsByUser = (req,res) => {
-  if (req.user.is_artist) {
-    showsByUser(req.user._id).exec((err,shows) => {
-      if (err) {
-        res.status(500)
-        res.json(err)
-      }
-
-      res.json(shows)
-    })
-  } else {
-    showsByUser(req.params.id).exec((err,shows) => {
-      if (err) {
-        res.status(500)
-        res.json(err)
-      }
-
-      res.json(shows)
-    })
+  try {
+    if (req.user.is_artist) {
+      showsByUser(req.user._id).exec((err,shows) => {
+        res.json({
+          shows: shows
+        })
+      })
+    } else {
+      showsByUser(req.params.id).exec((err,shows) => {
+        res.json({
+          shows:shows
+        })
+      })
+    }
+  } catch (err) {
+    res.status(500)
+    res.json(err)
   }
 }
 

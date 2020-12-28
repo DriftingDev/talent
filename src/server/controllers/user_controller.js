@@ -117,13 +117,14 @@ const passwordValidator =  (req, res) => {
 }
 
 const destroyUser = (req, res) => {
-  deleteUser(req.user._id).exec((err) => {
-    if (err) {
-      res.json(err)
-    }
-    
-    res.json("user deleted")
-  })
+  try {
+    deleteUser(req.user._id).exec((err) => {    
+      res.json("User deleted")
+    })
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
 }
 
 module.exports = {

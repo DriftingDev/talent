@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --exit",
+    "test": "nyc mocha --exit",
     "start": "node server.js"
   },
   "author": "",
@@ -21,6 +21,7 @@
     "kill-port": "^1.6.1",
     "mongoose": "^5.11.5",
     "mongoose-bcrypt": "^1.9.0",
+    "nyc": "^15.1.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
