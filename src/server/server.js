@@ -50,10 +50,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.get('/', (req, res) => {
-  res.send("hi there") 
-})
-
 app.use('/auth', authRouter);
 app.use('/user', passport.authenticate('jwt', { session: false }), userRouter);
 app.use('/company', passport.authenticate('jwt', { session: false }), companyRouter);
