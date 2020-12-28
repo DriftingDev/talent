@@ -15,6 +15,7 @@ const {
   dropVenues
 } = require('./test_utils/test_utils');
 const { post } = require('../routes/authRouter');
+const Company = require('../models/Company');
 
 
 const { expect } = chai;
@@ -840,6 +841,69 @@ describe('Route testing', () => {
             }
             expect(res).to.have.status(500)
             expect(res.body).to.equal('No show found')
+            done()
+          })
+      })
+    })
+
+    describe("GET /showsByCompany/:id", () => {
+      it("Should return 200 and an array of shows attached to the passed company id", (done) => {
+        chai.request(app)
+          .get(`/show/showsByCompany/${newCompanyId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('shows')
+            expect(res.body.shows).to.be.an('array')
+            expect(res.body.shows.length).to.equal(2)
+            done()
+          })
+      })
+
+      it("Should return 200 and an empty array if no matches", (done) => {
+        const testCompany = new Company({name: "testCompany"})
+        testCompany.save((err, testCompany) => {
+          chai.request(app)
+            .get(`/show/showsByCompany/${testCompany._id}`)
+            .set({"Authorization": `Bearer ${producerToken}`})
+            .end((err,res) => {
+              if(err){
+                console.log(err)
+              }
+              expect(res).to.have.status(200)
+              expect(res.body).to.haveOwnProperty('shows')
+              expect(res.body.shows).to.be.an('array')
+              expect(res.body.shows.length).to.equal(0)
+              done()
+            })
+        })
+      })
+
+      it("Should return 500 if passed an invalid id", (done) => {
+        chai.request(app)
+          .get(`/show/showsByCompany/notanId`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            done()
+          })
+      })
+
+      it("Should return 401 passed an artist token", (done) => {
+        chai.request(app)
+          .get(`/show/showsByCompany/notanId`)
+          .set({"Authorization": `Bearer ${artistToken}`})
+          .end((err,res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(401)
             done()
           })
       })

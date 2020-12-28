@@ -118,15 +118,16 @@ const getShowsByUser = (req,res) => {
 const getShowsByCompany = (req, res) => {
   if(req.user.is_artist) {
     res.status(401)
+    return res.json('Unauthorized')
   }
-
   showsByCompany(req.params.id).exec((err,shows) => {
     if (err) {
       res.status(500)
-      res.json(err)
+      return res.json(err)
     }
-    console.log(shows)
-    res.json(shows)
+    res.json({
+      shows: shows
+    })
   })
 }
 
