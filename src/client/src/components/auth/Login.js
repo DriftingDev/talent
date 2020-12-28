@@ -1,4 +1,5 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router'
 //Bootstrap
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -11,45 +12,16 @@ import WelcomeModal from './WelcomeModal';
 import { CurrentUserContext } from '../../store/currentUser'
 
 function Login() {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [error, setError] = useState(null);
 
-  const {state, dispatch} = useContext(CurrentUserContext)
+  const history = useHistory()
 
+  const {state: currentUserState, loginUser} = useContext(CurrentUserContext)
 
-  // const data = {
-  //   email: email,
-  //   password: password,
-  // };
-
-  // const handleSignIn = (e) => {
-  //   e.preventDefault();
-  //   // TODO: Update url to be env variable `{ENV[URL]}/auth/login
-  //   axios
-  //     .post('http://localhost:3010/auth/login', data)
-  //     .then(function (response) {
-  //       console.log(response);
-  //       // TODO: Store token locally. Need to do some reaserch into where this should be stored.
-  //       localStorage.setItem('token', JSON.stringify(response));
-        
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //       // TODO: Handle your errors appropriately. Use the error statuses to display different errors
-  //       if (error.status === 404) {
-  //         setError(`It's broken go somewhere else`);
-  //       }
-  //     });
-  // };
-
-  // const handleEmailChange = (e) => {
-  //   setEmail(e.target.value);
-  // };
-
-  // const handlePasswordChange = (e) => {
-  //   setPassword(e.target.value);
-  // };
+  useEffect(() => {
+    if (currentUserState.user != null) {
+      history.push('/artists')
+    }
+  },[currentUserState])
 
   const validationSchema = object({
     email: string().required("An email is required"),
@@ -65,7 +37,7 @@ function Login() {
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        console.log('submitted values', values)
+        loginUser(values)
     }}
     >
       {({getFieldProps, errors, touched}) => (
@@ -122,7 +94,7 @@ function Login() {
         </Button>
       </BaseForm>
       )}
-      </Formik>
+    </Formik>
   );
 }
 

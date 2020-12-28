@@ -1,7 +1,8 @@
 export const defaultStateShape = {
   user: null,
   token: null,
-  loaded: false
+  loaded: false,
+  signInError: false
 }
 
 export const userReducer = (state, action) => {
@@ -10,7 +11,8 @@ export const userReducer = (state, action) => {
       return {
         ...state,
         user: action.payload,
-        loaded: true
+        loaded: true,
+        signInError: false
       };
     case "clearUser":
       return {

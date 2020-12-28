@@ -6,6 +6,7 @@ const { app } = require('../server');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
 const User = require('../models/User.js')
+const Show = require('../models/Show')
 
 const {
   dropUsers,
@@ -680,6 +681,27 @@ describe('Route testing', () => {
             expect(res.body).to.equal('No venues attached to user')
             done()
           })
+      })
+
+      it("Should return 200 and a unique array of venues attached to the token user", (done) => {
+        const show = new Show({
+          company: newCompanyId,
+          artists: artistId,
+          showName: "show1",
+          datetime: 1609113488
+        })
+
+        show.save((err, show) => {
+          chai.request(app)
+            .get('/venue/venuesByUser')
+            .set({"Authorization": `Bearer ${artistToken}`})
+            .end((err,res) => {
+              expect(res).to.have.status(200)
+              expect(res.body).to.be.an('array')
+              expect(res.body.length).to.equal(1)
+              done()
+            })
+        })
       })
     })
   })
