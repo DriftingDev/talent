@@ -102,7 +102,7 @@ describe('Route testing', () => {
           })
       })
 
-      it('Should return 400 and an error message without valid user input', (done) => {
+      it('Should return 400 and an error message without username or password', (done) => {
         chai.request(app)
         .post('/auth/register')
         .send(null)
@@ -137,7 +137,7 @@ describe('Route testing', () => {
           })
       })
 
-      it('Should return 500 without a valid user object', (done) => {
+      it('Should return 500 and a matching string without any email or password fields', (done) => {
         chai.request(app)
           .post('/auth/login')
           .send(null)
@@ -146,6 +146,41 @@ describe('Route testing', () => {
               console.log(err)
             }
             expect(res).to.have.status(500)
+            expect(res.body.message).to.equal("Missing credentials")
+            done()
+          })
+      })
+
+      it('Should return 500 and a matching string if no user is found', (done) => {
+        chai.request(app)
+          .post('/auth/login')
+          .send({
+            email: "incorrect",
+            password: "irrelevant"
+          })
+          .end((err, res) => {
+            if(err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body.message).to.equal("User not found")
+            done()
+          })
+      })
+
+      it('Should return 500 and a matching string if password is incorrect', (done) => {
+        chai.request(app)
+          .post('/auth/login')
+          .send({
+            email: "test1",
+            password: "wrong"
+          })
+          .end((err, res) => {
+            if(err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body.message).to.equal("Wrong password")
             done()
           })
       })
@@ -731,7 +766,8 @@ describe('Route testing', () => {
           .send({
             company: newCompanyId,
             showName: "show2",
-            datetime: 1609123653
+            datetime: 1609123653,
+            venue: newVenueId
           })
           .end((err,res) => {
             if (err) {

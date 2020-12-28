@@ -102,18 +102,18 @@ const editUserById = (req,res) => {
 }
 
 const passwordValidator =  (req, res) => {
+  try {
+    userById(req.user._id).exec( async (err,user) => {
+      const bool = await user.isValidPassword(req.body.password)
   
-  userById(req.user._id).exec( async (err,user) => {
-    if (err) {
-      res.json(err)
-    }
-
-    const bool = await user.isValidPassword(req.body.password)
-
-    res.json({
-      passwordBool: bool
-    })
-  })
+      res.json({
+        passwordBool: bool
+      })
+    }) 
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
 }
 
 const destroyUser = (req, res) => {

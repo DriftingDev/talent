@@ -3,11 +3,6 @@ const router = express.Router();
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
-const {
-  userLogout
-} = require('../controllers/auth_controller');
-
-//router.post('/register', registerNew);
 router.post(
   '/register',
   passport.authenticate('signup', { session: false }),
@@ -19,7 +14,6 @@ router.post(
   }
 );
 
-//router.post('/login', userLogin);
 router.post(
   '/login',
   async (req, res, next) => {
@@ -28,14 +22,12 @@ router.post(
       async (err, user, info) => {
         try {
           
-          if (err || !user) {
-            if (err) {
-              res.status(500)
-              res.json(err)
-            } else {
-              res.status(500)
-              res.json(info)
-            }
+          if (err) {
+            res.status(500)
+            return res.json(err)
+          } else if (!user) {
+            res.status(500)
+            return res.json(info)
           }
 
           req.login(
