@@ -1,5 +1,7 @@
 const User = require('../../models/User')
 const Company = require('../../models/Company')
+const Show = require('../../models/Show')
+const Venue = require('../../models/Venue')
 
 const dropUsers = () => {
   console.log('dropping users') 
@@ -23,7 +25,31 @@ const dropCompanies = () => {
   })
 }
 
+const dropShows = () => {
+  console.log('dropping shows') 
+    Show.deleteMany({},(err) => {
+    if (err) {
+      console.log('There was a problem dropping shows:', err)
+    } else {
+      console.log('shows dropped')
+    }
+  })
+}
+
+const dropVenues = () => {
+  console.log('dropping venues') 
+    Venue.deleteMany({},(err) => {
+    if (err) {
+      console.log('There was a problem dropping venues:', err)
+    } else {
+      console.log('venues dropped')
+    }
+  })
+}
+
 module.exports = {
   dropUsers,
-  dropCompanies
+  dropCompanies,
+  dropShows,
+  dropVenues
 }

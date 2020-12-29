@@ -50,16 +50,16 @@ User.pre(
   }
 );
 
-User.pre(
-  'updateOne',
-  async function(next) {
-    let user = this;
-    const hash = await bcrypt.hash(user.password, 10);
+// User.pre(
+//   'updateOne',
+//   async function(next) {
+//     let user = this;
+//     const hash = await bcrypt.hash(user.password, 10);
 
-    user.password = hash;
-    next();
-  }
-);
+//     user.password = hash;
+//     next();
+//   }
+// );
 
 User.methods.isValidPassword = async function(password) {
   const user = this;

@@ -1,19 +1,26 @@
-process.env.NODE_ENV = 'test'
+if(process.env.NODE_ENV !== 'production') {
+  process.env.NODE_ENV = 'test'
+}
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { app } = require('../server');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
+
 const User = require('../models/User.js')
 const Show = require('../models/Show')
+const Venue = require('../models/Venue')
+const Company = require('../models/Company')
+
 
 const {
   dropUsers,
-  dropCompanies 
+  dropCompanies,
+  dropShows,
+  dropVenues
 } = require('./test_utils/test_utils');
 const { post } = require('../routes/authRouter');
-
 
 const { expect } = chai;
 
@@ -51,6 +58,8 @@ describe('Route testing', () => {
   before((done) => {
     dropUsers()
     dropCompanies()
+    dropShows()
+    dropVenues()
 
     const producer = new User(defaultProducer) 
     const artist = new User(defaultArtist) 
@@ -70,7 +79,8 @@ describe('Route testing', () => {
   let userID;
   let newUserId;
   let newCompanyId;
-  let newVenueId
+  let newVenueId;
+  let newShowId;
 
   ////////// AUTH ROUTES /////////////
   describe('Auth Routes', () => {    
@@ -94,9 +104,9 @@ describe('Route testing', () => {
             newUserId = res.body.user._id
             done()
           })
-      })
+      }).timeout(5000)
 
-      it('Should return 400 and an error message without valid user input', (done) => {
+      it('Should return 400 and an error message without username or password', (done) => {
         chai.request(app)
         .post('/auth/register')
         .send(null)
@@ -131,7 +141,7 @@ describe('Route testing', () => {
           })
       })
 
-      it('Should return 500 without a valid user object', (done) => {
+      it('Should return 500 and a matching string without any email or password fields', (done) => {
         chai.request(app)
           .post('/auth/login')
           .send(null)
@@ -140,6 +150,41 @@ describe('Route testing', () => {
               console.log(err)
             }
             expect(res).to.have.status(500)
+            expect(res.body.message).to.equal("Missing credentials")
+            done()
+          })
+      })
+
+      it('Should return 500 and a matching string if no user is found', (done) => {
+        chai.request(app)
+          .post('/auth/login')
+          .send({
+            email: "incorrect",
+            password: "irrelevant"
+          })
+          .end((err, res) => {
+            if(err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body.message).to.equal("User not found")
+            done()
+          })
+      })
+
+      it('Should return 500 and a matching string if password is incorrect', (done) => {
+        chai.request(app)
+          .post('/auth/login')
+          .send({
+            email: "test1",
+            password: "wrong"
+          })
+          .end((err, res) => {
+            if(err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body.message).to.equal("Wrong password")
             done()
           })
       })
@@ -168,7 +213,9 @@ describe('Route testing', () => {
           .post('/company/new')
           .set({"Authorization": `Bearer ${producerToken}`})
           .send({
-            name: "testCompany1"
+            name: "testCompany1",
+            red61_username: "testUsername",
+            red61_password: "testPassword"
           })
           .end((err, res) => {
             if (err) {
@@ -178,6 +225,13 @@ describe('Route testing', () => {
             expect(res.body).to.haveOwnProperty("company")
             newCompanyId = res.body.company._id
             expect(res.body.company.users[0]).to.be.a("string")
+            // bcrypt.compare("testUsername", res.body.company.red61_username, (err,same) => {
+            //   expect(same).to.be.true
+            //   bcrypt.compare("testPassword", res.body.company.red61_password, (err, same) => {
+            //     expect(same).to.be.true
+            //     done()
+            //   })
+            // })
             done()
           })
       })
@@ -229,12 +283,14 @@ describe('Route testing', () => {
     })
 
     describe("POST /:id", () => {
-      it("should update the name of the existing company and return the updated company", (done) => {
+      it("should update the name, username and password of the existing company and return the updated company", (done) => {
         chai.request(app)
           .post(`/company/${newCompanyId}`)
           .set({"Authorization": `Bearer ${producerToken}`})
           .send({
-            name: "company1"
+            name: "company1",
+            red61_password: "newPassword",
+            red61_username: "newUsername"
           })
           .end((err, res) => {
             if (err) {
@@ -243,8 +299,18 @@ describe('Route testing', () => {
             expect(res).to.have.status(200)
             expect(res.body).to.haveOwnProperty("company")
             expect(res.body.company.name).to.equal("company1")
+            expect(res.body.company.red61_password).to.equal("newPassword")
+            expect(res.body.company.red61_username).to.equal("newUsername")
+            // bcrypt.compare('newUsername', res.body.company.red61_username, (err,same) => {
+            //   expect(same).to.be.true
+            //   bcrypt.compare("newPassword", res.body.company.red61_password, (err, same) => {
+            //     expect(same).to.be.true
+            //     done()
+            //   })
+            // })
             done()
           })
+          
       })
 
       it("should return 500 if passed an invalid id", (done) => {
@@ -706,9 +772,329 @@ describe('Route testing', () => {
     })
   })
 
+  describe("Show Routes", () => {
+    it("should return 401 if no valid token is set", (done) => {
+      chai.request(app)
+        .post('/show/new')
+        .send(null)
+        .end((err,res) => {
+          expect(res).to.have.status(401)
+          done()
+        })
+    })
+
+    describe("POST /new/", () => {
+      it("Should return 200 and a new show object with valid inputs", (done) => {
+        chai.request(app)
+          .post('/show/new')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            company: newCompanyId,
+            showName: "show2",
+            datetime: 1609123653,
+            venue: newVenueId
+          })
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('show')
+            newShowId = res.body.show._id
+            done()
+          })
+      })
+
+      it("Should return 500 and a matching string no company found with invalid company ID", (done) => {
+        chai.request(app)
+          .post('/show/new')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            company: "notanid",
+            showName: "show2",
+            datetime: 1609123653
+          })
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal('No company found')
+            done()
+          })
+      })
+
+      it("Should return 500 with invalid inputs", (done) => {
+        chai.request(app)
+          .post('/show/new')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send(null)
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            done()
+          })
+      })
+    })
+
+    describe("GET /:id", () => {
+      it("Should return 200 and the show object with a valid ID param", (done) => {
+        chai.request(app)
+          .get(`/show/${newShowId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty("show")
+            expect(res.body.show._id).to.equal(newShowId)
+            done()
+          })
+      })
+
+      it("Should return 500 and a matching string with an invalid parameter", (done) => {
+        chai.request(app)
+          .get(`/show/notanID`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal('No show found')
+            done()
+          })
+      })
+    })
+
+    describe("POST /:id", () => {
+      it("Should return 200 and the updated show object with valid input", (done) => {
+        chai.request(app)
+          .post(`/show/${newShowId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            showName: "testShow1"
+          })
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('show')
+            expect(res.body.show.showName).to.equal('testShow1')
+            done()
+          })
+      })
+
+      it("Should return 500 and a matching string if given an invalid ID", (done) => {
+        chai.request(app)
+          .post(`/show/notanid`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .send({
+            showName: "testShow1"
+          })
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            expect(res.body).to.equal('No show found')
+            done()
+          })
+      })
+    })
+
+    describe("GET /showsByCompany/:id", () => {
+      it("Should return 200 and an array of shows attached to the passed company id", (done) => {
+        chai.request(app)
+          .get(`/show/showsByCompany/${newCompanyId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('shows')
+            expect(res.body.shows).to.be.an('array')
+            expect(res.body.shows.length).to.equal(2)
+            done()
+          })
+      })
+
+      it("Should return 200 and an empty array if no matches", (done) => {
+        const testCompany = new Company({name: "testCompany"})
+        testCompany.save((err, testCompany) => {
+          chai.request(app)
+            .get(`/show/showsByCompany/${testCompany._id}`)
+            .set({"Authorization": `Bearer ${producerToken}`})
+            .end((err,res) => {
+              if(err){
+                console.log(err)
+              }
+              expect(res).to.have.status(200)
+              expect(res.body).to.haveOwnProperty('shows')
+              expect(res.body.shows).to.be.an('array')
+              expect(res.body.shows.length).to.equal(0)
+              done()
+            })
+        })
+      })
+
+      it("Should return 500 if passed an invalid id", (done) => {
+        chai.request(app)
+          .get(`/show/showsByCompany/notanId`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(500)
+            done()
+          })
+      })
+
+      it("Should return 401 passed an artist token", (done) => {
+        chai.request(app)
+          .get(`/show/showsByCompany/notanId`)
+          .set({"Authorization": `Bearer ${artistToken}`})
+          .end((err,res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(401)
+            done()
+          })
+      })
+    })
+
+    describe("GET /showsByUser/:id", () => {
+      it("Should return 200 and array of shows by id if passed producer token", (done) => {
+        chai.request(app)
+          .get(`/show/showsByUser/${artistId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('shows')
+            expect(res.body.shows.length).to.equal(1)
+            done()
+          })
+      })
+
+      it("Should return 200 and array of shows by artist token id if passed artist token", (done) => {
+        chai.request(app)
+          .get(`/show/showsByUser/${producerId}`)
+          .set({"Authorization": `Bearer ${artistToken}`})
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('shows')
+            expect(res.body.shows.length).to.equal(1)
+            done()
+          })
+      })
+
+      it("Should return 200 and empty array of shows by id if passed producer token and no matches", (done) => {
+        chai.request(app)
+          .get(`/show/showsByUser/${producerId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err,res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('shows')
+            expect(res.body.shows.length).to.equal(0)
+            done()
+          })
+      })
+    })
+  })
+
   //DO THESE LAST
   describe("Delete routes", () => {
+    describe('DELETE /show/:id', () => {
+      it("Should delete the show, return 200 and a matching string", (done) => {
+        chai.request(app)
+          .delete(`/show/${newShowId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.equal("Show deleted")
+            Show.findById(newShowId, (err,show) => {
+              expect(show).to.equal(null)
+              done()
+            })
+          })
+      })
+    })
 
+    describe("DELETE /venue/:id", () => {
+      it("Should delete the venue, return 200 and a matching string", (done) => {
+        chai.request(app)
+          .delete(`/venue/${newVenueId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.equal("Venue deleted")
+            Venue.findById(newVenueId, (err,venue) => {
+              expect(venue).to.equal(null)
+              done()
+            })
+          })
+      })
+    })
+
+    describe("DELETE /company/:id", () => {
+      it("Should delete the company, return 200 and a matching string", (done) => {
+        chai.request(app)
+          .delete(`/company/${newCompanyId}`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.equal("Company deleted")
+            Company.findById(newCompanyId, (err,venue) => {
+              expect(venue).to.equal(null)
+              done()
+            })
+          })
+      })
+    })
+
+    describe("DELETE /user/delete", () => {
+      it("Should delete the user by the token, return 200 and a matching string", (done) => {
+        chai.request(app)
+          .delete(`/user/delete`)
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if(err){
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.equal("User deleted")
+            User.findById(producerId, (err,user) => {
+              expect(user).to.equal(null)
+              done()
+            })
+          })
+      })
+    })
   })
 
 })

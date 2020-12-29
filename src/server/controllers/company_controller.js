@@ -85,13 +85,14 @@ const editCompanyById = (req,res) => {
 }
 
 const destroyCompany = (req, res) => {
-  deleteCompany(req.params.id).exec((err) => {
-    if (err) {
-      res.json(err)
-    }
-    
-    res.json("company deleted")
-  })
+  try {
+    deleteCompany(req.params.id).exec((err) => {
+      res.json("Company deleted")
+    })
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
 }
 
 const getUsersTiedToCompany = (req, res) => {

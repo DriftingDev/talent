@@ -1,4 +1,3 @@
-const { restart } = require('nodemon')
 const { 
   companyById 
 } = require('../utils/company_utils')
@@ -35,7 +34,6 @@ const createNewVenue = (req,res) => {
     })
 
   } catch (err) {
-    
     res.status(500)
     res.json(err)
   }

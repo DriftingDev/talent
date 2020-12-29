@@ -4,6 +4,10 @@ const localStrategy = require('passport-local').Strategy;
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 
+if(process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 passport.use(
   'signup',
   new localStrategy(
@@ -57,7 +61,7 @@ passport.use(
   new JWTstrategy(
     {
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'BERNARD_IS_BEST'
+      secretOrKey: process.env.JWT_SECRET
     },
     async (token, done) => {
       try {

@@ -21,7 +21,7 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 //Set env variable for local db URI to test version if testing
-if(process.env.NODE_ENV == 'test') {
+if(process.env.NODE_ENV == 'test' && process.env.NODE_ENV !== 'production') {
   process.env.LOCAL_DB_URI = 'mongodb://127.0.0.1:27017/test_talent_app'
 }
 
@@ -50,10 +50,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.get('/', (req, res) => {
-  res.send("hi there") 
-})
-
 app.use('/auth', authRouter);
 app.use('/user', passport.authenticate('jwt', { session: false }), userRouter);
 app.use('/company', passport.authenticate('jwt', { session: false }), companyRouter);
@@ -65,6 +61,5 @@ app.listen(port, () => {
 })
 
 module.exports = {
-  app,
-  port
+  app
 }

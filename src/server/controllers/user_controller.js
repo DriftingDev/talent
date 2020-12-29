@@ -1,7 +1,6 @@
 const {
   allUsers,
   userById,
-  getUserErrorHandle,
   deleteUser
 } = require('../utils/user_utils')
 
@@ -102,28 +101,29 @@ const editUserById = (req,res) => {
 }
 
 const passwordValidator =  (req, res) => {
+  try {
+    userById(req.user._id).exec( async (err,user) => {
+      const bool = await user.isValidPassword(req.body.password)
   
-  userById(req.user._id).exec( async (err,user) => {
-    if (err) {
-      res.json(err)
-    }
-
-    const bool = await user.isValidPassword(req.body.password)
-
-    res.json({
-      passwordBool: bool
-    })
-  })
+      res.json({
+        passwordBool: bool
+      })
+    }) 
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
 }
 
 const destroyUser = (req, res) => {
-  deleteUser(req.user._id).exec((err) => {
-    if (err) {
-      res.json(err)
-    }
-    
-    res.json("user deleted")
-  })
+  try {
+    deleteUser(req.user._id).exec((err) => {    
+      res.json("User deleted")
+    })
+  } catch (err) {
+    res.status(500)
+    res.json(err)
+  }
 }
 
 module.exports = {
