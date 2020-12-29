@@ -5,10 +5,13 @@ const chaiHttp = require('chai-http');
 const { app } = require('../server');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+
 const User = require('../models/User.js')
 const Show = require('../models/Show')
 const Venue = require('../models/Venue')
 const Company = require('../models/Company')
+
 
 const {
   dropUsers,
@@ -209,7 +212,9 @@ describe('Route testing', () => {
           .post('/company/new')
           .set({"Authorization": `Bearer ${producerToken}`})
           .send({
-            name: "testCompany1"
+            name: "testCompany1",
+            red61_username: "testUsername",
+            red61_password: "testPassword"
           })
           .end((err, res) => {
             if (err) {
@@ -219,6 +224,13 @@ describe('Route testing', () => {
             expect(res.body).to.haveOwnProperty("company")
             newCompanyId = res.body.company._id
             expect(res.body.company.users[0]).to.be.a("string")
+            // bcrypt.compare("testUsername", res.body.company.red61_username, (err,same) => {
+            //   expect(same).to.be.true
+            //   bcrypt.compare("testPassword", res.body.company.red61_password, (err, same) => {
+            //     expect(same).to.be.true
+            //     done()
+            //   })
+            // })
             done()
           })
       })
@@ -270,12 +282,14 @@ describe('Route testing', () => {
     })
 
     describe("POST /:id", () => {
-      it("should update the name of the existing company and return the updated company", (done) => {
+      it("should update the name, username and password of the existing company and return the updated company", (done) => {
         chai.request(app)
           .post(`/company/${newCompanyId}`)
           .set({"Authorization": `Bearer ${producerToken}`})
           .send({
-            name: "company1"
+            name: "company1",
+            red61_password: "newPassword",
+            red61_username: "newUsername"
           })
           .end((err, res) => {
             if (err) {
@@ -284,8 +298,18 @@ describe('Route testing', () => {
             expect(res).to.have.status(200)
             expect(res.body).to.haveOwnProperty("company")
             expect(res.body.company.name).to.equal("company1")
+            expect(res.body.company.red61_password).to.equal("newPassword")
+            expect(res.body.company.red61_username).to.equal("newUsername")
+            // bcrypt.compare('newUsername', res.body.company.red61_username, (err,same) => {
+            //   expect(same).to.be.true
+            //   bcrypt.compare("newPassword", res.body.company.red61_password, (err, same) => {
+            //     expect(same).to.be.true
+            //     done()
+            //   })
+            // })
             done()
           })
+          
       })
 
       it("should return 500 if passed an invalid id", (done) => {

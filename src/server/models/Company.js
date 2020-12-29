@@ -25,41 +25,40 @@ const Company = new Schema ({
   
 })
 
-Company.pre(
-  'save',
-  async function(next) {
-    let company = this;
-    if(company.red61_username && company.isNew || company.isModified('red61_username')) {
-      const hash = await bcrypt.hash(company.red61_username, 10)
-      company.red61_username = hash
-    }
+// Company.pre(
+//   'save',
+//   async function(next) {
+//     let company = this;
+//     if(company.red61_username && company.isNew || company.isModified('red61_username')) {
+//       const hash = await bcrypt.hash(company.red61_username, 10)
+//       company.red61_username = hash
+//     }
 
-    if(company.red61_password && company.isNew || company.isModified('red61_password')) {
-      const hash = await bcrypt.hash(company.red61_password, 10)
-      company.red61_password = hash
-    }
+//     if(company.red61_password && company.isNew || company.isModified('red61_password')) {
+//       const hash = await bcrypt.hash(company.red61_password, 10)
+//       company.red61_password = hash
+//     }
+//     next()
+//   }
+// )
 
-    next()
-  }
-)
+// Company.pre(
+//   'updateOne',
+//   async function(next) {
+//     let company = this;
+//     if(company.red61_username) {
+//       const hash = await bcrypt.hash(company.red61_username, 10)
+//       company.red61_username = hash
+//     }
 
-Company.pre(
-  'updateOne',
-  async function(next) {
-    let company = this;
-    if(company.red61_username) {
-      const hash = await bcrypt.hash(company.red61_username, 10)
-      company.red61_username = hash
-    }
+//     if(company.red61_password) {
+//       const hash = await bcrypt.hash(company.red61_password, 10)
+//       company.red61_password = hash
+//     }
 
-    if(company.red61_password) {
-      const hash = await bcrypt.hash(company.red61_password, 10)
-      company.red61_password = hash
-    }
-
-    next()
-  }
-)
+//     next()
+//   }
+// )
 
 /// ADD COMPANY.METHODS for providing plaintext red61 details
 
