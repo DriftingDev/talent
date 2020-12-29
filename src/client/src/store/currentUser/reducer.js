@@ -17,7 +17,7 @@ export const userReducer = (state, action) => {
     case "clearUser":
       return {
         ...state, 
-        user: {}, 
+        user: null, 
         loaded: false
       }
     case "updateUser":

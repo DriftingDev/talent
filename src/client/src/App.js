@@ -10,28 +10,28 @@ import NavTabs from './components/layout/NavTabs';
 //Screens
 import ArtistList from './screens/ArtistList';
 //Router
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ArtistScreen from './screens/ArtistScreen';
 //Context
-// import UserContext from './context/UserContext';
-
 import CurrentUserProvider from './store/currentUser'
 
 function App() {
 
   return (
     <CurrentUserProvider>
-      <Router>
-          <NavBar fixed='top' />
-          <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
+      
+      {/* <NavBar fixed='top' />
+      <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}> */}
+      <Switch>
             <Route path='/' component={Login} exact />
             <Route path='/register' component={Register} exact />
             <Route path='/artists' component={ArtistList} exact />
             <Route path='/redirect' render={"Poop"} exact />
             <Route path='/artists/:id' component={ArtistScreen} />
-          </Container>
-        <NavTabs />
-      </Router>
+        {/* <NavTabs /> */}
+      </Switch>
+      {/* </Container> */}
+      
     </CurrentUserProvider>
   );
 }
