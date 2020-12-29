@@ -104,7 +104,7 @@ describe('Route testing', () => {
             newUserId = res.body.user._id
             done()
           })
-      })
+      }).timeout(5000)
 
       it('Should return 400 and an error message without username or password', (done) => {
         chai.request(app)
