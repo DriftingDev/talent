@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "nyc mocha --exit",
+    "test": "mocha",
     "start": "node server.js"
   },
   "author": "",
