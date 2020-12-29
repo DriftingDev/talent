@@ -1,6 +1,6 @@
 export const defaultStateShape = {
   user: null,
-  token: null,
+  //token: null,
   loaded: false,
   signInError: false
 }
@@ -25,16 +25,21 @@ export const userReducer = (state, action) => {
         ...state,
         user: action.payload
       }
-    case "setToken":
+    case "setSignInError":
       return {
         ...state,
-        token: action.payload
+        signInError: true
       }
-      case "clearToken":
-      return {
-        ...state,
-        token: {}
-      }
+    // case "setToken":
+    //   return {
+    //     ...state,
+    //     token: action.payload
+    //   }
+    //   case "clearToken":
+    //   return {
+    //     ...state,
+    //     token: {}
+    //   }
     default: 
       throw new Error("Unknown action in Current User Reducer")
   }

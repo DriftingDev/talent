@@ -1,8 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router'
 //Bootstrap
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+// import Form from 'react-bootstrap/Form';
+// import Button from 'react-bootstrap/Button';
+import {Alert, Form, Button} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 //Formik & Yup
 import { Formik, Form as BaseForm } from 'formik';
@@ -53,6 +54,10 @@ function Login() {
             <WelcomeModal />
           </h4>
         </div>
+        {currentUserState.signInError &&
+        <Alert variant='danger'>
+          Sign in details incorrect, try again.
+        </Alert>}
         <Form.Group controlId='email'>
           <Form.Label>Email address</Form.Label>
           <Form.Control
