@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const authHeader = { headers: {"Authorization" : "Bearer " + JSON.parse(token)} } 
+
 export const axiosLoginUser = (user, dispatch) => {
   axios
     .post('http://localhost:3010/auth/login', {
@@ -45,17 +47,17 @@ export const axiosRegisterUser = (user, dispatch) => {
 };
 
 export const axiosFetchUser = (dispatch) => {
+  const token = localStorage.getItem('token')
   axios
-    .post('http://localhost:3010/auth/checkToken', {
-      token: localStorage.getItem('token')
-    })
+    .get('http://localhost:3010/auth/checkToken',  authHeader)
     .then((resp) => {
+      console.log(resp)
       dispatch({
         type: 'setUser',
         payload: resp.data.user
       })
     })
     .catch(function (error) {
-      console.log(error);
+      //console.log(error);
     });
 }
