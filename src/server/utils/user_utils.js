@@ -16,6 +16,5 @@ const deleteUser = (id) => {
 module.exports = {
   allUsers,
   userById,
-  addCompany,
   deleteUser
 }
