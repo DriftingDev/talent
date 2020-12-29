@@ -1,37 +1,37 @@
 // import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container } from 'react-bootstrap';
 import './App.scss';
 //Components
-import NavBar from './components/layout/NavBar';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
-import NavTabs from './components/layout/NavTabs';
+import PrivateRoutes from './components/auth/ProtectedRoutes';
 //Screens
 import ArtistList from './screens/ArtistList';
 //Router
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import ArtistScreen from './screens/ArtistScreen';
 //Context
-// import UserContext from './context/UserContext';
-
 import CurrentUserProvider from './store/currentUser'
 
 function App() {
 
   return (
     <CurrentUserProvider>
-      <Router>
-          <NavBar fixed='top' />
-          <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
+      
+      {/* <NavBar fixed='top' />
+      <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}> */}
+      <Switch>
             <Route path='/' component={Login} exact />
-            <Route path='/register' component={Register} exact />
-            <Route path='/artists' component={ArtistList} exact />
-            <Route path='/redirect' render={"Poop"} exact />
-            <Route path='/artists/:id' component={ArtistScreen} />
-          </Container>
-        <NavTabs />
-      </Router>
+            <PrivateRoutes>
+              <Route path='/register' component={Register} exact />
+              <Route path='/artists' component={ArtistList} exact />
+              <Route path='/redirect' render={"Poop"} exact />
+              <Route path='/artists/:id' component={ArtistScreen} />
+            </PrivateRoutes>
+        {/* <NavTabs /> */}
+      </Switch>
+      {/* </Container> */}
+      
     </CurrentUserProvider>
   );
 }

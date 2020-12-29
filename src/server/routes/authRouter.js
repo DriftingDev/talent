@@ -62,4 +62,18 @@ router.post(
   })(req, res, next);
 });
 
+router.get(
+  '/checkToken',
+  (req, res, next) => {
+    console.log(req)
+    next()
+  },
+  passport.authenticate('jwt', { session: false }),
+  (req,res) => {
+    res.json({
+      user: req.user
+    })
+  }
+)
+
 module.exports = router;
