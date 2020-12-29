@@ -23,11 +23,12 @@
     "passport-local": "^1.0.0",
     "chai": "*",
     "chai-http": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "nyc": "^15.1.0"
   },
   "devDependencies": {
-    "nodemon": "*",
-    "nyc": "^15.1.0"
+    "nodemon": "*"
+    
   },
   "engines": {
     "node": "14.8.0"
