@@ -1,11 +1,12 @@
-process.env.NODE_ENV = 'test'
+if(process.env.NODE_ENV !== 'production') {
+  process.env.NODE_ENV = 'test'
+}
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { app } = require('../server');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
 
 const User = require('../models/User.js')
 const Show = require('../models/Show')

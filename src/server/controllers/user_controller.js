@@ -1,7 +1,6 @@
 const {
   allUsers,
   userById,
-  getUserErrorHandle,
   deleteUser
 } = require('../utils/user_utils')
 

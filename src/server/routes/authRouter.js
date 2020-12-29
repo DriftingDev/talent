@@ -3,6 +3,10 @@ const router = express.Router();
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
+if(process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 router.post(
   '/register',
   passport.authenticate('signup', { session: false }),
@@ -41,10 +45,10 @@ router.post(
 
               if (req.body.remember) {
                 body = { _id: user._id, email: user.email, is_artist: user.is_artist };
-                token = jwt.sign({ user: body }, 'BERNARD_IS_BEST');
+                token = jwt.sign({ user: body }, process.env.JWT_SECRET);
               } else {
                 body = { _id: user._id, email: user.email, is_artist: user.is_artist };
-                token = jwt.sign({ user: body }, 'BERNARD_IS_BEST', {expiresIn: '24h'});
+                token = jwt.sign({ user: body }, process.env.JWT_SECRET, {expiresIn: '24h'});
               }
 
               user.password = null
