@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
+    "production-test": "mocha --exit",
+    "test": "nyc mocha --exit",
     "start": "node server.js"
   },
   "author": "",
@@ -15,24 +16,18 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "http": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
-    "kill-port": "^1.6.1",
     "mongoose": "^5.11.5",
-    "mongoose-bcrypt": "^1.9.0",
-    "nyc": "^15.1.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^6.0.1",
-    "socket.io-client": "^3.0.4"
-  },
-  "devDependencies": {
     "chai": "*",
     "chai-http": "*",
-    "mocha": "*",
-    "nodemon": "*"
+    "mocha": "*"
+  },
+  "devDependencies": {
+    "nodemon": "*",
+    "nyc": "^15.1.0"
   },
   "engines": {
     "node": "14.8.0"
