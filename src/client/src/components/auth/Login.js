@@ -18,7 +18,6 @@ function Login() {
   const {state: currentUserState, loginUser} = useContext(CurrentUserContext)
 
   useEffect(() => {
-    console.log(currentUserState)
     if (currentUserState.user != null) {
       if (currentUserState.user.is_artist) {
         history.push('/register')

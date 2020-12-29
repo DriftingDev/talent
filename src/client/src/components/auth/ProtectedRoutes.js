@@ -5,7 +5,12 @@ import { CurrentUserContext } from '../../store/currentUser'
 const PrivateRoutes = (props) => {
 
     const history = useHistory()
-    const {state: currentUserState} = useContext(CurrentUserContext)
+    const {state: currentUserState, fetchUser} = useContext(CurrentUserContext)
+
+    if (localStorage.getItem('token') && !currentUserState.user){
+        console.log("FIRING")
+        fetchUser()
+    }
 
     return (
         <Fragment>

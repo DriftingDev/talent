@@ -43,3 +43,19 @@ export const axiosRegisterUser = (user, dispatch) => {
       console.log(error);
     });
 };
+
+export const axiosFetchUser = (dispatch) => {
+  axios
+    .post('http://localhost:3010/auth/checkToken', {
+      token: localStorage.getItem('token')
+    })
+    .then((resp) => {
+      dispatch({
+        type: 'setUser',
+        payload: resp.data.user
+      })
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
