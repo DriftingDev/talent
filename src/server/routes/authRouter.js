@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport')
-const jwt = require('jsonwebtoken')
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
 if(process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -13,7 +13,7 @@ router.post(
   async (req, res, next) => {
     res.json({
       message: 'Signup successful',
-      user: req.user
+      user: req.user,
     });
   }
 );
@@ -34,14 +34,11 @@ router.post(
             return res.json(info)
           }
 
-          req.login(
-            user,
-            { session: false },
-            async (error) => {
-              if (error) return next(error);
+      req.login(user, { session: false }, async (error) => {
+        if (error) return next(error);
 
-              let body;
-              let token;
+        let body;
+        let token;
 
               if (req.body.remember) {
                 body = { _id: user._id, email: user.email, is_artist: user.is_artist };
@@ -51,21 +48,18 @@ router.post(
                 token = jwt.sign({ user: body }, process.env.JWT_SECRET, {expiresIn: '24h'});
               }
 
-              user.password = null
+        user.password = null;
 
-              return res.json({ 
-                token: token,
-                user: user
-               });
-            }
-          );
-        } catch (error) {
-          res.status(500)
-          return next(error);
-        }
-      }
-    )(req, res, next);
-  }
-);
+        return res.json({
+          token: token,
+          user: user,
+        });
+      });
+    } catch (error) {
+      res.status(500);
+      return next(error);
+    }
+  })(req, res, next);
+});
 
-module.exports = router
+module.exports = router;

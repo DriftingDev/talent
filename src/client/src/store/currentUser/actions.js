@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export const axiosLoginUser = (user, dispatch) => {
   axios
@@ -14,10 +14,9 @@ export const axiosLoginUser = (user, dispatch) => {
       console.log(localStorage.getItem('token'))
 
       dispatch({
-        type: "setUser",
+        type: 'setUser',
         payload: response.data.user
-      })
-      
+      });
     })
     .catch(function (error) {
       console.log(error);
@@ -26,4 +25,24 @@ export const axiosLoginUser = (user, dispatch) => {
       //   setError(`It's broken go somewhere else`);
       // }
     });
-}
+};
+
+export const axiosRegisterUser = (user, dispatch) => {
+  axios
+    .post('http://localhost:3010/auth/register', {
+      email: user.email,
+      password: user.password,
+      accname: user.accname,
+    })
+    .then(function (response) {
+      localStorage.setItem('token', JSON.stringify(response.token));
+      console.log(localStorage.getItem('token'));
+      dispatch({
+        type: 'setUser',
+        payload: response.data.user,
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
