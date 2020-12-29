@@ -19,7 +19,11 @@ function Login() {
 
   useEffect(() => {
     if (currentUserState.user != null) {
-      history.push('/artists')
+      if (currentUserState.user.is_artist) {
+        history.push('/artist/companies')
+      } else {
+        history.push('/producer/companies')
+      }
     }
   },[currentUserState])
 
