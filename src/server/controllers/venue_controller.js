@@ -1,4 +1,3 @@
-const { restart } = require('nodemon')
 const { 
   companyById 
 } = require('../utils/company_utils')
