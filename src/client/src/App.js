@@ -5,14 +5,14 @@ import './App.scss';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Loading from './components/layout/Loading'
-//Screens
-import ArtistList from './screens/ArtistList';
 //Router
 import { Route, Switch } from 'react-router-dom';
 import ArtistScreen from './screens/ArtistScreen';
 import PrivateRoutes from './components/auth/ProtectedRoutes';
 //Context 
 import { CurrentUserContext } from './store/currentUser'
+//Data Provider
+import DataProvider from './store/DataProvider'
 
 function App() {
 
@@ -24,7 +24,6 @@ function App() {
   }
 
   useEffect(() => {
-
   },[currentUserState])
 
   return (
@@ -36,9 +35,11 @@ function App() {
         <Route path='/' component={Login} exact />
         <Route path='/register' component={Register} exact />
         <PrivateRoutes>
-          <Route path='/companies' component={Register} exact />
-          <Route path='/artists' component={Register} exact />
-          <Route path='/artists/:id' component={ArtistScreen} />
+          <DataProvider>
+            <Route path='/companies' component={Register} exact />
+            <Route path='/artists' component={Register} exact />
+            <Route path='/artists/:id' component={ArtistScreen} />
+          </DataProvider>
         </PrivateRoutes>
       </Switch>
     }
