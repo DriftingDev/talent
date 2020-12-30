@@ -38,15 +38,7 @@ router.post(
         if (error) return next(error);
 
         user.password = null
-        let token;
-
-              if (req.body.remember) {
-                token = jwt.sign({ user: user }, process.env.JWT_SECRET);
-              } else {
-                token = jwt.sign({ user: user }, process.env.JWT_SECRET, {expiresIn: '24h'});
-              }
-
-        user.password = null;
+        let token = jwt.sign({ user: user }, process.env.JWT_SECRET);
 
         return res.json({
           token: token,

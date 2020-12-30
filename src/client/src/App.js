@@ -4,12 +4,13 @@ import './App.scss';
 //Components
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
-import PrivateRoutes from './components/auth/ProtectedRoutes';
 //Screens
 import ArtistList from './screens/ArtistList';
 //Router
 import { Route, Switch } from 'react-router-dom';
 import ArtistScreen from './screens/ArtistScreen';
+import PrivateRoutes from './components/auth/ProtectedRoutes';
+import ArtistRoutes from './components/auth/ArtistRoutes';
 //Context
 import CurrentUserProvider from './store/currentUser'
 
@@ -17,21 +18,17 @@ function App() {
 
   return (
     <CurrentUserProvider>
-      
-      {/* <NavBar fixed='top' />
-      <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}> */}
       <Switch>
-            <Route path='/' component={Login} exact />
-            <PrivateRoutes>
-              <Route path='/register' component={Register} exact />
-              <Route path='/artists' component={ArtistList} exact />
-              <Route path='/redirect' render={"Poop"} exact />
-              <Route path='/artists/:id' component={ArtistScreen} />
-            </PrivateRoutes>
-        {/* <NavTabs /> */}
+        <Route path='/' component={Login} exact />
+        <Route path='/register' component={Register} exact />
+        <PrivateRoutes>
+          <Route path='/companies' exact />
+          <ArtistRoutes>
+            <Route path='/artists' component={ArtistList} exact />
+          </ArtistRoutes>
+          <Route path='/artists/:id' component={ArtistScreen} />
+        </PrivateRoutes>
       </Switch>
-      {/* </Container> */}
-      
     </CurrentUserProvider>
   );
 }
