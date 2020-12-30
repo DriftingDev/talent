@@ -1,5 +1,6 @@
 if(process.env.NODE_ENV !== 'production') {
   process.env.NODE_ENV = 'test'
+  require('dotenv').config();
 }
 
 const chai = require('chai');
@@ -44,8 +45,8 @@ describe('Route testing', () => {
   }
 
   const createToken = (user) => {
-    body = { _id: user._id, email: user.email, is_artist: user.is_artist };
-    token = jwt.sign({ user: body }, 'BERNARD_IS_BEST');
+    user.password = null
+    token = jwt.sign({ user: user }, process.env.JWT_SECRET);
 
     return token
   }
@@ -185,6 +186,23 @@ describe('Route testing', () => {
             }
             expect(res).to.have.status(500)
             expect(res.body.message).to.equal("Wrong password")
+            done()
+          })
+      })
+    })
+
+    describe('GET /checkToken', () => {
+      it("Should return 200 and the user object that matches the token", (done) => {
+        chai.request(app)
+          .get('/auth/checkToken')
+          .set({"Authorization": `Bearer ${producerToken}`})
+          .end((err, res) => {
+            if (err) {
+              console.log(err)
+            }
+            expect(res).to.have.status(200)
+            expect(res.body).to.haveOwnProperty('user')
+            expect(res.body.user.accname).to.equal('producer')
             done()
           })
       })
