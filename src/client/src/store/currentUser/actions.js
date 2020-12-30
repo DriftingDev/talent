@@ -12,8 +12,8 @@ export const axiosLoginUser = (user, dispatch) => {
   axios
     .post('http://localhost:3010/auth/login', {
       email: user.email,
-      password: user.password,
-      remember: user.rememberMe
+      password: user.password
+      //remember: user.rememberMe
     })
     .then(function (response) {
       localStorage.setItem('token', JSON.stringify(response.data.token));
