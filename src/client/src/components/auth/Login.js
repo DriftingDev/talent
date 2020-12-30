@@ -20,9 +20,9 @@ function Login() {
   useEffect(() => {
     if (currentUserState.user != null) {
       if (currentUserState.user.is_artist) {
-        history.push('/register')
+        history.push('/companies')
       } else {
-        history.push('/register')
+        history.push('/companies')
       }
     }
   },[currentUserState])
@@ -39,8 +39,8 @@ function Login() {
       <Formik
         initialValues={{
           email: '',
-          password: '',
-          rememberMe: false
+          password: ''
+          //rememberMe: false
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -88,13 +88,13 @@ function Login() {
               {errors.password}
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group controlId='rememberMe'>
+          {/* <Form.Group controlId='rememberMe'>
             <Form.Label>Remember Me</Form.Label>
             <Form.Control
               type='checkbox'
               {...getFieldProps("rememberMe")}
             />
-          </Form.Group>
+          </Form.Group> */}
           <Button
             variant='primary'
             size='lg'
