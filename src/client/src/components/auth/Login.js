@@ -20,9 +20,9 @@ function Login() {
   useEffect(() => {
     if (currentUserState.user != null) {
       if (currentUserState.user.is_artist) {
-        history.push('/register')
+        history.push('/companies')
       } else {
-        history.push('/register')
+        history.push('/companies')
       }
     }
   },[currentUserState])

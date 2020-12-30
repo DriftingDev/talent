@@ -21,6 +21,7 @@ function NavBar() {
     dispatch({
       type: "clearUser"
     })
+    localStorage.removeItem('token')
     history.push('/')
   }
 

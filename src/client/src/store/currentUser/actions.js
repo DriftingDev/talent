@@ -1,5 +1,4 @@
 import axios from 'axios';
-const jwt = require('jsonwebtoken')
 
 let token;
 let authHeader;
@@ -18,7 +17,6 @@ export const axiosLoginUser = (user, dispatch) => {
     })
     .then(function (response) {
       localStorage.setItem('token', JSON.stringify(response.data.token));
-      console.log(localStorage.getItem('token'))
 
       dispatch({
         type: 'setUser',

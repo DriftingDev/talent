@@ -20,7 +20,7 @@ const Register = () => {
 
   useEffect(() => {
     if (currentUserState.user != null) {
-      //history.push('/artists')
+      history.push('/companies')
     }
   },[currentUserState, history])
 
