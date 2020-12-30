@@ -40,10 +40,10 @@ function NavBar() {
       </Navbar.Brand>
       {currentUserState.user &&
       <NavDropdown title="ICON HERE" className='ml-auto'>
-        <NavDropdown.Item onClick={() => history.push(`/${dynamicURL}/team`)}>
+        <NavDropdown.Item onClick={() => history.push(`/team`)}>
           Team
         </NavDropdown.Item>
-        <NavDropdown.Item onClick={() => history.push(`/${dynamicURL}/companies`)}>
+        <NavDropdown.Item onClick={() => history.push(`/companies`)}>
           Companies
         </NavDropdown.Item>
         <NavDropdown.Item onClick={logoutFunc}>

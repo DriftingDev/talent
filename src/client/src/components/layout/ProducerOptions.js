@@ -10,16 +10,16 @@ const ProducerOptions = () => {
   return (
     <Navbar fixed='bottom' bg='dark' variant='dark'>
       <Nav className='ml-auto'>
-        <Nav.Link onClick={() => {history.push('/producer/calendar')}}>
+        <Nav.Link onClick={() => {history.push('/calendar')}}>
           Calendar
         </Nav.Link>
-        <Nav.Link onClick={() => {history.push('/producer/shows')}}>
+        <Nav.Link onClick={() => {history.push('/shows')}}>
           Shows
         </Nav.Link>
-        <Nav.Link onClick={() => {history.push('/producer/artists')}}>
+        <Nav.Link onClick={() => {history.push('/artists')}}>
           Artists
         </Nav.Link>
-        <Nav.Link onClick={() => {history.push('/producer/venues')}}>
+        <Nav.Link onClick={() => {history.push('/venues')}}>
           Venues
         </Nav.Link>
       </Nav>
