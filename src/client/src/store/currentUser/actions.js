@@ -1,6 +1,13 @@
 import axios from 'axios';
+const jwt = require('jsonwebtoken')
 
-const authHeader = { headers: {"Authorization" : "Bearer " + JSON.parse(token)} } 
+let token;
+let authHeader;
+
+if (localStorage.getItem('token')) {
+  token = JSON.parse(localStorage.getItem('token'))
+  authHeader = { headers: {"Authorization" : "Bearer " + token} } 
+}
 
 export const axiosLoginUser = (user, dispatch) => {
   axios
@@ -47,17 +54,16 @@ export const axiosRegisterUser = (user, dispatch) => {
 };
 
 export const axiosFetchUser = (dispatch) => {
-  const token = localStorage.getItem('token')
-  axios
-    .get('http://localhost:3010/auth/checkToken',  authHeader)
-    .then((resp) => {
-      console.log(resp)
-      dispatch({
-        type: 'setUser',
-        payload: resp.data.user
+    axios
+      .get('http://localhost:3010/auth/checkToken',  authHeader)
+      .then((resp) => {
+        console.log(resp)
+        dispatch({
+          type: 'setUser',
+          payload: resp.data.user
+        })
       })
-    })
-    .catch(function (error) {
-      //console.log(error);
-    });
+      .catch(function (error) {
+        console.log(error);
+      });
 }

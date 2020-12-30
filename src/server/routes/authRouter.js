@@ -37,18 +37,8 @@ router.post(
       req.login(user, { session: false }, async (error) => {
         if (error) return next(error);
 
-        let body;
-        let token;
-
-              if (req.body.remember) {
-                body = { _id: user._id, email: user.email, is_artist: user.is_artist };
-                token = jwt.sign({ user: body }, process.env.JWT_SECRET);
-              } else {
-                body = { _id: user._id, email: user.email, is_artist: user.is_artist };
-                token = jwt.sign({ user: body }, process.env.JWT_SECRET, {expiresIn: '24h'});
-              }
-
-        user.password = null;
+        user.password = null
+        let token = jwt.sign({ user: user }, process.env.JWT_SECRET);
 
         return res.json({
           token: token,
@@ -64,10 +54,6 @@ router.post(
 
 router.get(
   '/checkToken',
-  (req, res, next) => {
-    console.log(req)
-    next()
-  },
   passport.authenticate('jwt', { session: false }),
   (req,res) => {
     res.json({

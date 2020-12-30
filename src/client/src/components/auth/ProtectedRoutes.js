@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import { CurrentUserContext } from '../../store/currentUser'
 
@@ -12,9 +12,19 @@ const PrivateRoutes = (props) => {
         fetchUser()
     }
 
+    console.log(currentUserState.user)
+
+    useEffect(() => {
+
+    },[currentUserState])
+
     return (
         <Fragment>
-            { currentUserState.user ? props.children : history.push('/') }
+            // If localStorage token exists, check for user, if user exists, render children
+            // otherwise render load. if no localStorage, push to login
+            { localStorage.getItem('token') ? 
+                currentUserState.user ? 
+                 : history.push('/') }
         </Fragment>
     )
 }
