@@ -33,7 +33,7 @@ const Register = () => {
   return (
     <>
     <NavBar/>
-    <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
+    <Container>
       <Formik
         initialValues={{
           email: '',

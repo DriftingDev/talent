@@ -5,6 +5,7 @@ import './App.scss';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Loading from './components/layout/Loading'
+import Calendar from './components/producer/Calendar'
 //Router
 import { Route, Switch } from 'react-router-dom';
 import ArtistScreen from './screens/ArtistScreen';
@@ -37,6 +38,7 @@ function App() {
         <PrivateRoutes>
           <DataProvider>
             <Route path='/companies' component={Register} exact />
+            <Route path='/calendar' component={Calendar} exact />
             <Route path='/artists' component={Register} exact />
             <Route path='/artists/:id' component={ArtistScreen} />
           </DataProvider>
