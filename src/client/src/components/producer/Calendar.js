@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react'
 import { useHistory } from 'react-router'
-import { Container, Row, Col, Alert } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from '../layout/NavBar'
 import ProducerNextShows from './ProducerNextShows'
@@ -19,8 +19,8 @@ const Calendar = () => {
     <>
       <NavBar/>
       <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
-        <Row class="d-flex justify-content-center">
-          <Col className='col-9 col-md-10 col-xs-12'>
+        <Row className="justify-content-center">
+          <Col xs={12} md={10} lg={9} className='pt-4'>
             <ProducerNextShows />
           </Col>
         </Row>
