@@ -9,25 +9,21 @@ import { object, string } from 'yup';
 //Components
 import NavBar from '../layout/NavBar';
 //Global State
-import { CurrentUserContext } from '../../store/currentUser';
+import { CompanyContext } from '../../store/company';
 
-const Register = () => {
+const Companies = () => {
   const history = useHistory();
 
-  const { state: currentUserState, registerUser } = useContext(
-    CurrentUserContext
-  );
+  const { state: companyState, createCompany } = useContext(CompanyContext);
 
   useEffect(() => {
-    if (currentUserState.user != null) {
+    if (companyState.user != null) {
       history.push('/companies');
     }
-  }, [currentUserState, history]);
+  }, [companyState, history]);
 
   const validationSchema = object({
-    email: string().required('An email is required'),
-    password: string().required('A password is required'),
-    accname: string().required('A username is required'),
+    company: string().required('A company is required'),
   });
 
   return (
@@ -36,31 +32,29 @@ const Register = () => {
       <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
         <Formik
           initialValues={{
-            email: '',
-            password: '',
-            accname: '',
+            company: '',
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            registerUser(values);
+            createCompany(values);
           }}
         >
           {({ getFieldProps, errors, touched }) => (
-            <BaseForm className='login-form'>
+            <BaseForm className='standard-form'>
               <div className='d-flex'>
                 <h4>Create Company</h4>
               </div>
-              <Form.Group controlId='email'>
+              <Form.Group controlId='company'>
                 <Form.Label>
                   Add an event company you will be working with
                 </Form.Label>
                 <Form.Control
-                  {...getFieldProps('email')}
+                  {...getFieldProps('company')}
                   placeholder='Enter Company Name'
-                  isInvalid={touched.email && !!errors.email}
+                  isInvalid={touched.company && !!errors.company}
                 />
                 <Form.Control.Feedback type='invalid'>
-                  {errors.email}
+                  {errors.company}
                 </Form.Control.Feedback>
               </Form.Group>
               <Button variant='primary' size='lg' type='submit' block>
@@ -69,9 +63,10 @@ const Register = () => {
             </BaseForm>
           )}
         </Formik>
+        
       </Container>
     </>
   );
 };
 
-export default Register;
+export default Companies;
