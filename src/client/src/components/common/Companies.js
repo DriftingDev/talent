@@ -14,13 +14,17 @@ import { CompanyContext } from '../../store/company';
 const Companies = () => {
   const history = useHistory();
 
-  const { state: companyState, createCompany } = useContext(CompanyContext);
+  const { state: companyState, createCompany, getAllCompanies } = useContext(
+    CompanyContext
+  );
 
   useEffect(() => {
     if (companyState.user != null) {
       history.push('/companies');
     }
-  }, [companyState, history]);
+    getAllCompanies();
+    console.log(companyState);
+  }, []);
 
   const validationSchema = object({
     company: string().required('A company is required'),
@@ -63,7 +67,11 @@ const Companies = () => {
             </BaseForm>
           )}
         </Formik>
-        
+
+        {companyState.companies &&
+          companyState.companies.companies.map((company) => (
+            <p>{company.name}</p>
+          ))}
       </Container>
     </>
   );
