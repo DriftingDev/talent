@@ -6,15 +6,19 @@ import NavBar from '../layout/NavBar'
 import ProducerNextShows from './ProducerNextShows'
 import CalendarDisplay from '../common/CalendarDisplay'
 import {ShowContext} from '../../store/show'
+import {CurrentUserContext} from '../../store/currentUser'
 
 const Calendar = () => {
 
   const history = useHistory()
   const {state: ShowState} = useContext(ShowContext)
+  const {state: CurrentUserState} = useContext(CurrentUserContext)
 
-  // useEffect(() =>{
-
-  // })
+  useEffect(() =>{
+    if(CurrentUserState.user.is_artist) {
+      history.push('/companies')
+    }
+  }, [CurrentUserState])
 
   return (
     <>
@@ -25,8 +29,8 @@ const Calendar = () => {
             <ProducerNextShows />
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row className="justify-content-center">
+          <Col xs={12} md={10} lg={9} className='pt-4'>
             <CalendarDisplay/>
           </Col>
         </Row>

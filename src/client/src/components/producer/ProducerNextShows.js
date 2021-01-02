@@ -1,50 +1,84 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Alert } from 'react-bootstrap'
 import { BiTime } from 'react-icons/bi'
 import { AiFillSound } from "react-icons/ai"
+import EventModal from '../common/EventModal'
+import moment from 'moment'
 
 const showArray = [
   {
     _id:1,
-    datetime: 1609374345,
-    showName: "show 1"
+    eventStart: moment().format(),
+    eventEnd: moment().add(1,'hours').format(),
+    descrip: "This is a description",
+    showName: "Show 1"
   },
   {
     _id:2,
-    datetime: 1609374340,
-    showName: "show 2"
+    eventStart: moment().add(1,'hours').format(),
+    eventEnd: moment().add(2,'hours').format(),
+    descrip: "This is a description",
+    showName: "Show 2"
   },
   {
-    _id:3,
-    datetime: 1609374343,
-    showName: "show 3"
+    _id:1,
+    eventStart: moment().add(2,'hours').format(),
+    eventEnd: moment().add(3,'hours').format(),
+    descrip: "This is a description",
+    showName: "Show 2"
   }
 ]
 
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-
 const ProducerNextShows = () => {
 
+  const modalStateShape = {
+    title: "",
+    eventStart: "",
+    eventEnd: "",
+    descrip: ""
+  }
+  const [modalShow, setModalShow] = useState(false);
+  const [modalDetails, setModalDetails] = useState(modalStateShape)
+
+  const displayEventModal = (show) => {
+    
+    setModalDetails({
+      title: show.showName,
+      eventStart: moment(show.eventStart).format('MMMM Do YYYY, h:mm a'),
+      eventEnd: moment(show.eventEnd).format('MMMM Do YYYY, h:mm a'),
+      descrip: show.descrip
+    })
+    setModalShow(true)
+  }
+
   const nextShows = showArray.map((show) => {
-    let date = new Date(show.datetime)
+    
     return (
-      <Alert key={show._id} variant="danger" className="px-1 py-2" >
-        <div className='d-flex justify-content-between px-3'>
-          <p className='px-2 m-0'>
-            <BiTime /> {monthNames[date.getMonth()]} {date.getDate()} @ {date.getHours()}:{date.getMinutes()} 
-          </p>
-          <p className='px-2 m-0'>
-            <AiFillSound /> {show.showName}
-          </p>
-        </div>
-      </Alert>
+      <>
+        <Alert key={show._id} variant="danger" className="px-1 py-2" onClick={() => {displayEventModal(show)}}>
+          <div className='d-flex justify-content-between px-3'>
+            <p className='px-2 m-0'>
+              <BiTime /> {moment(show.eventStart).format('MMMM Do YYYY @ h:mm:ss a')} 
+            </p>
+            <p className='px-2 m-0'>
+              <AiFillSound /> {show.showName}
+            </p>
+          </div>
+        </Alert>
+        
+      </>
     )
   })
 
   return (
-    nextShows
+    <>
+    {nextShows}
+    <EventModal 
+        details={modalDetails}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+    />
+    </>
   )
 
 }
