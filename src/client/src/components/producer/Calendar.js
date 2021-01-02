@@ -16,6 +16,8 @@ const Calendar = () => {
   const {state: CurrentUserState} = useContext(CurrentUserContext)
 
   useEffect(() =>{
+    // add below when localStorage is implemented
+    //if(CurrentUserState.user.is_artist || !localStorage.getItem('currentCompany'))
     if(CurrentUserState.user.is_artist) {
       history.push('/companies')
     }
