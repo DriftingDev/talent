@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from '../layout/NavBar'
 import ProducerNextShows from './ProducerNextShows'
+import CalendarDisplay from '../common/CalendarDisplay'
 import {ShowContext} from '../../store/show'
 
 const Calendar = () => {
@@ -26,7 +27,7 @@ const Calendar = () => {
         </Row>
         <Row>
           <Col>
-            {/* <CalendarDisplay/> */}
+            <CalendarDisplay/>
           </Col>
         </Row>
       </Container>
