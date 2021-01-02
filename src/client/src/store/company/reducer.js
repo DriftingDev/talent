@@ -15,9 +15,9 @@ export const companyReducer = (state, action) => {
     case 'clearCompanies':
       return {
         ...state,
-        companies: {},
-        loaded: false,
-      };
+        companies: null,
+        loaded: false
+      }
     case 'updateCompanies':
       return {
         ...state,

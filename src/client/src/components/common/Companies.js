@@ -8,6 +8,7 @@ import { Formik, Form as BaseForm } from 'formik';
 import { object, string } from 'yup';
 //Components
 import NavBar from '../layout/NavBar';
+import CompanyItem from './CompanyItem';
 //Global State
 import { CompanyContext } from '../../store/company';
 
@@ -22,9 +23,11 @@ const Companies = () => {
     if (companyState.user != null) {
       history.push('/companies');
     }
-    getAllCompanies();
-    console.log(companyState);
-  }, []);
+    if (companyState.companies == null) {
+      getAllCompanies();
+    }
+    // console.log(companyState);
+  }, [companyState]);
 
   const validationSchema = object({
     company: string().required('A company is required'),
@@ -67,10 +70,9 @@ const Companies = () => {
             </BaseForm>
           )}
         </Formik>
-
         {companyState.companies &&
-          companyState.companies.companies.map((company) => (
-            <p>{company.name}</p>
+          companyState.companies.map((company) => (
+            <CompanyItem company={company} />
           ))}
       </Container>
     </>

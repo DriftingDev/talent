@@ -24,8 +24,7 @@ export const axiosCreateCompany = (user, dispatch) => {
       // localStorage.setItem('token', JSON.stringify(response.data.token));
 
       dispatch({
-        type: 'setCompanies',
-        payload: response.data,
+        type: 'clearCompanies',
       });
     })
     .catch(function (error) {
@@ -34,6 +33,7 @@ export const axiosCreateCompany = (user, dispatch) => {
 };
 
 export const axiosGetAllCompanies = (dispatch) => {
+  console.log('in the axiosGetAllCompanies call');
   axios
     .get('http://localhost:3010/company/userCompanies', authHeader)
     .then(function (response) {
@@ -41,7 +41,34 @@ export const axiosGetAllCompanies = (dispatch) => {
       console.log(response.data);
       dispatch({
         type: 'setCompanies',
-        payload: response.data,
+        payload: response.data.companies,
+      });
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+};
+
+export const axiosUpdateCompany = (updatedCompany, dispatch, company) => {
+  console.log('in the axiosUpdateCompany call');
+  // console.log(company._id);
+  // console.log(company);
+  axios
+    .post(
+      `http://localhost:3010/company/${company._id}`,
+      {
+        name: updatedCompany.company,
+      },
+      authHeader
+    )
+    .then(function (response) {
+      // handle success
+      dispatch({
+        type: 'clearCompanies',
       });
     })
     .catch(function (error) {
