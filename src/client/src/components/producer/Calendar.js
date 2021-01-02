@@ -29,16 +29,18 @@ const Calendar = () => {
     <>
       <NavBar/>
       {ShowState.loaded ? 
-      <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
+      <Container bg='dark' fluid >
         <Row className="justify-content-center">
           <Col xs={12} md={10} lg={9} className='pt-4'>
             <ProducerNextShows shows={ShowState.shows}/>
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Col xs={12} md={10} lg={9} className='pt-4'>
+          <Col xs={12} md={10} lg={9} className='py-4'>
             <CalendarDisplay events={ShowState.shows}/>
           </Col>
+        </Row>
+        <Row className='py-4'>
         </Row>
       </Container>
       :
