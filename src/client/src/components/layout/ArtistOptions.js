@@ -10,13 +10,13 @@ const ArtistOptions = () => {
   return (
     <Navbar fixed='bottom' bg='dark' variant='dark'>
       <Nav className='ml-auto'>
-        <Nav.Link onClick={() => {history.push('/artist/shows')}}>
+        <Nav.Link onClick={() => {history.push('/shows')}}>
           Shows
         </Nav.Link>
-        <Nav.Link onClick={() => {history.push('/artist/venues')}}>
+        <Nav.Link onClick={() => {history.push('/venues')}}>
           Venues
         </Nav.Link>
-        <Nav.Link onClick={() => {history.push('/artist/team')}}>
+        <Nav.Link onClick={() => {history.push('/team')}}>
           Team
         </Nav.Link>
       </Nav>
