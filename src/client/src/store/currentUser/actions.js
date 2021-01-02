@@ -55,7 +55,6 @@ export const axiosFetchUser = (dispatch) => {
     axios
       .get('http://localhost:3010/auth/checkToken',  authHeader)
       .then((resp) => {
-        console.log(resp)
         dispatch({
           type: 'setUser',
           payload: resp.data.user

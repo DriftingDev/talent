@@ -10,9 +10,6 @@ const localizer = momentLocalizer(moment)
 const start = new Date(moment().format())
 const end = new Date(moment().add(3, 'hours').format())
 
-console.log(start)
-console.log(end)
-
 const dummyData = [
   {
     title: "event 1",

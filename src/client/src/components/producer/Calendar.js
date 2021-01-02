@@ -5,36 +5,45 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from '../layout/NavBar'
 import ProducerNextShows from './ProducerNextShows'
 import CalendarDisplay from '../common/CalendarDisplay'
+import Loading from '../layout/Loading'
 import {ShowContext} from '../../store/show'
 import {CurrentUserContext} from '../../store/currentUser'
 
 const Calendar = () => {
 
   const history = useHistory()
-  const {state: ShowState} = useContext(ShowContext)
+  const {state: ShowState, getShows} = useContext(ShowContext)
   const {state: CurrentUserState} = useContext(CurrentUserContext)
 
   useEffect(() =>{
     if(CurrentUserState.user.is_artist) {
       history.push('/companies')
     }
-  }, [CurrentUserState])
+    if(ShowState.shows == null) {
+      getShows()
+    }
+
+  }, [CurrentUserState, ShowState])
 
   return (
     <>
       <NavBar/>
+      {ShowState.loaded ? 
       <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
         <Row className="justify-content-center">
           <Col xs={12} md={10} lg={9} className='pt-4'>
-            <ProducerNextShows />
+            <ProducerNextShows shows={ShowState.shows}/>
           </Col>
         </Row>
         <Row className="justify-content-center">
           <Col xs={12} md={10} lg={9} className='pt-4'>
-            <CalendarDisplay/>
+            <CalendarDisplay events={ShowState.shows}/>
           </Col>
         </Row>
       </Container>
+      :
+      <Loading />
+      }
     </>
   )
 
