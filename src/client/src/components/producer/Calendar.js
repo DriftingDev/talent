@@ -1,7 +1,6 @@
 import React, {useContext, useEffect} from 'react'
 import { useHistory } from 'react-router'
 import { Container, Row, Col } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from '../layout/NavBar'
 import ProducerNextShows from './ProducerNextShows'
 import CalendarDisplay from '../common/CalendarDisplay'

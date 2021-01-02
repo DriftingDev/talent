@@ -7,13 +7,13 @@ import reportWebVitals from './reportWebVitals';
 import CurrentUserProvider from './store/currentUser'
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       <CurrentUserProvider>
         <App />
       </CurrentUserProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+    </BrowserRouter>,
+  // </React.StrictMode>
   document.getElementById('root')
 );
 
