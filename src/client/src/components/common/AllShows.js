@@ -10,7 +10,7 @@ import {CurrentUserContext} from '../../store/currentUser'
 const AllShows = () => {
 
   const history = useHistory()
-  const {state: ShowState, getShows} = useContext(ShowContext)
+  const {state: ShowState, getShows, getShowsByUser} = useContext(ShowContext)
   const {state: CurrentUserState} = useContext(CurrentUserContext)
 
   useEffect(() =>{
@@ -19,9 +19,9 @@ const AllShows = () => {
     //   history.push('/companies')
     // }
     if(ShowState.shows == null) {
-      getShows()
+      CurrentUserState.user.is_artist ? 
+      getShowsByUser(CurrentUserState.user._id) : getShows()
     }
-
   }, [CurrentUserState, ShowState])
 
   return (

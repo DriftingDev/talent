@@ -9,7 +9,7 @@ const showById = (id) => {
 }
 
 const showsByUser = (user_id) => {
-  return Show.find({artists: user_id})
+  return Show.find({artists: user_id}).populate('artists').populate('venue')
 }
 
 const showsByCompany = (company_id) => {

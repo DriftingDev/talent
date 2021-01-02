@@ -23,3 +23,17 @@ export const axiosGetShows = (dispatch) => {
     });
 }
 
+export const axiosGetShowsByUser = (dispatch, id) => {
+  axios
+    .get(`http://localhost:3010/show/showsByUser/${id}`,  authHeader)
+    .then((resp) => {
+      dispatch({
+        type: 'setShows',
+        payload: resp.data.shows
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
