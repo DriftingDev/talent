@@ -6,26 +6,25 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Loading from './components/layout/Loading'
 import Calendar from './components/producer/Calendar'
+import Companies from './components/common/Companies';
 //Router
 import { Route, Switch } from 'react-router-dom';
 import ArtistScreen from './screens/ArtistScreen';
 import PrivateRoutes from './components/auth/ProtectedRoutes';
-//Context 
-import { CurrentUserContext } from './store/currentUser'
+//Context
+import { CurrentUserContext } from './store/currentUser';
 //Data Provider
-import DataProvider from './store/DataProvider'
+import DataProvider from './store/DataProvider';
 
 function App() {
+  const { state: currentUserState, fetchUser } = useContext(CurrentUserContext);
+  const unloadedUser = localStorage.getItem('token') && !currentUserState.user;
 
-  const {state: currentUserState, fetchUser} = useContext(CurrentUserContext)
-  const unloadedUser = (localStorage.getItem('token') && !currentUserState.user) 
-
-  if (unloadedUser){
-    fetchUser()
+  if (unloadedUser) {
+    fetchUser();
   }
 
-  useEffect(() => {
-  },[currentUserState])
+  useEffect(() => {}, [currentUserState]);
 
   return (
     <>
@@ -37,7 +36,7 @@ function App() {
         <Route path='/register' component={Register} exact />
         <PrivateRoutes>
           <DataProvider>
-            <Route path='/companies' component={Register} exact />
+            <Route path='/companies' component={Companies} exact />
             <Route path='/calendar' component={Calendar} exact />
             <Route path='/artists' component={Register} exact />
             <Route path='/artists/:id' component={ArtistScreen} />

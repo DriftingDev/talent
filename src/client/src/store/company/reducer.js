@@ -1,39 +1,40 @@
 export const defaultStateShape = {
   companies: null,
   currentCompany: null,
-  loaded: false
-}
+  loaded: false,
+};
 
 export const companyReducer = (state, action) => {
   switch (action.type) {
-    case "setCompanies":
+    case 'setCompanies':
       return {
         ...state,
         companies: action.payload,
-        loaded: true
+        loaded: true,
       };
-    case "clearCompanies":
+    case 'clearCompanies':
       return {
-        ...state, 
-        companies: {}, 
+        ...state,
+        companies: null,
         loaded: false
       }
-    case "updateCompanies":
+    case 'updateCompanies':
       return {
         ...state,
-        companies: action.payload
-      }
-    case "setCurrentCompany":
+        companies: action.payload,
+      };
+    case 'setCurrentCompany':
+      // This is for when a user clciks on a company from the list. It should set the company.
       return {
         ...state,
-        currentCompany: action.payload
-      }
-      case "clearCurrentCompany":
+        currentCompany: action.payload,
+      };
+    case 'clearCurrentCompany':
       return {
         ...state,
-        currentCompany: {}
-      }
-    default: 
-      throw new Error("Unknown action in Company Reducer")
+        currentCompany: {},
+      };
+    default:
+      throw new Error('Unknown action in Company Reducer');
   }
-}
+};

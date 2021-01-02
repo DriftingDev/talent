@@ -25,7 +25,7 @@ function Login() {
         history.push('/companies')
       }
     }
-  },[currentUserState])
+  },[currentUserState, history])
 
   const validationSchema = object({
     email: string().required("An email is required"),
