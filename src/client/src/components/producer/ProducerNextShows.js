@@ -11,7 +11,10 @@ const ProducerNextShows = ({ shows }) => {
     title: "",
     eventStart: "",
     eventEnd: "",
-    descrip: ""
+    descrip: "",
+    slug: "",
+    venue: null,
+    artists: []
   }
   const [modalShow, setModalShow] = useState(false);
   const [modalDetails, setModalDetails] = useState(modalStateShape)
@@ -23,16 +26,16 @@ const ProducerNextShows = ({ shows }) => {
       eventStart: moment(show.eventStart).format('MMMM Do YYYY, h:mm a'),
       eventEnd: moment(show.eventEnd).format('MMMM Do YYYY, h:mm a'),
       descrip: show.descrip,
-      slug: show.showNameSlug
+      slug: show.showNameSlug,
+      artists: show.artists,
+      venue: show.venue
     })
     setModalShow(true)
   }
 
   const nextShows = shows.filter((show) => {
     //if the current moment is "smaller" than the event moment, it is in the future
-    if(moment() < moment(show.eventEnd)){
-      return true
-    }
+    return moment() < moment(show.eventEnd)
   }).slice(0,3).map((show) => {
     return (
       <div key={show._id} >

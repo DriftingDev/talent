@@ -6,18 +6,6 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 const localizer = momentLocalizer(moment)
 
-// const start = new Date(moment().format())
-// const end = new Date(moment().add(3, 'hours').format())
-
-// const dummyData = [
-//   {
-//     title: "event 1",
-//     start: start,
-//     end: end,
-//     resources: "This is an event that happens"
-//   }
-// ]
-
 const CalendarDisplay = ({events}) => {
   const calendarEvents = events.map((show) => {
     show.eventStart = moment(show.eventStart).toDate()
@@ -29,7 +17,10 @@ const CalendarDisplay = ({events}) => {
     title: "",
     eventStart: "",
     eventEnd: "",
-    descrip: ""
+    descrip: "",
+    slug: "",
+    venue: null,
+    artists: []
   }
   const [modalShow, setModalShow] = useState(false);
   const [modalDetails, setModalDetails] = useState(modalStateShape)
@@ -40,7 +31,9 @@ const CalendarDisplay = ({events}) => {
       eventStart: moment(e.eventStart).format('MMMM Do YYYY, h:mm a'),
       eventEnd: moment(e.eventEnd).format('MMMM Do YYYY, h:mm a'),
       descrip: e.descrip,
-      slug: e.showNameSlug
+      slug: e.showNameSlug,
+      artists: e.artists,
+      venue: e.venue
     })
     setModalShow(true)
   }

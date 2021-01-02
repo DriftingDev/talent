@@ -13,7 +13,7 @@ const showsByUser = (user_id) => {
 }
 
 const showsByCompany = (company_id) => {
-  return Show.find({company: company_id})
+  return Show.find({company: company_id}).populate('artists').populate('venue')
 }
 
 const deleteShow = (id) => {
