@@ -8,6 +8,7 @@ const chaiHttp = require('chai-http');
 const { app } = require('../server');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
+const moment = require('moment')
 
 const User = require('../models/User.js')
 const Show = require('../models/Show')
@@ -772,7 +773,8 @@ describe('Route testing', () => {
           company: newCompanyId,
           artists: artistId,
           showName: "show1",
-          datetime: 1609113488
+          eventStart: moment().format(),
+          eventEnd: moment().add(2,'hours').format()
         })
 
         show.save((err, show) => {
@@ -809,7 +811,8 @@ describe('Route testing', () => {
           .send({
             company: newCompanyId,
             showName: "show2",
-            datetime: 1609123653,
+            eventStart: moment().format(),
+            eventEnd: moment().add(2,'hours').format(),
             venue: newVenueId
           })
           .end((err,res) => {
@@ -830,7 +833,8 @@ describe('Route testing', () => {
           .send({
             company: "notanid",
             showName: "show2",
-            datetime: 1609123653
+            eventStart: moment().format(),
+            eventEnd: moment().add(2,'hours').format()
           })
           .end((err,res) => {
             if (err) {

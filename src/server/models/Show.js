@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema  = mongoose.Schema;
+const moment = require('moment')
 
 const Show = new Schema ({
   venue: {
@@ -19,7 +20,11 @@ const Show = new Schema ({
     type: String,
     required: true
   },
-  datetime: {
+  eventStart: {
+    type: Date,
+    required: true
+  },
+  eventEnd: {
     type: Date,
     required: true
   },
