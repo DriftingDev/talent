@@ -22,7 +22,8 @@ const ProducerNextShows = ({ shows }) => {
       title: show.showName,
       eventStart: moment(show.eventStart).format('MMMM Do YYYY, h:mm a'),
       eventEnd: moment(show.eventEnd).format('MMMM Do YYYY, h:mm a'),
-      descrip: show.descrip
+      descrip: show.descrip,
+      slug: show.showNameSlug
     })
     setModalShow(true)
   }

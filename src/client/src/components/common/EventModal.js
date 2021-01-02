@@ -1,7 +1,9 @@
 import {Modal, Button} from 'react-bootstrap'
+import {useHistory} from 'react-router'
 
 const EventModal = (props) => {
   const details = props.details
+  const history = useHistory()
   return (
     <Modal
       {...props}
@@ -23,7 +25,8 @@ const EventModal = (props) => {
           {details.descrip}
         </p>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className='justify-content-between'>
+        <Button onClick={() => {history.push(`/shows/${details.slug}`)}}>All show times</Button>
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal>

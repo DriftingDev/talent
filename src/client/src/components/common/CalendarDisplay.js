@@ -39,7 +39,8 @@ const CalendarDisplay = ({events}) => {
       title: e.showName,
       eventStart: moment(e.eventStart).format('MMMM Do YYYY, h:mm a'),
       eventEnd: moment(e.eventEnd).format('MMMM Do YYYY, h:mm a'),
-      descrip: e.descrip
+      descrip: e.descrip,
+      slug: e.showNameSlug
     })
     setModalShow(true)
   }
@@ -53,7 +54,6 @@ const CalendarDisplay = ({events}) => {
         endAccessor="eventEnd"
         titleAccessor="showName"
         resourceAccessor="descrip"
-        allDayAccessor="is_completed"
         style={{ height: 500 }}
         onSelectEvent={displayEventModal}
         dayLayoutAlgorithm='no-overlap'
