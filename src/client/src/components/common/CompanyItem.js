@@ -1,8 +1,24 @@
-import React from 'react';
+import React , {useContext} from 'react';
 import { Card, Col, Row, Button } from 'react-bootstrap';
 import CompanyEditModal from './CompanyEditModal';
+import { useHistory } from 'react-router'
+import {CurrentUserContext} from '../../store/currentUser'
 
 const CompanyItem = ({ company }) => {
+
+  const history = useHistory()
+  const { state: currentUserState } = useContext(CurrentUserContext);
+
+  const selectCompany = (company) => {
+    if (localStorage.getItem('currentCompany')) {
+      localStorage.removeItem('currentCompany')
+    }
+    localStorage.setItem('currentCompany',company._id)
+    console.log(localStorage.getItem('currentCompany'))
+    currentUserState.user.is_artist ? 
+      history.push("/shows") :
+      history.push("/calendar")
+  }
   // console.log(company);
   return (
     <>
@@ -18,6 +34,13 @@ const CompanyItem = ({ company }) => {
             </Col>
           </Row>
           <Row>
+            <Button 
+              variant='primary'
+              size='lg'
+              type='submit'
+              block
+              onClick={() => {selectCompany(company)}}
+            >Select</Button>
             <CompanyEditModal company={company} />
           </Row>
         </Card.Body>
