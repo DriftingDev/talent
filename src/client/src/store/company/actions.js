@@ -79,3 +79,23 @@ export const axiosUpdateCompany = (updatedCompany, dispatch, company) => {
       // always executed
     });
 };
+
+export const axiosDeleteCompany = (dispatch, company) => {
+  console.log('in the axiosDeleteCompany call');
+  console.log(company._id);
+  axios
+    .delete(`http://localhost:3010/company/${company._id}`, authHeader)
+    .then(function (response) {
+      // handle success
+      dispatch({
+        type: 'setCurrentCompany',
+      });
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+};
