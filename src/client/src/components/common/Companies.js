@@ -36,7 +36,12 @@ const Companies = () => {
   return (
     <>
       <NavBar />
-      <Container bg='dark' fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
+      <Container
+        bg='dark'
+        fluid
+        style={{ paddingLeft: 0, paddingRight: 0 }}
+        className='justify-content-around pt-2'
+      >
         <Formik
           initialValues={{
             company: '',
