@@ -47,14 +47,9 @@ const Companies = () => {
           }}
         >
           {({ getFieldProps, errors, touched }) => (
-            <BaseForm className='standard-form'>
-              <div className='d-flex'>
-                <h4>Create Company</h4>
-              </div>
+            <BaseForm className='standard-form text-center'>
+              <h4 className='text-center'>Create Company</h4>
               <Form.Group controlId='company'>
-                <Form.Label>
-                  Add an event company you will be working with
-                </Form.Label>
                 <Form.Control
                   {...getFieldProps('company')}
                   placeholder='Enter Company Name'
@@ -64,7 +59,7 @@ const Companies = () => {
                   {errors.company}
                 </Form.Control.Feedback>
               </Form.Group>
-              <Button variant='primary' size='lg' type='submit' block>
+              <Button variant='outline-light' size='lg' type='submit' block>
                 Create Company
               </Button>
             </BaseForm>
