@@ -6,13 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Formik, Form as BaseForm } from 'formik';
 import { CompanyContext } from '../../store/company';
 
-
 function CompanyEditModal({ company }) {
   const [show, setShow] = useState(false);
 
-  const { state: companyState, updateCompany } = useContext(
-    CompanyContext
-  );
+  const { state: companyState, updateCompany } = useContext(CompanyContext);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -23,15 +20,13 @@ function CompanyEditModal({ company }) {
 
   return (
     <>
-
       <Button
-        variant='primary'
-        size='lg'
+        variant='outline-secondary'
+        size='sm'
         type='submit'
-        block
         onClick={handleShow}
       >
-        EDIT
+        Edit
       </Button>{' '}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
