@@ -21,11 +21,13 @@ const CompanyItem = ({ company }) => {
   // console.log(company);
   return (
     <>
-      <Card className='company-card'>
+      <Card className='company-card' style={{ fontWeight: 200 }}>
         <Card.Body className='py-1 '>
           <Row>
             <Col xs={5} className='noPadding '>
-              <p>{company.name}</p>
+              <div className='px-1 '>
+                <p>{company.name}</p>
+              </div>
               <CompanyEditModal company={company} />
               <Button
                 variant='primary'
@@ -39,19 +41,19 @@ const CompanyItem = ({ company }) => {
               </Button>
             </Col>
             <Col className='light-gray-box text-center noPadding'>
-              <div className='py-2'>
+              <div className='py-3'>
                 <p>Shows</p>
                 <h3>{company.shows.length}</h3>
               </div>
             </Col>
             <Col className='light-gray-box text-center noPadding'>
-              <div className='py-2'>
+              <div className='py-3'>
                 <p>Venues</p>
                 <h3> {company.venues.length}</h3>
               </div>
             </Col>
             <Col className='light-gray-box text-center noPadding'>
-              <div className='py-2'>
+              <div className='py-3'>
                 <p>Artists</p>
                 <h3>{company.users.length}</h3>
               </div>
