@@ -9,9 +9,8 @@ if (localStorage.getItem('token')) {
 }
 
 export const axiosGetShows = (dispatch) => {
-  //hardcoded for now, get from localStorage later
   axios
-    .get('http://localhost:3010/show/showsByCompany/5fe2b362a255ba5248281eab',  authHeader)
+    .get(`http://localhost:3010/show/showsByCompany/${localStorage.getItem('currentCompany')}`,  authHeader)
     .then((resp) => {
       dispatch({
         type: 'setShows',
