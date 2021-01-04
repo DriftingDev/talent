@@ -6,11 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Formik, Form as BaseForm } from 'formik';
 import { CompanyContext } from '../../store/company';
 
-
 function CompanyEditModal({ company }) {
   const [show, setShow] = useState(false);
 
-  const { state: companyState, updateCompany } = useContext(
+  const { state: companyState, updateCompany, deleteCompany } = useContext(
     CompanyContext
   );
 
@@ -23,7 +22,6 @@ function CompanyEditModal({ company }) {
 
   return (
     <>
-
       <Button
         variant='primary'
         size='lg'
@@ -64,6 +62,16 @@ function CompanyEditModal({ company }) {
                 </Form.Group>
                 <Button variant='primary' size='lg' type='submit' block>
                   Update Company Name
+                </Button>
+                <Button
+                  onClick={() => {
+                    deleteCompany(company._id);
+                  }}
+                  variant='danger'
+                  size='lg'
+                  block
+                >
+                  Delete Company
                 </Button>
               </BaseForm>
             )}

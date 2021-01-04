@@ -24,7 +24,6 @@ export const companyReducer = (state, action) => {
         companies: action.payload,
       };
     case 'setCurrentCompany':
-      // This is for when a user clciks on a company from the list. It should set the company.
       return {
         ...state,
         currentCompany: action.payload,
