@@ -22,6 +22,7 @@
   border-radius: 10px;
 }
 
+
 .card {
   background-color: #212121;
   width: 100%;
@@ -32,6 +33,37 @@
   border-radius: 10px;
 }
 
+.company-card {
+  background-color: #212121;
+  width: 100%;
+  max-width: 350px;
+  padding: 5px;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
 form, label, h1 {
   color: white !important;
+}
+
+.light-gray-box {
+  background-color: #5e5e5e;
+  border-radius: 4px;
+  margin-left: 3px;
+}
+
+.left-align {
+  // background-color: #075566;
+ padding-left: 5px;
+}
+
+div.noPadding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+div.noMargin {
+  margin-left: 0;
+  margin-right: 0;
 }
