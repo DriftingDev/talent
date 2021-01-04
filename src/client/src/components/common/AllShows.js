@@ -8,6 +8,7 @@ import ShowAccordion from '../common/ShowAccordion'
 import CalendarDisplay from '../common/CalendarDisplay'
 import {ShowContext} from '../../store/show'
 import {CurrentUserContext} from '../../store/currentUser'
+import moment from 'moment'
 
 const AllShows = () => {
 
@@ -24,6 +25,20 @@ const AllShows = () => {
       getShowsByUser(CurrentUserState.user._id) : getShows()
     }
   }, [CurrentUserState, ShowState])
+
+  let futureShows;
+  let pastShows;
+
+  if (ShowState.loaded) {
+    futureShows = ShowState.shows.filter((show) => {
+      //if the current moment is "smaller" than the event moment, it is in the future
+      return moment() < moment(show.eventEnd)
+    })
+    pastShows = ShowState.shows.filter((show) => {
+      //if the current moment is "larger" than the event moment, it is in the past
+      return moment() > moment(show.eventEnd)
+    }) 
+  }
 
   return (
     <>
@@ -59,11 +74,30 @@ const AllShows = () => {
           </Col>
         </Row>
         }
-        <Row>
-          <Col>
-            <ShowAccordion shows={ShowState.shows} className='w-75' />
-          </Col>
-        </Row>
+        {futureShows.length > 0 &&
+        <>
+          <Row>
+            <Col className="d-flex justify-content-center"><h2>Upcoming/Occuring Shows</h2></Col>
+          </Row>
+          <Row>
+            <Col>
+              <ShowAccordion shows={futureShows} className='w-75' />
+            </Col>
+          </Row>
+        </>
+        }
+        {pastShows.length > 0 &&
+        <>
+          <Row>
+            <Col className="d-flex justify-content-center"><h2>Past Shows</h2></Col>
+          </Row>
+          <Row>
+            <Col>
+              <ShowAccordion shows={pastShows} className='w-75' />
+            </Col>
+          </Row>
+        </>
+        }
       </Container>
       :
       <Loading />
