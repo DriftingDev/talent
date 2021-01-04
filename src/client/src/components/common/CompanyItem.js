@@ -22,10 +22,9 @@ const CompanyItem = ({ company }) => {
   return (
     <>
       <Card className='company-card'>
-        <Card.Body>
-          <Row className='mb-0.25'>
-            {/* <Row className='flex-nowrap'> */}
-            <Col xs={5}>
+        <Card.Body className='py-1 '>
+          <Row>
+            <Col xs={5} className='noPadding '>
               <p>{company.name}</p>
               <CompanyEditModal company={company} />
               <Button
@@ -40,16 +39,22 @@ const CompanyItem = ({ company }) => {
               </Button>
             </Col>
             <Col className='light-gray-box text-center noPadding'>
-              <p>Shows</p>
-              <h3>{company.shows.length}</h3>
+              <div className='py-2'>
+                <p>Shows</p>
+                <h3>{company.shows.length}</h3>
+              </div>
             </Col>
             <Col className='light-gray-box text-center noPadding'>
-              <p>Venues</p>
-              <h3> {company.venues.length}</h3>
+              <div className='py-2'>
+                <p>Venues</p>
+                <h3> {company.venues.length}</h3>
+              </div>
             </Col>
             <Col className='light-gray-box text-center noPadding'>
-              <p>Artists</p>
-              <h3>{company.users.length}</h3>
+              <div className='py-2'>
+                <p>Artists</p>
+                <h3>{company.users.length}</h3>
+              </div>
             </Col>
           </Row>
           <Row>
