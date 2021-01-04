@@ -5,21 +5,26 @@ import AuthOptions from '../auth/AuthOptions'
 import ArtistOptions from '../layout/ArtistOptions'
 import ProducerOptions from '../layout/ProducerOptions'
 import { CurrentUserContext } from '../../store/currentUser'
+import { ShowContext } from '../../store/show'
 import { useHistory } from 'react-router'
 
 
 function NavBar() {
 
   const history = useHistory()
-  const {state: currentUserState, dispatch} = useContext(CurrentUserContext)
+  const {state: currentUserState, dispatch: currentUserDispatch} = useContext(CurrentUserContext)
+  const {state: showState, dispatch: showDispatch} = useContext(ShowContext)
 
   useEffect(() => {
     
-  },[currentUserState])
+  },[currentUserState, showState])
 
   const logoutFunc = () => {
-    dispatch({
+    currentUserDispatch({
       type: "clearUser"
+    })
+    showDispatch({
+      type: "clearShows"
     })
     localStorage.removeItem('token')
     history.push('/')

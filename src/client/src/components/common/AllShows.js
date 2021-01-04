@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react'
 import { useHistory } from 'react-router'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button, Alert } from 'react-bootstrap'
 import NavBar from '../layout/NavBar'
 import Loading from '../layout/Loading'
 import ShowAccordion from '../common/ShowAccordion'
@@ -14,10 +14,9 @@ const AllShows = () => {
   const {state: CurrentUserState} = useContext(CurrentUserContext)
 
   useEffect(() =>{
-    // add below when localStorage is implemented
-    // if(!localStorage.getItem('currentCompany')) {
-    //   history.push('/companies')
-    // }
+    if(!localStorage.getItem('currentCompany')) {
+      history.push('/companies')
+    }
     if(ShowState.shows == null) {
       CurrentUserState.user.is_artist ? 
       getShowsByUser(CurrentUserState.user._id) : getShows()
@@ -39,6 +38,11 @@ const AllShows = () => {
             </Button>
           </Col>}
         </Row>
+        {(CurrentUserState.user.is_artist && ShowState.shows.length === 0) &&
+            <Row className="justify-content-around pt-2">
+              <Col className="d-flex justify-content-center"><Alert variant='info'>You don't have any shows with this company... yet.</Alert></Col>
+            </Row>
+          }
         <Row>
           <Col>
             <ShowAccordion shows={ShowState.shows} className='w-75' />

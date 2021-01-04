@@ -14,7 +14,7 @@ export const showReducer = (state, action) => {
     case "clearShows":
       return {
         ...state, 
-        shows: {}, 
+        shows: null, 
         loaded: false
       }
     case "updateShows":
