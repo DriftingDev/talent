@@ -15,6 +15,7 @@ function NavBar() {
   const history = useHistory()
   const {state: currentUserState, dispatch: currentUserDispatch} = useContext(CurrentUserContext)
   const {state: showState, dispatch: showDispatch} = useContext(ShowContext)
+  const { dispatch: companyDispatch } = useContext(CompanyContext)
 
   useEffect(() => {
     
@@ -26,6 +27,9 @@ function NavBar() {
     })
     showDispatch({
       type: "clearShows"
+    })
+    companyDispatch({
+      type: 'clearCompanies'
     })
     localStorage.removeItem('token')
     history.push('/')

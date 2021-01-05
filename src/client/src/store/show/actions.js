@@ -2,16 +2,18 @@ import axios from 'axios'
 import moment from 'moment'
 
 let token;
-let authHeader;
-
-if (localStorage.getItem('token')) {
-  token = JSON.parse(localStorage.getItem('token'))
-  authHeader = { headers: {"Authorization" : "Bearer " + token} } 
-}
+const authHeader = () => {
+  let returnVal = null
+  if (localStorage.getItem('token')) {
+    token = JSON.parse(localStorage.getItem('token'));
+    returnVal = { headers: { Authorization: 'Bearer ' + token } };
+  }
+  return returnVal
+};
 
 export const axiosGetShows = (dispatch) => {
   axios
-    .get(`http://localhost:3010/show/showsByCompany/${localStorage.getItem('currentCompany')}`,  authHeader)
+    .get(`http://localhost:3010/show/showsByCompany/${localStorage.getItem('currentCompany')}`,  authHeader())
     .then((resp) => {
       dispatch({
         type: 'setShows',
@@ -25,7 +27,7 @@ export const axiosGetShows = (dispatch) => {
 
 export const axiosGetShowsByUser = (dispatch, id) => {
   axios
-    .get(`http://localhost:3010/show/showsByUser/${id}`,  authHeader)
+    .get(`http://localhost:3010/show/showsByUser/${id}`,  authHeader())
     .then((resp) => {
       dispatch({
         type: 'setShows',
@@ -57,7 +59,7 @@ export const axiosBatchCreateShows = async (dispatch, showsObject, currentCompan
       eventEnd: showEndStartObj.eventEndDate
     }
     return axios
-            .post("http://localhost:3010/show/new", data, authHeader)
+            .post("http://localhost:3010/show/new", data, authHeader())
             .then(console.log)
             .catch(console.log)
   })

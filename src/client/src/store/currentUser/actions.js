@@ -1,12 +1,14 @@
 import axios from 'axios';
 
 let token;
-let authHeader;
-
-if (localStorage.getItem('token')) {
-  token = JSON.parse(localStorage.getItem('token'))
-  authHeader = { headers: {"Authorization" : "Bearer " + token} } 
-}
+const authHeader = () => {
+  let returnVal = null
+  if (localStorage.getItem('token')) {
+    token = JSON.parse(localStorage.getItem('token'));
+    returnVal = { headers: { Authorization: 'Bearer ' + token } };
+  }
+  return returnVal
+};
 
 export const axiosLoginUser = (user, dispatch) => {
   axios
@@ -53,7 +55,7 @@ export const axiosRegisterUser = (user, dispatch) => {
 
 export const axiosFetchUser = (dispatch) => {
     axios
-      .get('http://localhost:3010/auth/checkToken',  authHeader)
+      .get('http://localhost:3010/auth/checkToken',  authHeader())
       .then((resp) => {
         dispatch({
           type: 'setUser',
