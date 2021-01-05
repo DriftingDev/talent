@@ -99,3 +99,19 @@ export const axiosDeleteCompany = (dispatch, company) => {
       // always executed
     });
 };
+
+export const axiosFetchCurrentCompany = (dispatch) => {
+  axios
+    .get(`http://localhost:3010/company/${localStorage.getItem('currentCompany')}`, authHeader)
+    .then(function (response) {
+      // handle success
+      dispatch({
+        type: 'setCurrentCompany',
+        payload: response.data.company,
+      });
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+}

@@ -16,6 +16,7 @@ export const companyReducer = (state, action) => {
       return {
         ...state,
         companies: null,
+        currentCompany: null,
         loaded: false
       }
     case 'updateCompanies':
@@ -31,7 +32,7 @@ export const companyReducer = (state, action) => {
     case 'clearCurrentCompany':
       return {
         ...state,
-        currentCompany: {},
+        currentCompany: null,
       };
     default:
       throw new Error('Unknown action in Company Reducer');
