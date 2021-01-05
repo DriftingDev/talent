@@ -18,7 +18,7 @@ const ShowCard = ({show, showOptions}) => {
       <Card.Title>{show.showName}</Card.Title>
       } 
       {showOptions.withTime && 
-      <Card.Subtitle>@ {moment(show.eventStart).format('h:mm a')}</Card.Subtitle>
+      <Card.Subtitle>@ {moment(show.eventStart).format('MMMM Do, h:mm a')}</Card.Subtitle>
       }
       {showOptions.withEndTime && 
       <Card.Subtitle>until {moment(show.eventStart).format('MMMM Do, h:mm a')}</Card.Subtitle>

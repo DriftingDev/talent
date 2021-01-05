@@ -36,10 +36,10 @@ const DisplayShow = () => {
   if(ShowState.loaded) {
     if (CurrentUserState.user.is_artist) {
       showsToDisplay = ShowState.shows.filter((show) => {
-        return show.artists.includes(CurrentUserState.user._id)
-      })
+        return show.artists.map(artist => artist._id).includes(CurrentUserState.user._id)
+      }).filter(show => show.showNameSlug === slug)
       if (showsToDisplay.length === 0) {
-        history.redirect('/shows')
+        history.push('/shows')
       } else {
         showsToDisplay.filter(show => show.showNameSlug === slug)
       }
