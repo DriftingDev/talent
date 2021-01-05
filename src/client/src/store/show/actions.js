@@ -44,8 +44,7 @@ export const axiosBatchCreateShows = async (dispatch, showsObject, currentCompan
   console.log(showsObject)
   showsObject.artist = currentCompany.users.filter(user => user.accname === showsObject.artist)[0]._id
   showsObject.venue =  currentCompany.venues.filter(venue => venue.name === showsObject.venue)[0]._id
-  
-  showsObject.shows.map((showEndStartObj) => {
+  showsObject.shows.map((showEndStartObj, index, arr) => {
     const data = {
       company: currentCompany._id,
       artists: showsObject.artist,
@@ -57,10 +56,14 @@ export const axiosBatchCreateShows = async (dispatch, showsObject, currentCompan
     }
     return axios
             .post("http://localhost:3010/show/new", data, authHeader())
-            .then(console.log)
-            .catch(console.log)
+            .then((resp) => {
+              if (index + 1 === arr.length){
+                axiosGetShows(dispatch)
+              }
+            })
+            .catch((err) =>{
+              console.log(err)
+            })
   })
-
-  axiosGetShows(dispatch)
 }
 

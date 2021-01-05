@@ -118,6 +118,7 @@ const CreateShows = () => {
             validationSchema={validationSchema}
             onSubmit={(values) => {
               createShows(values, companyState.currentCompany)
+              history.push("/shows")
           }}
           >
             {({getFieldProps, errors, touched, values, setFieldValue, setFieldTouched, setValues, handleChange, handleBlur}) => (
