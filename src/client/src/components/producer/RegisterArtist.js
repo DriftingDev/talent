@@ -29,6 +29,7 @@ const RegisterArtist = () => {
             password: '',
             accname: '',
             contact: '',
+            link: '',
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
