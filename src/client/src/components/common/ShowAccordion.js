@@ -33,8 +33,8 @@ const ShowAccordion = ({shows, showOptions}) => {
           </Card.Header>
           <Accordion.Collapse eventKey={index + 1}>
             <Card.Body>
-              {showsToMap[date].map(show => (
-                <ShowCard show={show} showOptions={showOptions}/>
+              {showsToMap[date].map((show,index) => (
+                <ShowCard key={index} show={show} showOptions={showOptions}/>
               )
               )}
             </Card.Body>

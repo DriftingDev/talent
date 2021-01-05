@@ -31,7 +31,7 @@ const ShowCard = ({show, showOptions}) => {
         {showOptions.withArtists &&
         show.artists.map((artist, index) => {
           return (
-            <p onClick={() => {history.push(`/artist/${artist._id}`)}}>Artist {index + 1}: {artist.accname}</p>
+            <p key={index} onClick={() => {history.push(`/artist/${artist._id}`)}}>Artist {index + 1}: {artist.accname}</p>
           )
         })}
       { (showOptions.withDescrip && show.descrip) &&

@@ -15,7 +15,6 @@ const DisplayShow = () => {
   const history = useHistory()
 
   let { slug } = useParams()
-  console.log(slug)
 
   const {state: CurrentUserState} = useContext(CurrentUserContext)
   const {state: ShowState, getShows} = useContext(ShowContext)
@@ -46,8 +45,6 @@ const DisplayShow = () => {
       }
     } else showsToDisplay = ShowState.shows.filter(show => show.showNameSlug === slug)
   }
-
-  console.log(showsToDisplay)
 
   return (
     <>
