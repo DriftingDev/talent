@@ -3,7 +3,8 @@ import { defaultStateShape, showReducer } from './reducer'
 import {
   axiosGetShows,
   axiosGetShowsByUser,
-  axiosBatchCreateShows
+  axiosBatchCreateShows,
+  axiosUpdateShow
 } from "./actions"
 
 const Context = createContext({
@@ -11,7 +12,8 @@ const Context = createContext({
   dispatch: () => {},
   getShows: () => {},
   getShowsByUser: () => {},
-  createShows: () => {}
+  createShows: () => {},
+  updateShow: () => {}
 })
 
 const ShowProvider = ({children}) => {
@@ -19,8 +21,9 @@ const ShowProvider = ({children}) => {
   const getShows = () => { axiosGetShows(dispatch) }
   const getShowsByUser = (id) => {axiosGetShowsByUser(dispatch,id)}
   const createShows = (shows, currentCompany) => {axiosBatchCreateShows(dispatch, shows, currentCompany)}
+  const updateShow = (showVals, currentCompany) => {axiosUpdateShow(dispatch, showVals, currentCompany)}
   return (
-    <Context.Provider value={{ state, dispatch, getShows, getShowsByUser, createShows }}>
+    <Context.Provider value={{ state, dispatch, getShows, getShowsByUser, createShows, updateShow }}>
       { children }
     </Context.Provider>
   )

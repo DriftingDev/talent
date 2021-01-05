@@ -26,7 +26,6 @@ const AllShows = () => {
       fetchCurrentCompany()
     }
     if(ShowState.shows == null) {
-      console.log("ping")
       CurrentUserState.user.is_artist ? 
       getShowsByUser(CurrentUserState.user._id) : getShows()
     }

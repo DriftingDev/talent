@@ -1,4 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router'
 //Bootstrap
 import { Button, Modal, Form } from 'react-bootstrap';
 //Formik & Yup
@@ -11,11 +12,11 @@ import { CompanyContext } from '../../store/company'
 import DateTimePicker from 'react-datetime-picker'
 
 function ShowEditModal({ showObject }) {
+  const history = useHistory()
+
   const [show, setShow] = useState(false);
 
-  const { state: showState, updateCompany, deleteCompany } = useContext(
-    ShowContext
-  );
+  const { updateShow } = useContext(ShowContext);
   const { state: companyState } = useContext(CompanyContext)
 
   const handleClose = () => setShow(false);
@@ -74,6 +75,7 @@ function ShowEditModal({ showObject }) {
         <Modal.Body>
           <Formik
             initialValues={{
+              _id: showObject._id,
               eventEnd: showObject.eventEnd,
               eventStart: showObject.eventStart,
               showName: showObject.showName,
@@ -83,7 +85,8 @@ function ShowEditModal({ showObject }) {
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
-              console.log(values)
+              updateShow(values, companyState.currentCompany)
+              setShow(false)
             }}
           >
             {({ getFieldProps, errors, touched, values, setFieldValue, setFieldTouched }) => (
@@ -125,9 +128,6 @@ function ShowEditModal({ showObject }) {
                   {artistArray.map((artist) => {
                     return (
                       <Form.Label>
-                        {console.log("values say",values.artists)}
-                        {console.log("array says", artistArray)}
-                        {console.log(values.artists.includes(artist))}
                         {values.artists.includes(artist) ?
                         <Field type='checkbox' name='artists' value={`${artist}`} checked /> 
                           :
