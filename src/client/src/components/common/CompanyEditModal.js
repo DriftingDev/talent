@@ -23,17 +23,21 @@ function CompanyEditModal({ company }) {
   return (
     <>
       <Button
-        variant='primary'
-        size='lg'
+        variant='outline-secondary'
+        size='sm'
         type='submit'
-        block
         onClick={handleShow}
       >
-        EDIT
+        Edit
       </Button>{' '}
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        // aria-labelledby='contained-modal-title-vcenter'
+        centered
+      >
         <Modal.Header closeButton>
-          <Modal.Title>Company Edit</Modal.Title>
+          <Modal.Title>Edit Company</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Formik
@@ -48,7 +52,7 @@ function CompanyEditModal({ company }) {
             {({ getFieldProps, errors, touched }) => (
               <BaseForm className='standard-form'>
                 <div className='d-flex'>
-                  <h4>Edit Company: {company.name}</h4>
+                  <h4>Edit Name:</h4>
                 </div>
                 <Form.Group controlId='company'>
                   <Form.Control
@@ -63,6 +67,7 @@ function CompanyEditModal({ company }) {
                 <Button variant='primary' size='lg' type='submit' block>
                   Update Company Name
                 </Button>
+                <br />
                 <Button
                   onClick={() => {
                     deleteCompany(company._id);
