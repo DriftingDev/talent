@@ -10,7 +10,13 @@ const ArtistCard = ({ artist }) => {
     <Card className='my-3 p-3 rounded' border='primary'>
       <Card.Body>
         <Row>
-          <Col>
+          <Col xs={4} className='noPadding '>
+            <h5>left hand side</h5>
+            <p>Shows:</p>
+            <p>Upcoming: </p>
+            <p>Past: </p>
+          </Col>
+          <Col xs={8} className='noPadding '>
             <Link to={`/artists/${artist.id}`}>
               <Card.Title as='div'>{artist.name}</Card.Title>
             </Link>
@@ -18,18 +24,17 @@ const ArtistCard = ({ artist }) => {
               <a
                 href={`mailto:${artist.email}?subject=SHOW%20REMINDER%3A&body=Hi%20${artist.name}%2C%0D%0A%0D%0AYour%20next%20show%20will%20be%20at%20TIME%20and%20PLACE.%0D%0A%0D%0A`}
               >
-                <p>
+                <p className='truncate'>
                   <BsEnvelope /> {artist.email}
                 </p>
               </a>
             </Card.Text>
             <Card.Text>
-              <p>
+              <a href='tel:+61409397074'>
                 <FiPhone /> {artist.contact}
-              </p>
-              <a href='tel:+61409397074'>Phone Artist</a>
-              <a href='sms://+61409397074'>Send a SMS</a>
+              </a>
             </Card.Text>
+            <Card.Text>{artist.fringe_link}</Card.Text>
           </Col>
         </Row>
       </Card.Body>

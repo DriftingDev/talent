@@ -1,13 +1,14 @@
 import React, { useReducer, createContext } from 'react'
 import { defaultStateShape, userReducer } from './reducer'
-import { axiosLoginUser, axiosRegisterUser, axiosFetchUser } from "./actions"
+import { axiosLoginUser, axiosRegisterUser, axiosFetchUser, axiosRegisterArtist } from "./actions"
 
 const Context = createContext({
   state: defaultStateShape,
   dispatch: () => {},
   loginUser: () => {},
   registerUser: () => {},
-  fetchUser: () => {}
+  fetchUser: () => {},
+  createArtist: () => {},
 })
 
 const CurrentUserProvider = ({children}) => {
@@ -15,8 +16,9 @@ const CurrentUserProvider = ({children}) => {
   const loginUser = (values) => axiosLoginUser(values, dispatch)
   const registerUser = (values) => axiosRegisterUser(values, dispatch)
   const fetchUser = () => axiosFetchUser(dispatch)
+  const createArtist = (values) => axiosRegisterArtist(values, dispatch)
   return (
-    <Context.Provider value={{ state, dispatch, loginUser, registerUser, fetchUser }}>
+    <Context.Provider value={{ state, dispatch, loginUser, registerUser, fetchUser, createArtist }}>
       { children }
     </Context.Provider>
   )
