@@ -40,14 +40,21 @@ export const axiosGetShowsByUser = (dispatch, id) => {
 }
 
 export const axiosBatchCreateShows = async (dispatch, showsObject, currentCompany) => {
-  console.log(currentCompany.users, currentCompany.venues)
-  console.log(showsObject)
-  showsObject.artist = currentCompany.users.filter(user => user.accname === showsObject.artist)[0]._id
+  let userArray = currentCompany.users.filter((user) => {
+    let found = false
+    showsObject.artists.forEach((artist) => {
+      if (artist === user.accname) {
+        found = true
+      }
+    })
+    return found
+  }).map(artist => artist._id)
+
   showsObject.venue =  currentCompany.venues.filter(venue => venue.name === showsObject.venue)[0]._id
   showsObject.shows.map((showEndStartObj, index, arr) => {
     const data = {
       company: currentCompany._id,
-      artists: showsObject.artist,
+      artists: userArray,
       venue: showsObject.venue,
       showName: showsObject.showName,
       descrip: showsObject.descrip,
