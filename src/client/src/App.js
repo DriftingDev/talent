@@ -42,7 +42,7 @@ function App() {
             <Route path='/calendar' component={Calendar} exact />
             <Route path='/shows' component={AllShows} exact />
             <Route path='/shows/create' component={CreateShows} exact />
-            <Route path='/artists' component={Register} exact />
+            <Route path='/artists' component={ArtistScreen} exact />
             <Route path='/artists/:id' component={ArtistScreen} />
           </DataProvider>
         </PrivateRoutes>
