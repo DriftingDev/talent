@@ -4,7 +4,8 @@ import {
   axiosGetShows,
   axiosGetShowsByUser,
   axiosBatchCreateShows,
-  axiosUpdateShow
+  axiosUpdateShow,
+  axiosDeleteShow
 } from "./actions"
 
 const Context = createContext({
@@ -13,7 +14,8 @@ const Context = createContext({
   getShows: () => {},
   getShowsByUser: () => {},
   createShows: () => {},
-  updateShow: () => {}
+  updateShow: () => {},
+  deleteShow: () => {}
 })
 
 const ShowProvider = ({children}) => {
@@ -22,8 +24,9 @@ const ShowProvider = ({children}) => {
   const getShowsByUser = (id) => {axiosGetShowsByUser(dispatch,id)}
   const createShows = (shows, currentCompany) => {axiosBatchCreateShows(dispatch, shows, currentCompany)}
   const updateShow = (showVals, currentCompany) => {axiosUpdateShow(dispatch, showVals, currentCompany)}
+  const deleteShow = (showId) => {axiosDeleteShow(dispatch, showId)}
   return (
-    <Context.Provider value={{ state, dispatch, getShows, getShowsByUser, createShows, updateShow }}>
+    <Context.Provider value={{ state, dispatch, getShows, getShowsByUser, createShows, updateShow, deleteShow }}>
       { children }
     </Context.Provider>
   )

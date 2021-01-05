@@ -103,3 +103,12 @@ export const axiosUpdateShow = (dispatch, showsObject, currentCompany) => {
       console.log(err)
     })
 }
+
+export const axiosDeleteShow = (dispatch, id) => {
+  axios
+    .delete(`http://localhost:3010/show/${id}`, authHeader())
+    .then((resp) => {
+      axiosGetShows(dispatch)
+    })
+    .catch(console.log)
+} 

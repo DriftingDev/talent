@@ -1,11 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Card, Button} from 'react-bootstrap'
 import moment from 'moment'
 import {useHistory} from 'react-router'
 import ShowEditModal from '../producer/ShowEditModal'
+import DeleteModal from '../common/DeleteModal'
+import {ShowContext} from '../../store/show'
 
 const ShowCard = ({show}) => {
   const history = useHistory()
+
+  const { deleteShow } = useContext(ShowContext)
 
   return(
     <Card border='info' bg='dark' >
@@ -20,9 +24,7 @@ const ShowCard = ({show}) => {
         })}
       </Card.Text>
       <Card.Footer>
-        <Button onClick={() => {history.push(`/show/${show.showNameSlug}`)}}>
-          All Show times
-        </Button>
+        <DeleteModal object={show} name='show' deleteFunc={deleteShow} />
         <ShowEditModal showObject={show}/>
       </Card.Footer>
     </Card>

@@ -11,6 +11,7 @@ import { CompanyContext } from '../../store/company'
 //Components
 import DateTimePicker from 'react-datetime-picker'
 
+
 function ShowEditModal({ showObject }) {
   const history = useHistory()
 
@@ -171,16 +172,6 @@ function ShowEditModal({ showObject }) {
                   Update Show
                 </Button>
                 <br />
-                <Button
-                  onClick={() => {
-                    //deleteCompany(company._id);
-                  }}
-                  variant='danger'
-                  size='lg'
-                  block
-                >
-                  Delete Company
-                </Button>
               </BaseForm>
             )}
           </Formik>
