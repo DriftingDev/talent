@@ -2,7 +2,7 @@ const artists = [
   {
     id: 1,
     company_ids: 1,
-    email: 'ozzy.osbourne@hotmail.com',
+    email: 'ozzy.osbourne.longemailaddress@hotmail.com',
     password: 'password',
     name: 'Ozzy Osbourne',
     nickname: 'Alex',

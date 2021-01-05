@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import artists from '../data/artists';
-import ArtistCard from '../components/ArtistCard';
+import artists from '../../data/artists';
+import ArtistCard from './ArtistCard';
 
 function ArtistList() {
   return (
