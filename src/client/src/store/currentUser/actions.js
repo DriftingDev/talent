@@ -48,6 +48,24 @@ export const axiosRegisterUser = (user, dispatch) => {
     });
 };
 
+export const axiosRegisterArtist = (user, dispatch) => {
+  axios
+    .post('http://localhost:3010/auth/register', {
+      email: user.email,
+      password: user.password,
+      accname: user.accname,
+      contact: user.contact,
+      is_artist: true,
+      link: user.link
+    })
+    .then(function (response) {
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
 export const axiosFetchUser = (dispatch) => {
   axios
     .get('http://localhost:3010/auth/checkToken', authHeader())
