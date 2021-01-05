@@ -1,4 +1,4 @@
-import React , {useContext} from 'react';
+import React, { useContext } from 'react';
 import { Card, Col, Row, Button } from 'react-bootstrap';
 import CompanyEditModal from './CompanyEditModal';
 import { useHistory } from 'react-router'
@@ -6,8 +6,7 @@ import {CurrentUserContext} from '../../store/currentUser'
 import {CompanyContext} from '../../store/company'
 
 const CompanyItem = ({ company }) => {
-
-  const history = useHistory()
+  const history = useHistory();
   const { state: currentUserState } = useContext(CurrentUserContext);
   const { state: companyState, dispatch: companyDispatch } = useContext(CompanyContext);
 
@@ -30,26 +29,47 @@ const CompanyItem = ({ company }) => {
   // console.log(company);
   return (
     <>
-      <Card className='card'>
-        <Card.Body>
-          <Card.Title key={company._id}> {company.name}</Card.Title>
+      <Card className='company-card' style={{ fontWeight: 200 }}>
+        <Card.Body className='py-1 '>
           <Row>
-            <Col>
-              <h4>Shows: {company.shows.length}</h4>
-              <h4>Venues: {company.venues.length}</h4>
-              <h4>Users: {company.users.length}</h4>
-              <h4>ID: {company._id}</h4>
+            <Col xs={5} className='noPadding '>
+              <div className='px-1 '>
+                <p>{company.name}</p>
+              </div>
+              <CompanyEditModal company={company} />
+              <Button
+                variant='primary'
+                size='sm'
+                type='submit'
+                onClick={() => {
+                  selectCompany(company);
+                }}
+              >
+                Select
+              </Button>
+            </Col>
+            <Col className='light-gray-box text-center noPadding'>
+              <div className='py-3'>
+                <p>Shows</p>
+                <h3>{company.shows.length}</h3>
+              </div>
+            </Col>
+            <Col className='light-gray-box text-center noPadding'>
+              <div className='py-3'>
+                <p>Venues</p>
+                <h3> {company.venues.length}</h3>
+              </div>
+            </Col>
+            <Col className='light-gray-box text-center noPadding'>
+              <div className='py-3'>
+                <p>Artists</p>
+                <h3>{company.users.length}</h3>
+              </div>
             </Col>
           </Row>
           <Row>
-            <Button 
-              variant='primary'
-              size='lg'
-              type='submit'
-              block
-              onClick={() => {selectCompany(company)}}
-            >Select</Button>
-            <CompanyEditModal company={company} />
+            <Col xs={5}></Col>
+            <Col className='noPadding'></Col>
           </Row>
         </Card.Body>
       </Card>

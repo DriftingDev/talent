@@ -18,9 +18,9 @@
   max-width: 350px;
   padding: 25px;
   margin: auto;
-  margin-top: 50px;
   border-radius: 10px;
 }
+
 
 .card {
   background-color: #212121;
@@ -32,6 +32,36 @@
   border-radius: 10px;
 }
 
+.company-card {
+  background-color: #212121;
+  width: 100%;
+  max-width: 350px;
+  padding: 5px;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
 form, label, h1 {
   color: white !important;
+}
+
+body {
+  padding-bottom: 70px;
+}
+
+.light-gray-box {
+  background-color: #303030;
+  border-radius: 4px;
+  margin-left: 3px;
+}
+
+div.noPadding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+div.noMargin {
+  margin-left: 0;
+  margin-right: 0;
 }
