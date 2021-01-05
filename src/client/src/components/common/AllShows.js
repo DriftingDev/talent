@@ -8,6 +8,7 @@ import ShowAccordion from '../common/ShowAccordion'
 import CalendarDisplay from '../common/CalendarDisplay'
 import {ShowContext} from '../../store/show'
 import {CurrentUserContext} from '../../store/currentUser'
+import { CompanyContext } from '../../store/company'
 import moment from 'moment'
 
 const AllShows = () => {
@@ -15,10 +16,14 @@ const AllShows = () => {
   const history = useHistory()
   const {state: ShowState, getShows, getShowsByUser} = useContext(ShowContext)
   const {state: CurrentUserState} = useContext(CurrentUserContext)
+  const { state: CompanyState, fetchCurrentCompany } = useContext(CompanyContext)
 
   useEffect(() =>{
     if(!localStorage.getItem('currentCompany')) {
       history.push('/companies')
+    }
+    if(localStorage.getItem('currentCompany') && CompanyState.currentCompany === null) {
+      fetchCurrentCompany()
     }
     if(ShowState.shows == null) {
       CurrentUserState.user.is_artist ? 

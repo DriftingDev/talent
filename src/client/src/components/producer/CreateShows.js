@@ -51,6 +51,7 @@ const CreateShows = () => {
 
   // Formik Validation Schema
   const validationSchema = object({
+    artists: array().min(1,"At lease one artist must be selected"),
     showName: string().required("A show name is required"),
     showNum: number()
               .positive('You must add at least one show')
@@ -67,17 +68,12 @@ const CreateShows = () => {
       )
   })
 
-  // Creating the artist names and venue arrays for the formik form
-  let formikArtistNames
-  let formikVenueNames
-
-  if(companyState.currentCompany != null){
-    console.log(companyState.currentCompany)
-    formikArtistNames = companyState.currentCompany.users
-      .filter(user => user.is_artist)
-      .map(artist => artist.accname)
-    formikVenueNames = companyState.currentCompany.venues
-      .map(venue => venue.name)
+  //Artist array for artist checkbox comparison
+  let artistArray;
+  if (companyState.currentCompany != null) {
+    artistArray = companyState.currentCompany.users
+                    .filter(user => user.is_artist)
+                    .map(artist => artist.accname)
   }
 
   // create a current date const for creating shows
@@ -108,8 +104,8 @@ const CreateShows = () => {
         <Container  bg='dark' fluid>
           <Formik
             initialValues={{
-              artist: formikArtistNames[0],
-              venue: formikVenueNames[0],
+              artists: [],
+              venue: companyState.currentCompany.venues[0].name,
               showName: '',
               showDescrip: '',
               showNum: 0,
@@ -130,27 +126,32 @@ const CreateShows = () => {
                 <h4>Create Shows</h4>
               </div>
               
-              <Form.Group controlId='artist'>
-                <Form.Label>Artist</Form.Label>
-                <Form.Control
-                  as='select'
-                  placeholder='Select Artist'
-                  {...getFieldProps("artist")}
-                  >
-                    {formikArtistNames.map(name => <option value={name} label={name}/>)}
-                </Form.Control>
-              </Form.Group>
+              <Form.Label>Artists</Form.Label>
+                <Form.Group controlId='artists'>
+                  {artistArray.map((artist) => {
+                    return (
+                      <Form.Label>
+                        {values.artists.includes(artist) ?
+                        <Field type='checkbox' name='artists' value={`${artist}`} checked /> 
+                          :
+                        <Field type='checkbox' name='artists' value={`${artist}`} /> }
+                        {artist}
+                      </Form.Label>
+                      )
+                    })
+                  }
+                {!!errors.artists && errors.artists}                    
+                </Form.Group>
 
               <Form.Group controlId='venue'>
-                <Form.Label>Venue</Form.Label>
-                <Form.Control
-                  as='select'
-                  placeholder='Select Venue'
-                  {...getFieldProps("venue")}
-                >
-                  {formikVenueNames.map(name => <option value={name} label={name}/>)}
-                </Form.Control>
-              </Form.Group>
+                  <Form.Label>Venue</Form.Label>
+                    <Form.Control
+                      as='select'
+                      {...getFieldProps("venue")}
+                    >
+                    {companyState.currentCompany.venues.map(venue => <option value={venue.name} label={venue.name}/>)}
+                  </Form.Control>
+                </Form.Group>
 
               <Form.Group controlId="showName">
                 <Form.Label>Show Name</Form.Label>
@@ -189,7 +190,7 @@ const CreateShows = () => {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              // Dynamically rendered fields
+              {/* Dynamically rendered fields */}
               <FieldArray
                 name="shows"
                 render={arrayHelpers => (

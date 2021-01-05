@@ -20,9 +20,6 @@ const ShowAccordion = ({shows}) => {
       show.accordionDate = moment(show.eventStart).format("MMMM Do YYYY")
       return show
     })
-    // .keys.map((meow) => {
-    //   return console.log(meow)
-    // })
   
   showsToMap = groupBy(showsToMap,'accordionDate')
   const AccordionShows = Object.keys(showsToMap)
