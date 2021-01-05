@@ -30,12 +30,11 @@ const ArtistCard = ({ artist }) => {
               </a>
             </Card.Text>
             <Card.Text>
-              <p>
+              <a href='tel:+61409397074'>
                 <FiPhone /> {artist.contact}
-              </p>
-              <a href='tel:+61409397074'>Phone Artist</a>
-              <a href='sms://+61409397074'>Send a SMS</a>
+              </a>
             </Card.Text>
+            <Card.Text>{artist.fringe_link}</Card.Text>
           </Col>
         </Row>
       </Card.Body>

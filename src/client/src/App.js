@@ -7,11 +7,12 @@ import Register from './components/auth/Register';
 import Loading from './components/layout/Loading';
 import Calendar from './components/producer/Calendar';
 import Companies from './components/common/Companies';
-import AllShows from './components/common/AllShows'
-import CreateShows from './components/producer/CreateShows'
+import AllShows from './components/common/AllShows';
+import CreateShows from './components/producer/CreateShows';
+import RegisterArtist from './components/producer/RegisterArtist';
 //Router
 import { Route, Switch } from 'react-router-dom';
-import ArtistScreen from './components/producer/Artists';
+import Artists from './components/producer/Artists';
 import PrivateRoutes from './components/auth/ProtectedRoutes';
 //Context
 import { CurrentUserContext } from './store/currentUser';
@@ -30,24 +31,25 @@ function App() {
 
   return (
     <>
-    {unloadedUser ?
-      <Loading/>
-      :
-      <Switch>
-        <Route path='/' component={Login} exact />
-        <Route path='/register' component={Register} exact />
-        <PrivateRoutes>
-          <DataProvider>
-            <Route path='/companies' component={Companies} exact />
-            <Route path='/calendar' component={Calendar} exact />
-            <Route path='/shows' component={AllShows} exact />
-            <Route path='/shows/create' component={CreateShows} exact />
-            <Route path='/artists' component={ArtistScreen} exact />
-            <Route path='/artists/:id' component={ArtistScreen} />
-          </DataProvider>
-        </PrivateRoutes>
-      </Switch>
-    }
+      {unloadedUser ? (
+        <Loading />
+      ) : (
+        <Switch>
+          <Route path='/' component={Login} exact />
+          <Route path='/register' component={Register} exact />
+          <PrivateRoutes>
+            <DataProvider>
+              <Route path='/companies' component={Companies} exact />
+              <Route path='/calendar' component={Calendar} exact />
+              <Route path='/shows' component={AllShows} exact />
+              <Route path='/shows/create' component={CreateShows} exact />
+              <Route path='/artists' component={Artists} exact />
+              <Route path='/artists/create' component={RegisterArtist} exact />
+              {/* <Route path='/artists/:id' component={Artists} /> */}
+            </DataProvider>
+          </PrivateRoutes>
+        </Switch>
+      )}
     </>
   );
 }

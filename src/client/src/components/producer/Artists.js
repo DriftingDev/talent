@@ -1,19 +1,29 @@
 import React from 'react';
 // import Link from 'react-router-dom'
-// import { Row, Col,  } from 'react-bootstrap'
+import { Button } from 'react-bootstrap';
 // import artists from '../data/artists'
 import NavBar from '../layout/NavBar';
 import ArtistList from './ArtistList';
+import { useHistory } from 'react-router';
 
-const ArtistScreen = () => {
+const Artists = () => {
+  const history = useHistory();
+
   return (
     <>
       <div>
         <NavBar />
+        <Button
+          onClick={() => {
+            history.push('/artists/create');
+          }}
+        >
+          Create Artist
+        </Button>
         <ArtistList />
       </div>
     </>
   );
 };
 
-export default ArtistScreen;
+export default Artists;
