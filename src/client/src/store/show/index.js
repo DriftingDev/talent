@@ -2,22 +2,25 @@ import React, { useReducer, createContext } from 'react'
 import { defaultStateShape, showReducer } from './reducer'
 import {
   axiosGetShows,
-  axiosGetShowsByUser
+  axiosGetShowsByUser,
+  axiosBatchCreateShows
 } from "./actions"
 
 const Context = createContext({
   state: defaultStateShape,
   dispatch: () => {},
   getShows: () => {},
-  getShowsByUser: () => {}
+  getShowsByUser: () => {},
+  createShows: () => {}
 })
 
 const ShowProvider = ({children}) => {
   const [state, dispatch] = useReducer(showReducer, defaultStateShape)
   const getShows = () => { axiosGetShows(dispatch) }
   const getShowsByUser = (id) => {axiosGetShowsByUser(dispatch,id)}
+  const createShows = (shows, currentCompany) => {axiosBatchCreateShows(dispatch, shows, currentCompany)}
   return (
-    <Context.Provider value={{ state, dispatch, getShows, getShowsByUser }}>
+    <Context.Provider value={{ state, dispatch, getShows, getShowsByUser, createShows }}>
       { children }
     </Context.Provider>
   )

@@ -6,6 +6,7 @@ import ArtistOptions from '../layout/ArtistOptions'
 import ProducerOptions from '../layout/ProducerOptions'
 import { CurrentUserContext } from '../../store/currentUser'
 import { ShowContext } from '../../store/show'
+import { CompanyContext } from '../../store/company'
 import { useHistory } from 'react-router'
 
 

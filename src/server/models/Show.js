@@ -19,7 +19,8 @@ const Show = new Schema ({
   },
   artists: [{
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   }],
   company: {
     type: Schema.Types.ObjectId,

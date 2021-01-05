@@ -13,6 +13,7 @@ import DateTimePicker from 'react-datetime-picker'
 import "react-datepicker/dist/react-datepicker.css";
 // Context
 import { CompanyContext } from '../../store/company'
+import { ShowContext } from '../../store/show'
 import { CurrentUserContext } from '../../store/currentUser';
 
 const ErrorMessage = ({ name }) => (
@@ -31,6 +32,7 @@ const CreateShows = () => {
 
   // History and context setup
   const history = useHistory()
+  const { createShows } = useContext(ShowContext)
   const { state: companyState, fetchCurrentCompany } = useContext(CompanyContext)
   const { state: currentUserState } = useContext(CurrentUserContext)
 
@@ -114,7 +116,7 @@ const CreateShows = () => {
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
-              console.log(values)
+              createShows(values, companyState.currentCompany)
           }}
           >
             {({getFieldProps, errors, touched, values, setFieldValue, setFieldTouched, setValues, handleChange, handleBlur}) => (
