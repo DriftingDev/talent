@@ -5,7 +5,7 @@ const createCompany = (req) => {
 }
 
 const companyById = (id) => {
-  return Company.findById(id)
+  return Company.findById(id).populate('users').populate('venues')
 }
 
 const deleteCompany = (id) => {

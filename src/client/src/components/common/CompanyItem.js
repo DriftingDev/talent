@@ -1,23 +1,31 @@
 import React, { useContext } from 'react';
 import { Card, Col, Row, Button } from 'react-bootstrap';
 import CompanyEditModal from './CompanyEditModal';
-import { useHistory } from 'react-router';
-import { CurrentUserContext } from '../../store/currentUser';
+import { useHistory } from 'react-router'
+import {CurrentUserContext} from '../../store/currentUser'
+import {CompanyContext} from '../../store/company'
 
 const CompanyItem = ({ company }) => {
   const history = useHistory();
   const { state: currentUserState } = useContext(CurrentUserContext);
+  const { state: companyState, dispatch: companyDispatch } = useContext(CompanyContext);
 
   const selectCompany = (company) => {
     if (localStorage.getItem('currentCompany')) {
-      localStorage.removeItem('currentCompany');
+      localStorage.removeItem('currentCompany')
+      companyDispatch({
+        type: "clearCurrentCompany"
+      })
     }
-    localStorage.setItem('currentCompany', company._id);
-    console.log(localStorage.getItem('currentCompany'));
-    currentUserState.user.is_artist
-      ? history.push('/shows')
-      : history.push('/calendar');
-  };
+    localStorage.setItem('currentCompany',company._id)
+    companyDispatch({
+      type: "setCurrentCompany",
+      payload: company
+    })
+    currentUserState.user.is_artist ? 
+      history.push("/shows") :
+      history.push("/calendar")
+  }
   // console.log(company);
   return (
     <>

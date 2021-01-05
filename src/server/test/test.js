@@ -810,6 +810,7 @@ describe('Route testing', () => {
           .set({"Authorization": `Bearer ${producerToken}`})
           .send({
             company: newCompanyId,
+            artists: artistId,
             showName: "show2",
             eventStart: moment().format(),
             eventEnd: moment().add(2,'hours').format(),

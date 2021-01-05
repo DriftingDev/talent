@@ -5,6 +5,7 @@ import {
   axiosGetAllCompanies,
   axiosUpdateCompany,
   axiosDeleteCompany,
+  axiosFetchCurrentCompany
 } from './actions';
 
 const Context = createContext({
@@ -12,8 +13,10 @@ const Context = createContext({
   dispatch: () => {},
   createCompany: () => {},
   getAllCompanies: () => {},
+  /// THESE NEED TO CHANGE
   axiosUpdateCompany: () => {},
   axiosDeleteCompany: () => {},
+  fetchCurrentCompany: () => {}
 });
 
 const CompanyProvider = ({ children }) => {
@@ -22,6 +25,7 @@ const CompanyProvider = ({ children }) => {
   const getAllCompanies = () => axiosGetAllCompanies(dispatch);
   const updateCompany = (values, company) => axiosUpdateCompany(values, dispatch, company);
   const deleteCompany = (company) => axiosDeleteCompany(dispatch, company);
+  const fetchCurrentCompany = () => axiosFetchCurrentCompany(dispatch)
   return (
     <Context.Provider
       value={{
@@ -31,6 +35,7 @@ const CompanyProvider = ({ children }) => {
         getAllCompanies,
         updateCompany,
         deleteCompany,
+        fetchCurrentCompany
       }}
     >
       {children}

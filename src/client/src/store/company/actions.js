@@ -1,12 +1,15 @@
 import axios from 'axios';
 
 let token;
-let authHeader;
+const authHeader = () => {
+  let returnVal = null
+  if (localStorage.getItem('token')) {
+    token = JSON.parse(localStorage.getItem('token'));
+    returnVal = { headers: { Authorization: 'Bearer ' + token } };
+  }
+  return returnVal
+};
 
-if (localStorage.getItem('token')) {
-  token = JSON.parse(localStorage.getItem('token'));
-  authHeader = { headers: { Authorization: 'Bearer ' + token } };
-}
 
 export const axiosCreateCompany = (user, dispatch) => {
   console.log('in the create company axios call');
@@ -17,7 +20,7 @@ export const axiosCreateCompany = (user, dispatch) => {
       {
         name: user.company,
       },
-      authHeader
+      authHeader()
     )
     .then(function (response) {
       // console.log(response.data);
@@ -35,7 +38,7 @@ export const axiosCreateCompany = (user, dispatch) => {
 export const axiosGetAllCompanies = (dispatch) => {
   console.log('in the axiosGetAllCompanies call');
   axios
-    .get('http://localhost:3010/company/userCompanies', authHeader)
+    .get('http://localhost:3010/company/userCompanies', authHeader())
     .then(function (response) {
       // handle success
       console.log(response.data);
@@ -63,7 +66,7 @@ export const axiosUpdateCompany = (updatedCompany, dispatch, company) => {
       {
         name: updatedCompany.company,
       },
-      authHeader
+      authHeader()
     )
     .then(function (response) {
       // handle success
@@ -84,7 +87,7 @@ export const axiosDeleteCompany = (dispatch, company) => {
   console.log('in the axiosDeleteCompany call');
   console.log(company._id);
   axios
-    .delete(`http://localhost:3010/company/${company._id}`, authHeader)
+    .delete(`http://localhost:3010/company/${company._id}`, authHeader())
     .then(function (response) {
       // handle success
       dispatch({
@@ -99,3 +102,19 @@ export const axiosDeleteCompany = (dispatch, company) => {
       // always executed
     });
 };
+
+export const axiosFetchCurrentCompany = (dispatch) => {
+  axios
+    .get(`http://localhost:3010/company/${localStorage.getItem('currentCompany')}`, authHeader())
+    .then(function (response) {
+      // handle success
+      dispatch({
+        type: 'setCurrentCompany',
+        payload: response.data.company,
+      });
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+}

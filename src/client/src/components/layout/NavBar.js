@@ -6,6 +6,7 @@ import ArtistOptions from '../layout/ArtistOptions'
 import ProducerOptions from '../layout/ProducerOptions'
 import { CurrentUserContext } from '../../store/currentUser'
 import { ShowContext } from '../../store/show'
+import { CompanyContext } from '../../store/company'
 import { useHistory } from 'react-router'
 
 
@@ -14,6 +15,7 @@ function NavBar() {
   const history = useHistory()
   const {state: currentUserState, dispatch: currentUserDispatch} = useContext(CurrentUserContext)
   const {state: showState, dispatch: showDispatch} = useContext(ShowContext)
+  const { dispatch: companyDispatch } = useContext(CompanyContext)
 
   useEffect(() => {
     
@@ -25,6 +27,9 @@ function NavBar() {
     })
     showDispatch({
       type: "clearShows"
+    })
+    companyDispatch({
+      type: 'clearCompanies'
     })
     localStorage.removeItem('token')
     history.push('/')
