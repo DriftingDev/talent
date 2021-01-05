@@ -8,6 +8,8 @@ const {
   userById 
 } = require('../utils/user_utils')
 
+const Company = require('../models/Company')
+
 const createNewCompany = async (req,res) => {
   try {
     const company = await createCompany(req)
@@ -47,14 +49,13 @@ const getCompanyById = (req, res) => {
 
 const getCompaniesTiedToUser = (req, res) => {
   try {
-    userById(req.user._id).exec( async (err, user) => {
-      user.populate('companies', ((err, user) => {
-        res.json({
-          companies: user.companies
-        })
-      }))
+    Company.find({users: req.user._id}).populate('users').populate('venues').exec((err, companies) => {
+      res.json({
+        companies: companies
+      })
     })
   } catch (err) {
+    console.log(err)
     res.status(500)
     res.json(err)
   }

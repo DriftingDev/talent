@@ -72,6 +72,7 @@ const CreateShows = () => {
   let formikVenueNames
 
   if(companyState.currentCompany != null){
+    console.log(companyState.currentCompany)
     formikArtistNames = companyState.currentCompany.users
       .filter(user => user.is_artist)
       .map(artist => artist.accname)

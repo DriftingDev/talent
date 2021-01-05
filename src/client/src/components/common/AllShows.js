@@ -57,7 +57,7 @@ const AllShows = () => {
           <Col className="d-flex justify-content-center"><h1>Shows</h1></Col>
           {!CurrentUserState.user.is_artist && 
           <Col className="d-flex justify-content-center">
-            <Button>
+            <Button onClick={() => {history.push("/shows/create")}}>
               Create New Show
             </Button>
           </Col>}
