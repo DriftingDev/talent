@@ -10,6 +10,7 @@ import {ShowContext} from '../../store/show'
 import {CurrentUserContext} from '../../store/currentUser'
 import { CompanyContext } from '../../store/company'
 import moment from 'moment'
+import ShowAccordionFrame from '../layout/ShowAccordionFrame'
 
 const AllShows = () => {
 
@@ -79,30 +80,18 @@ const AllShows = () => {
           </Col>
         </Row>
         }
-        {futureShows.length > 0 &&
-        <>
-          <Row>
-            <Col className="d-flex justify-content-center"><h2>Upcoming/Occuring Shows</h2></Col>
-          </Row>
-          <Row>
-            <Col>
-              <ShowAccordion shows={futureShows} className='w-75' />
-            </Col>
-          </Row>
-        </>
-        }
-        {pastShows.length > 0 &&
-        <>
-          <Row>
-            <Col className="d-flex justify-content-center"><h2>Past Shows</h2></Col>
-          </Row>
-          <Row>
-            <Col>
-              <ShowAccordion shows={pastShows} className='w-75' />
-            </Col>
-          </Row>
-        </>
-        }
+        <ShowAccordionFrame 
+        shows={ShowState.shows} 
+        showOptions={{
+          withTitle: true,
+          withTime: true,
+          withArtists: true,
+          withVenue: true,
+          withEndTime: false,
+          withDescrip: true,
+          withDeleteEdit: true,
+          withAllShowsLink: true
+        }}/>
       </Container>
       :
       <Loading />

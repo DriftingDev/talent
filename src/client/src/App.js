@@ -10,6 +10,7 @@ import Companies from './components/common/Companies';
 import AllShows from './components/common/AllShows';
 import CreateShows from './components/producer/CreateShows';
 import RegisterArtist from './components/producer/RegisterArtist';
+import DisplayShow from './components/common/DisplayShow';
 //Router
 import { Route, Switch } from 'react-router-dom';
 import Artists from './components/producer/Artists';
@@ -43,6 +44,7 @@ function App() {
               <Route path='/calendar' component={Calendar} exact />
               <Route path='/shows' component={AllShows} exact />
               <Route path='/shows/create' component={CreateShows} exact />
+              <Route path='/shows/:slug' component={DisplayShow} exact />
               <Route path='/artists' component={Artists} exact />
               <Route path='/artists/create' component={RegisterArtist} exact />
               {/* <Route path='/artists/:id' component={Artists} /> */}

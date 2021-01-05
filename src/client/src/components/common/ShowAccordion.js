@@ -4,7 +4,7 @@ import {Accordion, Card, Button} from 'react-bootstrap'
 import ShowCard from '../layout/ShowCard'
 import moment from 'moment'
 
-const ShowAccordion = ({shows}) => {
+const ShowAccordion = ({shows, showOptions}) => {
 
   const history = useHistory()
 
@@ -25,7 +25,7 @@ const ShowAccordion = ({shows}) => {
   const AccordionShows = Object.keys(showsToMap)
     .map((date, index) => {
       return (
-        <Card>
+        <Card key={index}>
           <Card.Header>
             <Accordion.Toggle as={Button} variant="link" eventKey={index + 1}>
             {date}
@@ -34,7 +34,7 @@ const ShowAccordion = ({shows}) => {
           <Accordion.Collapse eventKey={index + 1}>
             <Card.Body>
               {showsToMap[date].map(show => (
-                <ShowCard show={show}/>
+                <ShowCard show={show} showOptions={showOptions}/>
               )
               )}
             </Card.Body>
