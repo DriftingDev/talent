@@ -10,7 +10,7 @@ function ArtistList() {
         <h1>Artists</h1>
         <Row>
           {artists.map((artist) => (
-            <Col sm={12} md={6} lg={4} xl={4}>
+            <Col sm={12} md={6} lg={4} xl={4} key={artist.id}>
               <ArtistCard artist={artist} />
             </Col>
           ))}
