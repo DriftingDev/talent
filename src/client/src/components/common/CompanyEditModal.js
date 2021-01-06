@@ -1,24 +1,25 @@
 import React, { useState, useContext } from 'react';
 //Bootstrap
 import { Button, Modal, Form } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 //Formik & Yup
 import { Formik, Form as BaseForm } from 'formik';
 import { CompanyContext } from '../../store/company';
+import { object, string } from 'yup'
 
 function CompanyEditModal({ company }) {
   const [show, setShow] = useState(false);
 
-  const { state: companyState, updateCompany, deleteCompany } = useContext(
+  const { state: companyState, updateCompany } = useContext(
     CompanyContext
   );
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // const validationSchema = object({
-  //   company: string().required('A company is required'),
-  // });
+  const validationSchema = object({
+    company: string().required('A company name is required'),
+  });
 
   return (
     <>
@@ -44,7 +45,7 @@ function CompanyEditModal({ company }) {
             initialValues={{
               company: `${company.name}`,
             }}
-            // validationSchema={validationSchema}
+            validationSchema={validationSchema}
             onSubmit={(values) => {
               updateCompany(values, company);
             }}
@@ -66,17 +67,6 @@ function CompanyEditModal({ company }) {
                 </Form.Group>
                 <Button variant='primary' size='lg' type='submit' block>
                   Update Company Name
-                </Button>
-                <br />
-                <Button
-                  onClick={() => {
-                    deleteCompany(company._id);
-                  }}
-                  variant='danger'
-                  size='lg'
-                  block
-                >
-                  Delete Company
                 </Button>
               </BaseForm>
             )}
