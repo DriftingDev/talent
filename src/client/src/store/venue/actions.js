@@ -38,7 +38,6 @@ export const axiosDeleteVenue = (dispatch, venue_id) => {
   axios
   .delete(`http://localhost:3010/venue/${venue_id}`, authHeader())
   .then((resp) => {
-    console.log("delete venue axios", resp)
     axiosVenuesByCompany(dispatch)
   })
   .catch(console.log)
@@ -58,7 +57,6 @@ export const axiosCreateVenues = (dispatch, values) => {
     axios
     .post('http://localhost:3010/venue/new', venue, authHeader())
     .then((resp) => {
-      console.log(resp)
       if(index + 1 === arr.length) {
         axiosVenuesByCompany(dispatch)
       }
