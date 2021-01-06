@@ -1,11 +1,18 @@
 import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { BsEnvelope } from 'react-icons/bs';
+import { useHistory } from 'react-router-dom';
 import { FiPhone } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+
 // import { LinkContainer } from 'react-router-bootstrap'
 
 const ArtistCard = ({ artist }) => {
+  let history = useHistory();
+
+  function handleNameClick(artist) {
+    history.push(`/artists/1`);
+  }
+
   return (
     <Card className='my-3 p-3 rounded' border='primary'>
       <Card.Body>
@@ -17,24 +24,16 @@ const ArtistCard = ({ artist }) => {
             <p>Past: </p>
           </Col>
           <Col xs={8} className='noPadding '>
-            {/* <Link to={`/artists/${artist.id}`}>
-              <Card.Title as='div'>{artist.name}</Card.Title>
-            </Link> */}
+            <Card.Title onClick={handleNameClick}>{artist.name}</Card.Title>
             <Card.Text>
-              {/* <a
-                href={`mailto:${artist.email}?subject=SHOW%20REMINDER%3A&body=Hi%20${artist.name}%2C%0D%0A%0D%0AYour%20next%20show%20will%20be%20at%20TIME%20and%20PLACE.%0D%0A%0D%0A`}
-              >
-                <p className='truncate'>
-                  <BsEnvelope /> {artist.email}
-                </p>
-              </a> */}
+              <p className='truncate'>
+                <BsEnvelope /> {artist.email}
+              </p>
             </Card.Text>
             <Card.Text>
-              {/* <a href='tel:+61409397074'>
-                <FiPhone /> {artist.contact}
-              </a> */}
+              <FiPhone /> {artist.contact}
             </Card.Text>
-            {/* <Card.Text>{artist.fringe_link}</Card.Text> */}
+            <Card.Text>{artist.fringe_link}</Card.Text>
           </Col>
         </Row>
       </Card.Body>

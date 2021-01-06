@@ -6,8 +6,7 @@ import ArtistCard from './ArtistCard';
 function ArtistList() {
   return (
     <>
-      <Container>
-        <h1>Artists</h1>
+      <Col>
         <Row>
           {artists.map((artist) => (
             <Col sm={12} md={6} lg={4} xl={4} key={artist.id}>
@@ -15,7 +14,7 @@ function ArtistList() {
             </Col>
           ))}
         </Row>
-      </Container>
+      </Col>
     </>
   );
 }

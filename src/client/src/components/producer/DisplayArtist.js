@@ -9,11 +9,14 @@ function DisplayArtist() {
   //current id from slug saved to variable declaration
   let { id } = useParams();
 
-  const artist = artists.filter(function (artist) {
-    return artist.id === id;
-  });
+  console.log(`this is the slug: ${id}`);
 
-  // console.log(artist);
+  const filteredArtistArr = artists.filter((artist) => artist.id === 1);
+
+  const artist = filteredArtistArr[0];
+
+  console.log(`this is the artist object: ${artist}`);
+  console.log(artist);
 
   return (
     <>
@@ -21,7 +24,7 @@ function DisplayArtist() {
       <Container>
         <h1>Artists</h1>
         <Row>
-          <ArtistCard artist={artist[0]} />
+          <ArtistCard artist={artist} />
         </Row>
       </Container>
     </>

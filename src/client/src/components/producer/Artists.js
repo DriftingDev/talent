@@ -1,6 +1,6 @@
 import React from 'react';
 // import Link from 'react-router-dom'
-import { Button } from 'react-bootstrap';
+import { Button, Container, Row } from 'react-bootstrap';
 // import artists from '../data/artists'
 import NavBar from '../layout/NavBar';
 import ArtistList from './ArtistList';
@@ -11,17 +11,23 @@ const Artists = () => {
 
   return (
     <>
-      <div>
-        <NavBar />
+      <NavBar />
+      <Container>
+        <Row className='d-flex justify-content-center'>
+          <h1>Shows</h1>
+        </Row>
+
         <Button
           onClick={() => {
             history.push('/artists/create');
           }}
+          block
         >
           Create Artist
         </Button>
+
         <ArtistList />
-      </div>
+      </Container>
     </>
   );
 };
