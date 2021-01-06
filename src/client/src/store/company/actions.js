@@ -83,24 +83,16 @@ export const axiosUpdateCompany = (updatedCompany, dispatch, company) => {
     });
 };
 
-export const axiosDeleteCompany = (dispatch, company) => {
+export const axiosDeleteCompany = (dispatch, company_id) => {
   console.log('in the axiosDeleteCompany call');
-  console.log(company._id);
+  console.log(company_id);
   axios
-    .delete(`http://localhost:3010/company/${company._id}`, authHeader())
+    .delete(`http://localhost:3010/company/${company_id}`, authHeader())
     .then(function (response) {
       // handle success
-      dispatch({
-        type: 'setCurrentCompany',
-      });
+      axiosGetAllCompanies(dispatch)
     })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
+    .catch(console.log)
 };
 
 export const axiosFetchCurrentCompany = (dispatch) => {

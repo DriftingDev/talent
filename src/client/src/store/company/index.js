@@ -14,8 +14,8 @@ const Context = createContext({
   createCompany: () => {},
   getAllCompanies: () => {},
   /// THESE NEED TO CHANGE
-  axiosUpdateCompany: () => {},
-  axiosDeleteCompany: () => {},
+  updateCompany: () => {},
+  deleteCompany: () => {},
   fetchCurrentCompany: () => {}
 });
 
