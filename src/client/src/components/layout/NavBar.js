@@ -8,6 +8,7 @@ import { CurrentUserContext } from '../../store/currentUser'
 import { ShowContext } from '../../store/show'
 import { CompanyContext } from '../../store/company'
 import { useHistory } from 'react-router'
+import { VenueContext } from '../../store/venue';
 
 
 function NavBar() {
@@ -16,6 +17,7 @@ function NavBar() {
   const {state: currentUserState, dispatch: currentUserDispatch} = useContext(CurrentUserContext)
   const {state: showState, dispatch: showDispatch} = useContext(ShowContext)
   const { dispatch: companyDispatch } = useContext(CompanyContext)
+  const { dispatch: venueDispatch } = useContext(VenueContext)
 
   useEffect(() => {
     
@@ -30,6 +32,9 @@ function NavBar() {
     })
     companyDispatch({
       type: 'clearCompanies'
+    })
+    venueDispatch({
+      type: 'clearVenues'
     })
     localStorage.removeItem('token')
     history.push('/')

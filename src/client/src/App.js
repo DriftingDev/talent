@@ -12,7 +12,9 @@ import CreateShows from './components/producer/CreateShows';
 import RegisterArtist from './components/producer/RegisterArtist';
 import DisplayArtist from './components/producer/DisplayArtist';
 import DisplayShow from './components/common/DisplayShow';
-import NotFound from './components/common/NotFound';
+import AllVenues from './components/common/AllVenues';
+import CreateVenues from './components/producer/CreateVenues';
+import DisplayVenue from './components/common/DisplayVenue';
 //Router
 import { Route, Switch } from 'react-router-dom';
 import Artists from './components/producer/Artists';
@@ -43,19 +45,25 @@ function App() {
           <PrivateRoutes>
             <DataProvider>
               <Switch>
-                <Route path='/companies' component={Companies} exact />
-                <Route path='/calendar' component={Calendar} exact />
-                <Route path='/shows' component={AllShows} exact />
-                <Route path='/shows/create' component={CreateShows} exact />
-                <Route path='/shows/:slug' component={DisplayShow} exact />
-                <Route path='/artists' component={Artists} exact />
-                <Route
-                  path='/artists/create'
-                  component={RegisterArtist}
-                  exact
-                />
-                <Route path='/artists/:id' component={DisplayArtist} exact />
-                {/* <Route path='*' component={NotFound} /> */}
+              <Route path='/companies' component={Companies} exact />
+              <Route path='/calendar' component={Calendar} exact />
+              <Route path='/shows' component={AllShows} exact />
+              <Route path='/shows/create' component={CreateShows} exact />
+              <Route path='/shows/:slug' component={DisplayShow} exact />
+              <Route path='/artists' component={Artists} exact />
+              <Route path='/artists/create' component={RegisterArtist} exact />
+              {/* <Route path='/artists/:id' component={Artists} /> */}
+              <Route path='/venues' component={AllVenues} exact />
+              <Route path='/venues/create' component={CreateVenues} exact />
+              <Route path='/venues/:id' component={DisplayVenue} exact />
+              <Route path='/artists' component={Artists} exact />
+              <Route
+                path='/artists/create'
+                component={RegisterArtist}
+                exact
+              />
+              <Route path='/artists/:id' component={DisplayArtist} exact />
+              {/* <Route path='*' component={NotFound} /> */}
               </Switch>
             </DataProvider>
           </PrivateRoutes>
