@@ -11,6 +11,7 @@ import AllShows from './components/common/AllShows';
 import CreateShows from './components/producer/CreateShows';
 import RegisterArtist from './components/producer/RegisterArtist';
 import DisplayShow from './components/common/DisplayShow';
+import AllVenues from './components/common/AllVenues';
 //Router
 import { Route, Switch } from 'react-router-dom';
 import Artists from './components/producer/Artists';
@@ -48,6 +49,7 @@ function App() {
               <Route path='/artists' component={Artists} exact />
               <Route path='/artists/create' component={RegisterArtist} exact />
               {/* <Route path='/artists/:id' component={Artists} /> */}
+              <Route path='/venues' component={AllVenues} exact />
             </DataProvider>
           </PrivateRoutes>
         </Switch>

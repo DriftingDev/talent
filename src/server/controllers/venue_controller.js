@@ -73,7 +73,9 @@ const getVenuesByUser = (req,res) => {
           venueArray.push(show.venue)
           if (index + 1 === array.length) {
             const uniqueVenues = venueArray.filter((v,i,a)=>a.findIndex(t=>(JSON.stringify(t) === JSON.stringify(v)))===i)
-            res.json(uniqueVenues)
+            res.json({
+              venues: uniqueVenues
+            })
           }
         })
       }
