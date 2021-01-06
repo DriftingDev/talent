@@ -12,6 +12,8 @@ import CreateShows from './components/producer/CreateShows';
 import RegisterArtist from './components/producer/RegisterArtist';
 import DisplayShow from './components/common/DisplayShow';
 import AllVenues from './components/common/AllVenues';
+import CreateVenues from './components/producer/CreateVenues';
+import DisplayVenue from './components/common/DisplayVenue';
 //Router
 import { Route, Switch } from 'react-router-dom';
 import Artists from './components/producer/Artists';
@@ -20,7 +22,6 @@ import PrivateRoutes from './components/auth/ProtectedRoutes';
 import { CurrentUserContext } from './store/currentUser';
 //Data Provider
 import DataProvider from './store/DataProvider';
-import CreateVenues from './components/producer/CreateVenues';
 
 function App() {
   const { state: currentUserState, fetchUser } = useContext(CurrentUserContext);
@@ -52,6 +53,7 @@ function App() {
               {/* <Route path='/artists/:id' component={Artists} /> */}
               <Route path='/venues' component={AllVenues} exact />
               <Route path='/venues/create' component={CreateVenues} exact />
+              <Route path='/venues/:id' component={DisplayVenue} exact />
             </DataProvider>
           </PrivateRoutes>
         </Switch>
