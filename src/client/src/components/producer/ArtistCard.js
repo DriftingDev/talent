@@ -17,24 +17,24 @@ const ArtistCard = ({ artist }) => {
             <p>Past: </p>
           </Col>
           <Col xs={8} className='noPadding '>
-            <Link to={`/artists/${artist.id}`}>
+            {/* <Link to={`/artists/${artist.id}`}>
               <Card.Title as='div'>{artist.name}</Card.Title>
-            </Link>
+            </Link> */}
             <Card.Text>
-              <a
+              {/* <a
                 href={`mailto:${artist.email}?subject=SHOW%20REMINDER%3A&body=Hi%20${artist.name}%2C%0D%0A%0D%0AYour%20next%20show%20will%20be%20at%20TIME%20and%20PLACE.%0D%0A%0D%0A`}
               >
                 <p className='truncate'>
                   <BsEnvelope /> {artist.email}
                 </p>
-              </a>
+              </a> */}
             </Card.Text>
             <Card.Text>
-              <a href='tel:+61409397074'>
+              {/* <a href='tel:+61409397074'>
                 <FiPhone /> {artist.contact}
-              </a>
+              </a> */}
             </Card.Text>
-            <Card.Text>{artist.fringe_link}</Card.Text>
+            {/* <Card.Text>{artist.fringe_link}</Card.Text> */}
           </Col>
         </Row>
       </Card.Body>
