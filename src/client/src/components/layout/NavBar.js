@@ -37,6 +37,7 @@ function NavBar() {
       type: 'clearVenues'
     })
     localStorage.removeItem('token')
+    localStorage.removeItem('currentCompany')
     history.push('/')
   }
 
