@@ -30,7 +30,7 @@ const AllVenues = () => {
   return(
     <>
       <NavBar />
-      <Container>
+      <Container bg='dark' fluid>
         { VenueState.loaded ?
         <>
         <Row>
@@ -38,8 +38,8 @@ const AllVenues = () => {
             <h1>Venues</h1>
           </Col>
           {!CurrentUserState.user.is_artist && 
-          <Button onClick={()=>{history.push('/venue/create')}}>
-            Create Venue
+          <Button onClick={()=>{history.push('/venues/create')}}>
+            Create Venues
           </Button>
           }
         </Row>

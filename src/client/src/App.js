@@ -20,6 +20,7 @@ import PrivateRoutes from './components/auth/ProtectedRoutes';
 import { CurrentUserContext } from './store/currentUser';
 //Data Provider
 import DataProvider from './store/DataProvider';
+import CreateVenues from './components/producer/CreateVenues';
 
 function App() {
   const { state: currentUserState, fetchUser } = useContext(CurrentUserContext);
@@ -50,6 +51,7 @@ function App() {
               <Route path='/artists/create' component={RegisterArtist} exact />
               {/* <Route path='/artists/:id' component={Artists} /> */}
               <Route path='/venues' component={AllVenues} exact />
+              <Route path='/venues/create' component={CreateVenues} exact />
             </DataProvider>
           </PrivateRoutes>
         </Switch>

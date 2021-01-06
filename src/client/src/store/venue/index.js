@@ -4,7 +4,8 @@ import {
   axiosVenuesByUser,
   axiosVenuesByCompany,
   axiosDeleteVenue,
-  axiosUpdateVenue
+  axiosUpdateVenue,
+  axiosCreateVenues
 } from "./actions"
 
 const Context = createContext({
@@ -13,7 +14,8 @@ const Context = createContext({
   getVenuesByCompany: () => {},
   getVenuesByUser: () => {},
   deleteVenue: () => {},
-  updateVenue: () => {}
+  updateVenue: () => {},
+  createVenues: () => {}
 })
 
 const VenueProvider = ({children}) => {
@@ -22,8 +24,9 @@ const VenueProvider = ({children}) => {
   const getVenuesByUser = () => {axiosVenuesByUser(dispatch)}
   const deleteVenue = (venue) => {axiosDeleteVenue(dispatch, venue)}
   const updateVenue = (values, venue) => {axiosUpdateVenue(dispatch, values, venue)}
+  const createVenues = (values) => {axiosCreateVenues(dispatch, values)}
   return (
-    <Context.Provider value={{ state, dispatch, getVenuesByCompany, getVenuesByUser, deleteVenue, updateVenue }}>
+    <Context.Provider value={{ state, dispatch, getVenuesByCompany, getVenuesByUser, deleteVenue, updateVenue, createVenues }}>
       { children }
     </Context.Provider>
   )
