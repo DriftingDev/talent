@@ -56,10 +56,10 @@ export const axiosRegisterArtist = (user, dispatch) => {
       accname: user.accname,
       contact: user.contact,
       is_artist: true,
-      link: user.link
+      link: user.link,
     })
     .then(function (response) {
-      console.log(response)
+      console.log(response);
     })
     .catch(function (error) {
       console.log(error);
@@ -73,6 +73,21 @@ export const axiosFetchUser = (dispatch) => {
       dispatch({
         type: 'setUser',
         payload: resp.data.user,
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
+export const axiosGetAllUsers = (dispatch) => {
+  axios
+    .get('http://localhost:3010/user/all', authHeader())
+    .then((response) => {
+      console.log(response.data);
+      dispatch({
+        type: 'fetchAllUsers',
+        payload: response.data,
       });
     })
     .catch(function (error) {
