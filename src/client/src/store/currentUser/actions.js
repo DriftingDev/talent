@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { axiosFetchCurrentCompany } from '../company/actions';
 
 let token;
 const authHeader = () => {
@@ -48,6 +49,18 @@ export const axiosRegisterUser = (user, dispatch) => {
     });
 };
 
+export const axiosAddUserToCompany = (userId, dispatch) => {
+  axios
+  .post(`http://localhost:3010/user/${userId}/addCompany`,{
+    company_id: localStorage.getItem('currentCompany')
+  }, authHeader())
+  .then((resp) => {
+    console.log(resp)
+    axiosFetchCurrentCompany(dispatch)
+  })
+  .catch(console.log)
+}
+
 export const axiosRegisterArtist = (user, dispatch) => {
   axios
     .post('http://localhost:3010/auth/register', {
@@ -60,6 +73,7 @@ export const axiosRegisterArtist = (user, dispatch) => {
     })
     .then(function (response) {
       console.log(response)
+      axiosAddUserToCompany(response.data.user._id, dispatch)
     })
     .catch(function (error) {
       console.log(error);
