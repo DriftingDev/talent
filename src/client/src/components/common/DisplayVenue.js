@@ -57,6 +57,9 @@ const DisplayVenue = () => {
           {venueShows === null ? 
           <Loading/>
           :
+          venueShows.length === 0 ?
+          <h2>This venue has no shows attached to it</h2>
+          :
           <ShowAccordionFrame shows={venueShows} showOptions={{
             withTitle: true,
             withTime: true,
