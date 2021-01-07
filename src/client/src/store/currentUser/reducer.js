@@ -2,7 +2,8 @@ export const defaultStateShape = {
   user: null,
   //token: null,
   loaded: false,
-  signInError: false
+  signInError: false,
+  users: null
 }
 
 export const userReducer = (state, action) => {
@@ -29,6 +30,11 @@ export const userReducer = (state, action) => {
       return {
         ...state,
         signInError: true
+      }
+    case "fetchAllUsers":
+      return {
+        ...state,
+        users: action.payload
       }
     // case "setToken":
     //   return {
