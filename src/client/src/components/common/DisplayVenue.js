@@ -52,7 +52,7 @@ const DisplayVenue = () => {
         <Loading/>
         :
         <>
-        <VenueAccordion venues={venueById} />
+        <VenueAccordion venues={venueById} withLink={false} />
         <p>MAP HERE IF HAVE TIME</p>
           {venueShows === null ? 
           <Loading/>

@@ -8,7 +8,7 @@ import DeleteModal from '../common/DeleteModal'
 import EditVenueModal from '../producer/EditVenueModal'
 
 
-const VenueAccordion = ({venues}) => {
+const VenueAccordion = ({venues, withLink}) => {
 
   const history = useHistory()
 
@@ -57,9 +57,11 @@ const VenueAccordion = ({venues}) => {
           </>}
         </Card.Body>
         <Card.Footer>
+          {withLink &&
           <Button variant='info' onClick={()=>{history.push(`venues/${venue._id}`)}}>
             View Venue
           </Button>
+          }
           {!CurrentUserState.user.is_artist &&
           <>
             <EditVenueModal venue={venue}/>

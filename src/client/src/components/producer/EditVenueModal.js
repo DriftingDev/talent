@@ -116,7 +116,7 @@ function EditVenueModal({ venue }) {
                 </Form.Group>
 
                 <Button variant='primary' size='lg' type='submit' block>
-                  Update Show
+                  Update Venue
                 </Button>
 
               </BaseForm>

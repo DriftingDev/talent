@@ -44,7 +44,7 @@ const AllVenues = () => {
           }
         </Row>
         <Row>
-          <VenueAccordion venues={VenueState.venues}/>
+          <VenueAccordion venues={VenueState.venues} withLink={true}/>
         </Row>
         </>
         :

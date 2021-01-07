@@ -8,7 +8,25 @@ export default function AuthOptions() {
 
   const history = useHistory()
 
-  const {state: currentUserState} = useContext(CurrentUserContext)
+  const {state: currentUserState, dispatch: currentUserDispatch} = useContext(CurrentUserContext)
+
+  const logoutFunc = () => {
+    currentUserDispatch({
+      type: "clearUser"
+    })
+    // showDispatch({
+    //   type: "clearShows"
+    // })
+    // companyDispatch({
+    //   type: 'clearCompanies'
+    // })
+    // venueDispatch({
+    //   type: 'clearVenues'
+    // })
+    localStorage.removeItem('token')
+    localStorage.removeItem('currentCompany')
+    history.push('/')
+  }
 
   return (
     <>
@@ -19,6 +37,13 @@ export default function AuthOptions() {
       </Nav.Link>
       <Nav.Link onClick={() => {history.push('/register')}}>
         Sign Up
+      </Nav.Link>
+    </Nav>
+    }
+    {(currentUserState.user && !localStorage.getItem('currentCompany')) &&
+    <Nav className='ml-auto'>
+      <Nav.Link onClick={logoutFunc}>
+        Logout
       </Nav.Link>
     </Nav>
     }
