@@ -44,7 +44,11 @@ const AllVenues = () => {
           }
         </Row>
         <Row>
+          {VenueState.venues.length > 0 ? 
           <VenueAccordion venues={VenueState.venues} withLink={true}/>
+          :
+          <h2>No Venues have been created yet.</h2>
+          }
         </Row>
         </>
         :
