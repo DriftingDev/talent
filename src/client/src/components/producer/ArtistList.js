@@ -34,12 +34,16 @@ function ArtistList() {
       {CompanyState.currentCompany != null ?
       <Col>
         <Row>
-          {artists.map((artist) => (
+          {artists.length > 0 ?
+          artists.map((artist) => (
             <Col sm={12} md={6} lg={4} xl={4} key={artist.id}>
               <ArtistCard artist={artist} />
             </Col>
-          ))}
-        </Row>
+          ))
+          :
+          <h2>No artists have been added to this company yet.</h2>
+          }
+          </Row>
       </Col>
       :
       <Loading />
