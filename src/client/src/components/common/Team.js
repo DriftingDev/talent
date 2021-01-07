@@ -1,23 +1,53 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 //Context
 import { useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../store/currentUser';
+import { CompanyContext } from '../../store/company';
+
 //Components
 import NavBar from '../layout/NavBar';
 import CurrentUserCard from './CurrentUserCard';
 import YourTeamCard from './YourTeamCard';
 
 function Team() {
-  const { state: currentUserState, getAllUsers } = useContext(
-    CurrentUserContext
+  const { state: currentUserState } = useContext(CurrentUserContext);
+  const { state: CompanyState, fetchCurrentCompany } = useContext(
+    CompanyContext
   );
-  let user = currentUserState.user;
-  let allUsers = currentUserState.users;
+
+  const history = useHistory();
+
+  let currentUser = currentUserState.user;
+  let producers;
 
   useEffect(() => {
-    getAllUsers();
-  }, []);
+    if (
+      CompanyState.currentCompany === null &&
+      localStorage.getItem('currentCompany')
+    ) {
+      fetchCurrentCompany();
+    } else if (
+      CompanyState.currentCompany === null &&
+      !localStorage.getItem('currentCompany')
+    ) {
+      history.push('/companies');
+    }
+  }, [CompanyState]);
+
+  if (CompanyState.currentCompany != null) {
+    producers = CompanyState.currentCompany.users
+      // .filter(
+      //   // (user) => user
+      //   (user) => user.companies
+      // );
+      .filter((user) =>
+        user.companies.includes(CompanyContext.currentCompany._id)
+      );
+
+    console.log(producers);
+  }
 
   return (
     <>
@@ -26,19 +56,15 @@ function Team() {
         <div>
           <h1 className='d-flex justify-content-center'>My Profile</h1>
         </div>
-        <CurrentUserCard user={user} />
+        <CurrentUserCard user={currentUser} />
         <h1 className='d-flex justify-content-center'>My Team</h1>
 
-        {/* {if user.is_artist === true } */}
-
-        {currentUserState.users &&
+        {/* {currentUserState.users &&
           currentUserState.users.users.map((user) => {
             if (user.is_artist == true) {
               return <YourTeamCard user={user} />;
             }
-          })}
-        {/* {console.log(`this is the all users array: ${currentUserState}`)} */}
-        {console.log(typeof currentUserState.users)}
+          })} */}
       </Container>
     </>
   );
