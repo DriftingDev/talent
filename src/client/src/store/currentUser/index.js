@@ -23,7 +23,7 @@ const CurrentUserProvider = ({ children }) => {
   const loginUser = (values) => axiosLoginUser(values, dispatch);
   const registerUser = (values) => axiosRegisterUser(values, dispatch);
   const fetchUser = () => axiosFetchUser(dispatch);
-  const createArtist = (values) => axiosRegisterArtist(values, dispatch);
+  const createArtist = (values, companyDispatch) => axiosRegisterArtist(values, companyDispatch);
   const getAllUsers = () => axiosGetAllUsers(dispatch);
   return (
     <Context.Provider
