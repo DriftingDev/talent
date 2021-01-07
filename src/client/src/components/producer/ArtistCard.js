@@ -21,7 +21,7 @@ const ArtistCard = ({ artist }) => {
     }
   },[ShowState])
 
-  function handleNameClick(artist) {
+  function handleNameClick() {
     history.push(`/artists/${artist._id}`);
   }
 

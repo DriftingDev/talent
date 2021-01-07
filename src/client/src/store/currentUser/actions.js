@@ -49,19 +49,19 @@ export const axiosRegisterUser = (user, dispatch) => {
     });
 };
 
-export const axiosAddUserToCompany = (userId, dispatch) => {
+export const axiosAddUserToCompany = (userId, companyDispatch) => {
   axios
   .post(`http://localhost:3010/user/${userId}/addCompany`,{
     company_id: localStorage.getItem('currentCompany')
   }, authHeader())
   .then((resp) => {
+    axiosFetchCurrentCompany(companyDispatch)
     console.log(resp)
-    axiosFetchCurrentCompany(dispatch)
   })
   .catch(console.log)
 }
 
-export const axiosRegisterArtist = (user, dispatch) => {
+export const axiosRegisterArtist = (user, companyDispatch) => {
   axios
     .post('http://localhost:3010/auth/register', {
       email: user.email,
@@ -73,7 +73,7 @@ export const axiosRegisterArtist = (user, dispatch) => {
     })
     .then(function (response) {
       console.log(response)
-      axiosAddUserToCompany(response.data.user._id, dispatch)
+      axiosAddUserToCompany(response.data.user._id, companyDispatch)
     })
     .catch(function (error) {
       console.log(error);

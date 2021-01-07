@@ -9,15 +9,20 @@ import { object, string } from 'yup';
 import NavBar from '../layout/NavBar';
 //Global State
 import { CurrentUserContext } from '../../store/currentUser';
+import { CompanyContext } from '../../store/company'
+import { useHistory } from 'react-router';
 
 const RegisterArtist = () => {
+
+  const history = useHistory()
+
   const { state, createArtist } = useContext(CurrentUserContext);
+  const { dispatch } = useContext(CompanyContext)
 
   const validationSchema = object({
     email: string().required('An email is required'),
     password: string().required('A password is required'),
     accname: string().required('A username is required'),
-    contact: string().required('A phone number is required'),
   });
   return (
     <>
@@ -33,8 +38,8 @@ const RegisterArtist = () => {
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            console.log('in Create artist submit');
-            createArtist(values);
+            createArtist(values, dispatch);
+            history.push('/artists')
           }}
         >
           {({ getFieldProps, errors, touched }) => (
@@ -59,11 +64,7 @@ const RegisterArtist = () => {
                 <Form.Control
                   {...getFieldProps('contact')}
                   placeholder='Enter Artist Phone Number'
-                  isInvalid={touched.contact && !!errors.contact}
                 />
-                <Form.Control.Feedback type='invalid'>
-                  {errors.contact}
-                </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group controlId='email'>
@@ -77,16 +78,13 @@ const RegisterArtist = () => {
                   {errors.email}
                 </Form.Control.Feedback>
               </Form.Group>
+
               <Form.Group controlId='link'>
                 <Form.Label>Fringe Link</Form.Label>
                 <Form.Control
                   {...getFieldProps('link')}
                   placeholder='Enter link'
-                  isInvalid={touched.password && !!errors.password}
                 />
-                <Form.Control.Feedback type='invalid'>
-                  {errors.password}
-                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group controlId='password'>
                 <Form.Label>Password</Form.Label>
