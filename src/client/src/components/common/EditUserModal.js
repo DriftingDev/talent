@@ -1,53 +1,67 @@
-import { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 //Bootstrap
-import { Button, Form, Container } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Modal, Form} from 'react-bootstrap';
 //Formik & Yup
 import { Formik, Form as BaseForm } from 'formik';
 import { object, string, number } from 'yup';
-//Components
-import NavBar from '../layout/NavBar';
-//Global State
-import { CurrentUserContext } from '../../store/currentUser';
-import { CompanyContext } from '../../store/company'
-import { useHistory } from 'react-router';
+//Context
+import { UsersContext } from '../../store/user';
+import { CompanyContext } from '../../store/company';
 
-const RegisterArtist = () => {
+function EditUserModal({ user }) {
+  const [show, setShow] = useState(false);
 
-  const history = useHistory()
+  const { updateUser } = useContext(UsersContext);
+  const { dispatch: companyDispatch } = useContext(CompanyContext)
+ 
 
-  const { state, createUser } = useContext(CurrentUserContext);
-  const { dispatch } = useContext(CompanyContext)
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const validationSchema = object({
     email: string().required('An email is required'),
-    password: string().required('A password is required'),
     accname: string().required('A username is required'),
     contact: number().typeError("Must be a number")
   });
+
   return (
     <>
-      <NavBar />
-      <Container>
+      <Button
+        type='submit'
+        onClick={handleShow}
+      >
+        Edit Account
+      </Button>{' '}
+      <Modal
+        show={show}
+        onHide={handleClose}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Account</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
         <Formik
           initialValues={{
-            email: '',
+            email: user.email || '',
             password: '',
-            accname: '',
-            contact: '',
-            link: '',
+            accname: user.accname || '',
+            contact: user.contact || '',
+            link: user.link || '',
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            values.is_artist = true
-            createUser(values, dispatch);
-            history.push('/artists')
+            if(values.password === ''){
+              delete values.password
+            }
+            updateUser(values, companyDispatch);
+            handleClose()
           }}
         >
           {({ getFieldProps, errors, touched }) => (
             <BaseForm className='login-form'>
               <div className='d-flex'>
-                <h4>Create New Artist</h4>
+                <h4>Edit Account Details</h4>
               </div>
               <Form.Group controlId='username'>
                 <Form.Label>Artist Name</Form.Label>
@@ -93,25 +107,27 @@ const RegisterArtist = () => {
                 />
               </Form.Group>
               <Form.Group controlId='password'>
-                <Form.Label>Password</Form.Label>
+                <Form.Label>New Password</Form.Label>
                 <Form.Control
                   {...getFieldProps('password')}
-                  placeholder='Enter password'
-                  isInvalid={touched.password && !!errors.password}
+                  placeholder='Enter New password'
                 />
-                <Form.Control.Feedback type='invalid'>
-                  {errors.password}
-                </Form.Control.Feedback>
               </Form.Group>
               <Button variant='primary' size='lg' type='submit' block>
-                Create Artist
+                Update User
               </Button>
             </BaseForm>
           )}
         </Formik>
-      </Container>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
-};
+}
 
-export default RegisterArtist;
+export default EditUserModal

@@ -32,7 +32,7 @@ function DisplayArtist() {
     if(!ShowState.loaded){
       getShows()
     }
-  })
+  },[CompanyState, ShowState])
 
   let artist;
   let artistShows = []

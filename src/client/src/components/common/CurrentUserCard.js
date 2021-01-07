@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Card, Col, Row, Button } from 'react-bootstrap';
 import { BsEnvelope } from 'react-icons/bs';
 import { FiPhone } from 'react-icons/fi';
+import EditUserModal from './EditUserModal';
 
 function CurrentUserCard({ user }) {
   return (
@@ -11,9 +12,7 @@ function CurrentUserCard({ user }) {
           <Card.Body>
             <Row>
               <Col xs={4} className='noPadding '>
-                <Button variant='primary' size='sm'>
-                  Edit Profile
-                </Button>
+                <EditUserModal user={user}/>
               </Col>
               <Col xs={8} className='noPadding '>
                 <Card.Title>{user.accname}</Card.Title>

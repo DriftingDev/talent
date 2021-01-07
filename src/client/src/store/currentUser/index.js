@@ -4,7 +4,7 @@ import {
   axiosLoginUser,
   axiosRegisterUser,
   axiosFetchUser,
-  axiosRegisterArtist,
+  axiosCreateUser,
   axiosGetAllUsers,
 } from './actions';
 
@@ -14,7 +14,7 @@ const Context = createContext({
   loginUser: () => {},
   registerUser: () => {},
   fetchUser: () => {},
-  createArtist: () => {},
+  createUser: () => {},
   getAllUsers: () => {},
 });
 
@@ -23,7 +23,7 @@ const CurrentUserProvider = ({ children }) => {
   const loginUser = (values) => axiosLoginUser(values, dispatch);
   const registerUser = (values) => axiosRegisterUser(values, dispatch);
   const fetchUser = () => axiosFetchUser(dispatch);
-  const createArtist = (values, companyDispatch) => axiosRegisterArtist(values, companyDispatch);
+  const createUser = (values, companyDispatch) => axiosCreateUser(values, companyDispatch);
   const getAllUsers = () => axiosGetAllUsers(dispatch);
   return (
     <Context.Provider
@@ -33,7 +33,7 @@ const CurrentUserProvider = ({ children }) => {
         loginUser,
         registerUser,
         fetchUser,
-        createArtist,
+        createUser,
         getAllUsers,
       }}
     >
