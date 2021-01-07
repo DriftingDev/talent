@@ -15,6 +15,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { CompanyContext } from '../../store/company'
 import { ShowContext } from '../../store/show'
 import { CurrentUserContext } from '../../store/currentUser';
+import { VenueContext } from '../../store/venue';
 
 const ErrorMessage = ({ name }) => (
   <Field
@@ -35,6 +36,7 @@ const CreateShows = () => {
   const { createShows } = useContext(ShowContext)
   const { state: companyState, fetchCurrentCompany } = useContext(CompanyContext)
   const { state: currentUserState } = useContext(CurrentUserContext)
+  const { state: venueState, getVenuesByCompany } = useContext(VenueContext)
 
   // useEffect for redirect and loading of current company if not loaded
   useEffect(() => {   
@@ -46,6 +48,9 @@ const CreateShows = () => {
     }  
     if (companyState.currentCompany === null) {
       fetchCurrentCompany()
+    }
+    if (!venueState.loaded) {
+      getVenuesByCompany()
     }
   },[companyState])
 
@@ -74,6 +79,9 @@ const CreateShows = () => {
     artistArray = companyState.currentCompany.users
                     .filter(user => user.is_artist)
                     .map(artist => artist.accname)
+    if(artistArray.length < 1){
+      history.push('/shows')
+    }
   }
 
   // create a current date const for creating shows
@@ -98,7 +106,7 @@ const CreateShows = () => {
   return (
     <>
       <NavBar/>
-      {companyState.currentCompany === null ?
+      {(companyState.currentCompany === null && !venueState.loaded) ?
         <Loading />
         :
         <Container  bg='dark' fluid>
@@ -128,8 +136,9 @@ const CreateShows = () => {
               
               <Form.Label>Artists</Form.Label>
                 <Form.Group controlId='artists'>
-                  {artistArray.map((artist) => {
+                  {artistArray.map((artist, index) => {
                     return (
+                      <div key={index}>
                       <Form.Label>
                         {values.artists.includes(artist) ?
                         <Field type='checkbox' name='artists' value={`${artist}`} checked /> 
@@ -137,6 +146,7 @@ const CreateShows = () => {
                         <Field type='checkbox' name='artists' value={`${artist}`} /> }
                         {artist}
                       </Form.Label>
+                      </div>
                       )
                     })
                   }

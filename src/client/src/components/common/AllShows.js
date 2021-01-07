@@ -11,13 +11,15 @@ import {CurrentUserContext} from '../../store/currentUser'
 import { CompanyContext } from '../../store/company'
 import moment from 'moment'
 import ShowAccordionFrame from '../layout/ShowAccordionFrame'
+import { VenueContext } from '../../store/venue'
 
 const AllShows = () => {
 
   const history = useHistory()
   const {state: ShowState, getShows, getShowsByUser} = useContext(ShowContext)
   const {state: CurrentUserState} = useContext(CurrentUserContext)
-  const { state: CompanyState, fetchCurrentCompany } = useContext(CompanyContext)
+  const {state: CompanyState, fetchCurrentCompany } = useContext(CompanyContext)
+  const { state: VenueState, getVenuesByCompany } = useContext(VenueContext)
 
   useEffect(() =>{
     if(!localStorage.getItem('currentCompany')) {
@@ -30,28 +32,26 @@ const AllShows = () => {
       CurrentUserState.user.is_artist ? 
       getShowsByUser(CurrentUserState.user._id) : getShows()
     }
-  }, [CurrentUserState, ShowState])
+    if(!VenueState.loaded && !CurrentUserState.user.is_artist) {
+      getVenuesByCompany()
+    }
+  }, [CurrentUserState, ShowState, VenueState])
 
-  let futureShows;
-  let pastShows;
-
-  if (ShowState.loaded) {
-    futureShows = ShowState.shows.filter((show) => {
-      //if the current moment is "smaller" than the event moment, it is in the future
-      return moment() < moment(show.eventEnd)
-    })
-    pastShows = ShowState.shows.filter((show) => {
-      //if the current moment is "larger" than the event moment, it is in the past
-      return moment() > moment(show.eventEnd)
-    }) 
+  let artistsExist
+  if(CompanyState.currentCompany != null){
+    let artists = CompanyState.currentCompany.users.filter(user => user.is_artist)
+    artistsExist = artists.length > 0 ? true : false
   }
 
   return (
     <>
       <NavBar/>
-      {ShowState.loaded ?
+      {(ShowState.loaded && 
+      (CurrentUserState.user.is_artist ? true : VenueState.loaded)  && 
+      CompanyState.currentCompany != null) ?
       
       <Container bg='dark' fluid >
+
         {(CurrentUserState.user.is_artist && ShowState.shows.length > 0) &&
         <Row>
           <Col>
@@ -62,11 +62,32 @@ const AllShows = () => {
         <Row className="justify-content-around pt-2">
           <Col className="d-flex justify-content-center"><h1>Shows</h1></Col>
           {!CurrentUserState.user.is_artist && 
-          <Col className="d-flex justify-content-center">
+          <Col className="d-flex flex-column justify-content-center">
+            {(VenueState.venues.length > 0 && artistsExist) ?
             <Button onClick={() => {history.push("/shows/create")}}>
               Create New Show
             </Button>
-          </Col>}
+            :
+            VenueState.venues.length > 0 ? 
+              <>
+              <Button disabled={true} variant="secondary">
+                Create New Show
+              </Button>
+              <br></br>
+              <div>Create or add an artist to create a show</div>
+              </>
+              :
+              <>
+              <Button disabled={true} variant="secondary">
+                Create New Show
+              </Button>
+              <br></br>
+              <div>Create a venue to create a show</div>
+              </>
+            }
+          </Col>
+          }
+          
         </Row>
         {ShowState.shows.length === 0 &&
             <Row className="justify-content-around pt-2">
