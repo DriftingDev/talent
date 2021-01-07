@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { axiosFetchCurrentCompany } from '../company/actions';
 
 let token;
 const authHeader = () => {
@@ -13,4 +14,14 @@ const authHeader = () => {
 export const axiosGetUsers = (dispatch) => {
   // axios
   // .get()
+}
+
+export const axiosUpdateTokenUser = (values, companyDispatch) => {
+  axios
+  .post('http://localhost:3010/user/edit', values, authHeader())
+  .then((resp) => {
+    console.log(resp)
+    axiosFetchCurrentCompany(companyDispatch)
+  })
+  .catch(console.log)
 }

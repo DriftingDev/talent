@@ -10,6 +10,7 @@ import { CompanyContext } from '../../store/company';
 import NavBar from '../layout/NavBar';
 import CurrentUserCard from './CurrentUserCard';
 import YourTeamCard from './YourTeamCard';
+import Loading from '../layout/Loading';
 
 function Team() {
   const { state: currentUserState } = useContext(CurrentUserContext);
@@ -19,7 +20,7 @@ function Team() {
 
   const history = useHistory();
 
-  let currentUser = currentUserState.user;
+  let currentUser;
   let producers;
 
   useEffect(() => {
@@ -37,26 +38,26 @@ function Team() {
   }, [CompanyState]);
 
   if (CompanyState.currentCompany != null) {
+
+    currentUser = CompanyState.currentCompany.users
+      .filter(user => user._id === currentUserState.user._id);
+
     producers = CompanyState.currentCompany.users.filter(
       (user) =>
-        user.companies.includes(CompanyState.currentCompany._id) &&
         user.is_artist === false &&
-        !user._id.includes(currentUser._id)
+        user._id !== currentUserState.user._id
     );
-    // producers = CompanyState.currentCompany.users.filter((user) => user);
-
-    console.log(producers);
-    // console.log(CompanyState.currentCompany.users);
   }
 
   return (
     <>
       <NavBar />
+      {CompanyState.currentCompany != null ?
       <Container>
         <div>
           <h1 className='d-flex justify-content-center'>My Profile</h1>
         </div>
-        <CurrentUserCard user={currentUser} />
+        <CurrentUserCard user={currentUser[0]} />
         <h1 className='d-flex justify-content-center'>My Team</h1>
 
         {producers &&
@@ -64,6 +65,9 @@ function Team() {
             return <YourTeamCard user={user} />;
           })}
       </Container>
+      :
+      <Loading/>
+      }
     </>
   );
 }
