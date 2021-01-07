@@ -13,14 +13,16 @@ import Loading from '../layout/Loading'
 //Global State
 import { CompanyContext } from '../../store/company';
 import { CurrentUserContext } from '../../store/currentUser';
+import { ShowContext } from '../../store/show';
+import { VenueContext } from '../../store/venue';
 
 const Companies = () => {
   const history = useHistory();
 
-  const { state: companyState, createCompany, getAllCompanies } = useContext(
-    CompanyContext
-  );
+  const { state: companyState, createCompany, getAllCompanies } = useContext(CompanyContext);
   const { state: CurrentUserState } = useContext(CurrentUserContext)
+  const { state: ShowState, dispatch: showDispatch} = useContext(ShowContext)
+  const { state: VenueState, dispatch: venueDispatch } = useContext(VenueContext)
 
   useEffect(() => {
     if(companyState.loaded) {
@@ -29,11 +31,20 @@ const Companies = () => {
         CurrentUserState.user.is_artist ? history.push('/shows') : history.push('/calendar')
       }
     }
-
     if (companyState.companies === null) {
       getAllCompanies();
     }
-  }, [companyState]);
+    if (ShowState.loaded){
+      showDispatch({
+        type: "clearShows"
+      })
+    }
+    if (VenueState.loaded){
+      venueDispatch({
+        type: "clearVenues"
+      })
+    }
+  }, [companyState, ShowState, VenueState]);
 
   const validationSchema = object({
     company: string().required('A company is required'),
