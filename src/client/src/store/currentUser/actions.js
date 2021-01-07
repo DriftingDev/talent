@@ -61,16 +61,9 @@ export const axiosAddUserToCompany = (userId, companyDispatch) => {
   .catch(console.log)
 }
 
-export const axiosRegisterArtist = (user, companyDispatch) => {
+export const axiosCreateUser = (user, companyDispatch) => {
   axios
-    .post('http://localhost:3010/auth/register', {
-      email: user.email,
-      password: user.password,
-      accname: user.accname,
-      contact: user.contact,
-      is_artist: true,
-      link: user.link,
-    })
+    .post('http://localhost:3010/auth/register', user)
     .then(function (response) {
       console.log(response)
       axiosAddUserToCompany(response.data.user._id, companyDispatch)

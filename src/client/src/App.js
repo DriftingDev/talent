@@ -16,6 +16,7 @@ import AllVenues from './components/common/AllVenues';
 import CreateVenues from './components/producer/CreateVenues';
 import DisplayVenue from './components/common/DisplayVenue';
 import Team from './components/common/Team';
+import RegisterProducer from './components/producer/RegisterProducer';
 //Router
 import { Route, Switch } from 'react-router-dom';
 import Artists from './components/producer/Artists';
@@ -47,6 +48,7 @@ function App() {
             <DataProvider>
               <Switch>
               <Route path='/team' component={Team} exact />
+              <Route path='/team/create' component={RegisterProducer} exact />
               <Route path='/companies' component={Companies} exact />
               <Route path='/calendar' component={Calendar} exact />
               <Route path='/shows' component={AllShows} exact />
@@ -59,11 +61,7 @@ function App() {
               <Route path='/venues/create' component={CreateVenues} exact />
               <Route path='/venues/:id' component={DisplayVenue} exact />
               <Route path='/artists' component={Artists} exact />
-              <Route
-                path='/artists/create'
-                component={RegisterArtist}
-                exact
-              />
+              <Route path='/artists/create' component={RegisterArtist} exact />
               <Route path='/artists/:id' component={DisplayArtist} exact />
         
               </Switch>

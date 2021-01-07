@@ -12,7 +12,7 @@ import { CurrentUserContext } from '../../store/currentUser';
 import { CompanyContext } from '../../store/company'
 import { useHistory } from 'react-router';
 
-const RegisterArtist = () => {
+const RegisterProducer = () => {
 
   const history = useHistory()
 
@@ -39,18 +39,17 @@ const RegisterArtist = () => {
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            values.is_artist = true
             createUser(values, dispatch);
-            history.push('/artists')
+            history.push('/team')
           }}
         >
           {({ getFieldProps, errors, touched }) => (
             <BaseForm className='login-form'>
               <div className='d-flex'>
-                <h4>Create New Artist</h4>
+                <h4>Create New Producer</h4>
               </div>
               <Form.Group controlId='username'>
-                <Form.Label>Artist Name</Form.Label>
+                <Form.Label>Producer Name</Form.Label>
                 <Form.Control
                   {...getFieldProps('accname')}
                   placeholder='Enter username'
@@ -104,7 +103,7 @@ const RegisterArtist = () => {
                 </Form.Control.Feedback>
               </Form.Group>
               <Button variant='primary' size='lg' type='submit' block>
-                Create Artist
+                Create Producer
               </Button>
             </BaseForm>
           )}
@@ -114,4 +113,4 @@ const RegisterArtist = () => {
   );
 };
 
-export default RegisterArtist;
+export default RegisterProducer;

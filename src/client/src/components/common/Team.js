@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 //Context
 import { useContext, useEffect } from 'react';
@@ -58,7 +58,17 @@ function Team() {
           <h1 className='d-flex justify-content-center'>My Profile</h1>
         </div>
         <CurrentUserCard user={currentUser[0]} />
-        <h1 className='d-flex justify-content-center'>My Team</h1>
+        <Row>
+          <Col><h1 className='d-flex justify-content-center'>My Team</h1></Col>
+          { !currentUserState.user.is_artist &&
+            <Col>
+            <Button onClick={() => {history.push('/team/create')}}>
+              Add Team Member
+            </Button>
+            </Col>
+          }
+        </Row>
+        
 
         {producers &&
           producers.map((user) => {
