@@ -54,7 +54,7 @@ function NavBar() {
       <Navbar.Brand onClick={() => history.push('/')}>
         Talent
       </Navbar.Brand>
-      {currentUserState.user &&
+      {(currentUserState.user && localStorage.getItem('currentCompany')) &&
       <NavDropdown title="ICON HERE" className='ml-auto'>
         <NavDropdown.Item onClick={() => history.push(`/team`)}>
           Team
@@ -68,7 +68,7 @@ function NavBar() {
       </NavDropdown>
       }
       {/* TABS RENDERING */}
-      {currentUserState.user ? 
+      {(currentUserState.user && localStorage.getItem('currentCompany')) ? 
         currentUserState.user.is_artist ?
         <ArtistOptions /> 
         :
