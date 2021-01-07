@@ -37,16 +37,16 @@ function Team() {
   }, [CompanyState]);
 
   if (CompanyState.currentCompany != null) {
-    producers = CompanyState.currentCompany.users
-      // .filter(
-      //   // (user) => user
-      //   (user) => user.companies
-      // );
-      .filter((user) =>
-        user.companies.includes(CompanyContext.currentCompany._id)
-      );
+    producers = CompanyState.currentCompany.users.filter(
+      (user) =>
+        user.companies.includes(CompanyState.currentCompany._id) &&
+        user.is_artist === false &&
+        !user._id.includes(currentUser._id)
+    );
+    // producers = CompanyState.currentCompany.users.filter((user) => user);
 
     console.log(producers);
+    // console.log(CompanyState.currentCompany.users);
   }
 
   return (
@@ -59,12 +59,10 @@ function Team() {
         <CurrentUserCard user={currentUser} />
         <h1 className='d-flex justify-content-center'>My Team</h1>
 
-        {/* {currentUserState.users &&
-          currentUserState.users.users.map((user) => {
-            if (user.is_artist == true) {
-              return <YourTeamCard user={user} />;
-            }
-          })} */}
+        {producers &&
+          producers.map((user) => {
+            return <YourTeamCard user={user} />;
+          })}
       </Container>
     </>
   );
