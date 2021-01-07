@@ -1,6 +1,10 @@
 /* The following line can be included in a src/App.scss */
 @import "~bootstrap/scss/bootstrap";
 @import "./custom.scss";
+// @import 'react-big-calendar/lib/sass/styles';
+// @import "./variables.scss";
+@import "./react-big-calendar.css";
+
 
 .login-form {
   background-color: #212121;
