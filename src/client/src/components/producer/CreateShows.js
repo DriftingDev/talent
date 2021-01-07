@@ -106,14 +106,15 @@ const CreateShows = () => {
   return (
     <>
       <NavBar/>
-      {(companyState.currentCompany === null && !venueState.loaded) ?
+      {(companyState.currentCompany === null || !venueState.loaded) ?
         <Loading />
         :
         <Container  bg='dark' fluid>
+          {console.log(venueState.venues)}
           <Formik
             initialValues={{
               artists: [],
-              venue: companyState.currentCompany.venues[0].name,
+              venue: venueState.venues[0].name,
               showName: '',
               showDescrip: '',
               showNum: 0,
@@ -159,7 +160,7 @@ const CreateShows = () => {
                       as='select'
                       {...getFieldProps("venue")}
                     >
-                    {companyState.currentCompany.venues.map(venue => <option value={venue.name} label={venue.name}/>)}
+                    {venueState.venues.map(venue => <option value={venue.name} label={venue.name}/>)}
                   </Form.Control>
                 </Form.Group>
 
