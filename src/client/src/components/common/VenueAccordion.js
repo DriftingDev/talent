@@ -33,7 +33,7 @@ const VenueAccordion = ({ venues, withLink }) => {
     }
 
     return (
-      <Card key={index} className='card'>
+      <Card key={index} className='custom-card'>
         <Card.Header className='noPadding'>
           <Accordion.Toggle
             as={Button}
