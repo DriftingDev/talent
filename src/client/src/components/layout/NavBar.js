@@ -1,45 +1,45 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react';
 import { Navbar, NavDropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AuthOptions from '../auth/AuthOptions'
-import ArtistOptions from '../layout/ArtistOptions'
-import ProducerOptions from '../layout/ProducerOptions'
-import { CurrentUserContext } from '../../store/currentUser'
-import { ShowContext } from '../../store/show'
-import { CompanyContext } from '../../store/company'
-import { useHistory } from 'react-router'
+import AuthOptions from '../auth/AuthOptions';
+import ArtistOptions from '../layout/ArtistOptions';
+import ProducerOptions from '../layout/ProducerOptions';
+import { CurrentUserContext } from '../../store/currentUser';
+import { ShowContext } from '../../store/show';
+import { CompanyContext } from '../../store/company';
+import { useHistory } from 'react-router';
 import { VenueContext } from '../../store/venue';
 
+import { BsPersonFill } from 'react-icons/bs';
 
 function NavBar() {
+  const history = useHistory();
+  const { state: currentUserState, dispatch: currentUserDispatch } = useContext(
+    CurrentUserContext
+  );
+  const { state: showState, dispatch: showDispatch } = useContext(ShowContext);
+  const { dispatch: companyDispatch } = useContext(CompanyContext);
+  const { dispatch: venueDispatch } = useContext(VenueContext);
 
-  const history = useHistory()
-  const {state: currentUserState, dispatch: currentUserDispatch} = useContext(CurrentUserContext)
-  const {state: showState, dispatch: showDispatch} = useContext(ShowContext)
-  const { dispatch: companyDispatch } = useContext(CompanyContext)
-  const { dispatch: venueDispatch } = useContext(VenueContext)
-
-  useEffect(() => {
-    
-  },[currentUserState, showState])
+  useEffect(() => {}, [currentUserState, showState]);
 
   const logoutFunc = () => {
     currentUserDispatch({
-      type: "clearUser"
-    })
+      type: 'clearUser',
+    });
     showDispatch({
-      type: "clearShows"
-    })
+      type: 'clearShows',
+    });
     companyDispatch({
-      type: 'clearCompanies'
-    })
+      type: 'clearCompanies',
+    });
     venueDispatch({
-      type: 'clearVenues'
-    })
-    localStorage.removeItem('token')
-    localStorage.removeItem('currentCompany')
-    history.push('/')
-  }
+      type: 'clearVenues',
+    });
+    localStorage.removeItem('token');
+    localStorage.removeItem('currentCompany');
+    history.push('/');
+  };
 
   return (
     <Navbar bg='dark' variant='dark'>
