@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { useHistory } from 'react-router'
 import { Container, Row, Col, Button, Alert } from 'react-bootstrap'
 import NavBar from '../layout/NavBar'
@@ -10,6 +10,7 @@ import {CurrentUserContext} from '../../store/currentUser'
 import { CompanyContext } from '../../store/company'
 import ShowAccordionFrame from '../layout/ShowAccordionFrame'
 import { VenueContext } from '../../store/venue'
+import ErrorModal from '../layout/ErrorModal'
 
 const AllShows = () => {
 
@@ -18,6 +19,8 @@ const AllShows = () => {
   const {state: CurrentUserState} = useContext(CurrentUserContext)
   const {state: CompanyState, fetchCurrentCompany } = useContext(CompanyContext)
   const { state: VenueState, getVenuesByCompany } = useContext(VenueContext)
+  const [ errorState, setErrorState ] = useState({show: false, message: null})
+
 
   useEffect(() =>{
     if(!localStorage.getItem('currentCompany')) {
@@ -41,9 +44,12 @@ const AllShows = () => {
     artistsExist = artists.length > 0 ? true : false
   }
 
+  
+
   return (
     <>
       <NavBar/>
+      <ErrorModal errorMessage={errorState.message} modalState={errorState.show} handleClose={()=>{setErrorState({show: false, message: null})}}/>
       {(ShowState.loaded && 
       (CurrentUserState.user.is_artist ? true : VenueState.loaded)  && 
       CompanyState.currentCompany != null) ?
@@ -57,10 +63,10 @@ const AllShows = () => {
           </Col>
         </Row>
         }
-        <Row className="justify-content-around pt-2">
-          <Col className="d-flex justify-content-center"><h1>Shows</h1></Col>
+        <Row className="justify-content-around py-3">
+          <Col className="d-flex justify-content-center"><h1>SHOWS</h1></Col>
           {!CurrentUserState.user.is_artist && 
-          <Col className="d-flex flex-column justify-content-center">
+          <Col className="d-flex justify-content-center">
             {(VenueState.venues.length > 0 && artistsExist) ?
             <Button onClick={() => {history.push("/shows/create")}}>
               Create New Show
@@ -68,19 +74,25 @@ const AllShows = () => {
             :
             VenueState.venues.length > 0 ? 
               <>
-              <Button disabled={true} variant="secondary">
+              <Button variant="secondary" onClick={() => {
+                setErrorState({
+                  show:true,
+                  message:"You must add an artist to the company before you can add a show"
+                })
+              }}>
                 Create New Show
               </Button>
-              <br></br>
-              <div>Create or add an artist to create a show</div>
               </>
               :
               <>
-              <Button disabled={true} variant="secondary">
+              <Button variant="secondary" onClick={() => {
+                setErrorState({
+                  show:true,
+                  message:"You must add a venue to the company before you can add a show"
+                })
+              }}>
                 Create New Show
               </Button>
-              <br></br>
-              <div>Create a venue to create a show</div>
               </>
             }
           </Col>
@@ -88,8 +100,8 @@ const AllShows = () => {
           
         </Row>
         {ShowState.shows.length === 0 &&
-            <Row className="justify-content-around pt-2">
-              <Col className="d-flex justify-content-center"><Alert variant='info'>You don't have any shows with this company... yet.</Alert></Col>
+            <Row className="justify-content-around pt-2" >
+              <Col className="d-flex justify-content-center"><Alert variant='info'><h3>You don't have any shows with this company... yet.</h3></Alert></Col>
             </Row>
           }
         {(CurrentUserState.user.is_artist && ShowState.shows.length > 0) &&
