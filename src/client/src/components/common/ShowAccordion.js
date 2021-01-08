@@ -1,5 +1,5 @@
 import React from 'react'
-import {Accordion, Card, Button} from 'react-bootstrap'
+import {Accordion, Card, Button, Badge} from 'react-bootstrap'
 import ShowCard from '../layout/ShowCard'
 import moment from 'moment'
 
@@ -23,10 +23,11 @@ const ShowAccordion = ({shows, showOptions}) => {
     .map((date, index) => {
       return (
         <Card key={index}>
-          <Card.Header>
-            <Accordion.Toggle as={Button} variant="link" eventKey={index + 1}>
-            {date}
+          <Card.Header >
+            <Accordion.Toggle as={Button}  eventKey={index + 1}>
+              {date}
             </Accordion.Toggle>
+            {/* <Badge>{showsToMap[date].length}</Badge> */}
           </Card.Header>
           <Accordion.Collapse eventKey={index + 1}>
             <Card.Body>
