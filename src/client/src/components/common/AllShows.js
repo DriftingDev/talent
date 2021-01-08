@@ -63,7 +63,7 @@ const AllShows = () => {
           </Col>
         </Row>
         }
-        <Row className="justify-content-around pt-3">
+        <Row className="justify-content-around py-3">
           <Col className="d-flex justify-content-center"><h1>SHOWS</h1></Col>
           {!CurrentUserState.user.is_artist && 
           <Col className="d-flex justify-content-center">
@@ -100,8 +100,8 @@ const AllShows = () => {
           
         </Row>
         {ShowState.shows.length === 0 &&
-            <Row className="justify-content-around pt-2">
-              <Col className="d-flex justify-content-center"><Alert variant='info'>You don't have any shows with this company... yet.</Alert></Col>
+            <Row className="justify-content-around pt-2" >
+              <Col className="d-flex justify-content-center"><Alert variant='info'><h3>You don't have any shows with this company... yet.</h3></Alert></Col>
             </Row>
           }
         {(CurrentUserState.user.is_artist && ShowState.shows.length > 0) &&
