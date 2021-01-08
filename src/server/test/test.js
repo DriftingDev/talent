@@ -555,7 +555,7 @@ describe('Route testing', () => {
             expect(res.body).to.haveOwnProperty("user")
             expect(res.body).to.haveOwnProperty("company")
             const lastItem = res.body.company.users.length - 1
-            expect(res.body.company.users[lastItem]).to.equal(newUserId)
+            expect(res.body.company.users[lastItem]._id).to.equal(newUserId)
             expect(res.body.user.companies[0]).to.equal(newCompanyId)
             done()
           })
@@ -625,7 +625,8 @@ describe('Route testing', () => {
             expect(res.body).to.haveOwnProperty('venue')
             newVenueId = res.body.venue._id
             expect(res.body).to.haveOwnProperty('company')
-            expect(res.body.venue.company).to.equal(newCompanyId)
+            expect(res.body.venue.company._id).to.equal(newCompanyId)
+            console.log(res.body)
             expect(res.body.company.venues[0]).to.equal(newVenueId)
             done()
           })
