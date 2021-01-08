@@ -22,11 +22,11 @@ const Artists = () => {
     <>
       <NavBar />
       <Container>
-        <Row className='d-flex justify-content-center'>
-          <Col xs={6} className='pt-2'>
-            <h1>ARTISTS</h1>
+        <Row className='py-2 align-items-center'>
+          <Col xs={6}>
+            <h1 className='title-font'>ARTISTS</h1>
           </Col>
-          <Col xs={6} className='pt-2'>
+          <Col xs={6}>
             <Button
               onClick={() => {
                 history.push('/artists/create');

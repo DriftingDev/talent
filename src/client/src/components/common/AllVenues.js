@@ -38,12 +38,12 @@ const AllVenues = () => {
       <Container bg='dark'>
         {VenueState.loaded ? (
           <>
-            <Row className='justify-content-center '>
-              <Col xs={6} className='pt-2'>
-                <h1>VENUES</h1>
+            <Row className='py-2 align-items-center'>
+              <Col xs={6}>
+              <h1 className='title-font'>VENUES</h1>
               </Col>
               {!CurrentUserState.user.is_artist && (
-                <Col xs={6} className='pt-2'>
+                <Col xs={6}>
                   <Button
                     onClick={() => {
                       history.push('/venues/create');
@@ -55,7 +55,7 @@ const AllVenues = () => {
                 </Col>
               )}
             </Row>
-            <Row className='justify-content-center'>
+            <Row >
               <Col xs={12} md={10} lg={9}>
                 {VenueState.venues.length > 0 ? (
                   <VenueAccordion venues={VenueState.venues} withLink={true} />

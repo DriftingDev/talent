@@ -65,7 +65,7 @@ const AllShows = () => {
       {ShowState.loaded &&
       (CurrentUserState.user.is_artist ? true : VenueState.loaded) &&
       CompanyState.currentCompany != null ? (
-        <Container bg='dark' fluid>
+        <Container bg='dark'>
           {CurrentUserState.user.is_artist && ShowState.shows.length > 0 && (
             <Row>
               <Col>
@@ -73,12 +73,12 @@ const AllShows = () => {
               </Col>
             </Row>
           )}
-          <Row className='justify-content-center py-2'>
-            <Col xs={6} className='pt-2'>
-              <h1>SHOWS</h1>
+          <Row className='py-2 align-items-center'>
+            <Col xs={6}>
+              <h1 className='title-font'>SHOWS</h1>
             </Col>
             {!CurrentUserState.user.is_artist && (
-              <Col className='float-right pt-2'>
+              <Col className='float-right'>
                 {VenueState.venues.length > 0 && artistsExist ? (
                   <Button
                     onClick={() => {
