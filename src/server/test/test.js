@@ -1004,7 +1004,7 @@ describe('Route testing', () => {
             }
             expect(res).to.have.status(200)
             expect(res.body).to.haveOwnProperty('shows')
-            expect(res.body.shows.length).to.equal(1)
+            expect(res.body.shows.length).to.equal(2)
             done()
           })
       })
@@ -1019,7 +1019,7 @@ describe('Route testing', () => {
             }
             expect(res).to.have.status(200)
             expect(res.body).to.haveOwnProperty('shows')
-            expect(res.body.shows.length).to.equal(1)
+            expect(res.body.shows.length).to.equal(2)
             done()
           })
       })
