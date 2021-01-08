@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { axiosFetchCurrentCompany } from '../company/actions';
+import API_URL from '../actionUtils'
 
 let token;
 const authHeader = () => {
@@ -18,7 +19,7 @@ export const axiosGetUsers = (dispatch) => {
 
 export const axiosUpdateTokenUser = (values, companyDispatch) => {
   axios
-  .post('http://localhost:3010/user/edit', values, authHeader())
+  .post(`${API_URL}/user/edit`, values, authHeader())
   .then((resp) => {
     console.log(resp)
     axiosFetchCurrentCompany(companyDispatch)

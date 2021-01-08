@@ -1,5 +1,6 @@
 import axios from 'axios'
 import moment from 'moment'
+import API_URL from '../actionUtils'
 
 let token;
 const authHeader = () => {
@@ -13,7 +14,7 @@ const authHeader = () => {
 
 export const axiosGetShows = (dispatch) => {
   axios
-    .get(`http://localhost:3010/show/showsByCompany/${localStorage.getItem('currentCompany')}`,  authHeader())
+    .get(`${API_URL}/show/showsByCompany/${localStorage.getItem('currentCompany')}`,  authHeader())
     .then((resp) => {
       dispatch({
         type: 'setShows',
@@ -27,7 +28,7 @@ export const axiosGetShows = (dispatch) => {
 
 export const axiosGetShowsByUser = (dispatch, id) => {
   axios
-    .get(`http://localhost:3010/show/showsByUser/${id}`,  authHeader())
+    .get(`${API_URL}/show/showsByUser/${id}`,  authHeader())
     .then((resp) => {
       dispatch({
         type: 'setShows',
@@ -62,7 +63,7 @@ export const axiosBatchCreateShows = async (dispatch, showsObject, currentCompan
       eventEnd: showEndStartObj.eventEndDate
     }
     return axios
-            .post("http://localhost:3010/show/new", data, authHeader())
+            .post(`${API_URL}/show/new`, data, authHeader())
             .then((resp) => {
               if (index + 1 === arr.length){
                 axiosGetShows(dispatch)
@@ -94,7 +95,7 @@ export const axiosUpdateShow = (dispatch, showsObject, currentCompany) => {
     eventEnd: showsObject.eventEnd
   }
   axios
-    .post(`http://localhost:3010/show/${showsObject._id}`, data, authHeader())
+    .post(`${API_URL}/show/${showsObject._id}`, data, authHeader())
     .then((resp) => {
       console.log(resp)
       axiosGetShows(dispatch)
@@ -106,7 +107,7 @@ export const axiosUpdateShow = (dispatch, showsObject, currentCompany) => {
 
 export const axiosDeleteShow = (dispatch, id) => {
   axios
-    .delete(`http://localhost:3010/show/${id}`, authHeader())
+    .delete(`${API_URL}/show/${id}`, authHeader())
     .then((resp) => {
       axiosGetShows(dispatch)
     })

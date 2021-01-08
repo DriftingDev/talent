@@ -1,4 +1,5 @@
 import axios from 'axios'
+import API_URL from '../actionUtils'
 
 let token;
 const authHeader = () => {
@@ -12,7 +13,7 @@ const authHeader = () => {
 
 export const axiosVenuesByUser = (dispatch) => {
   axios
-  .get('http://localhost:3010/venue/venuesByUser', authHeader())
+  .get(`${API_URL}/venue/venuesByUser`, authHeader())
   .then((resp) => {
     dispatch({
       type: 'setVenues',
@@ -24,7 +25,7 @@ export const axiosVenuesByUser = (dispatch) => {
 
 export const axiosVenuesByCompany = (dispatch) => {
   axios
-  .get(`http://localhost:3010/venue/venuesByCompany/${localStorage.getItem('currentCompany')}`, authHeader())
+  .get(`${API_URL}/venue/venuesByCompany/${localStorage.getItem('currentCompany')}`, authHeader())
   .then((resp) => {
     dispatch({
       type: 'setVenues',
@@ -36,7 +37,7 @@ export const axiosVenuesByCompany = (dispatch) => {
 
 export const axiosDeleteVenue = (dispatch, venue_id) => {
   axios
-  .delete(`http://localhost:3010/venue/${venue_id}`, authHeader())
+  .delete(`${API_URL}/venue/${venue_id}`, authHeader())
   .then((resp) => {
     axiosVenuesByCompany(dispatch)
   })
@@ -45,7 +46,7 @@ export const axiosDeleteVenue = (dispatch, venue_id) => {
 
 export const axiosUpdateVenue = (dispatch, values, venue) => {
   axios
-  .post(`http://localhost:3010/venue/${venue._id}`, values, authHeader())
+  .post(`${API_URL}/venue/${venue._id}`, values, authHeader())
   .then((resp) => {
     axiosVenuesByCompany(dispatch)
   })
@@ -55,7 +56,7 @@ export const axiosUpdateVenue = (dispatch, values, venue) => {
 export const axiosCreateVenues = (dispatch, values) => {
   values.venues.forEach((venue, index, arr) => {
     axios
-    .post('http://localhost:3010/venue/new', venue, authHeader())
+    .post(`${API_URL}/venue/new`, venue, authHeader())
     .then((resp) => {
       if(index + 1 === arr.length) {
         axiosVenuesByCompany(dispatch)

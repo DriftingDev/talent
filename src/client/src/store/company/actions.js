@@ -1,4 +1,5 @@
 import axios from 'axios';
+import API_URL from '../actionUtils'
 
 let token;
 const authHeader = () => {
@@ -16,7 +17,7 @@ export const axiosCreateCompany = (user, dispatch) => {
   // console.log(user.company);
   axios
     .post(
-      'http://localhost:3010/company/new',
+      `${API_URL}/company/new`,
       {
         name: user.company,
       },
@@ -38,7 +39,7 @@ export const axiosCreateCompany = (user, dispatch) => {
 export const axiosGetAllCompanies = (dispatch) => {
   console.log('in the axiosGetAllCompanies call');
   axios
-    .get('http://localhost:3010/company/userCompanies', authHeader())
+    .get(`${API_URL}/company/userCompanies`, authHeader())
     .then(function (response) {
       // handle success
       console.log(response.data);
@@ -62,7 +63,7 @@ export const axiosUpdateCompany = (updatedCompany, dispatch, company) => {
   // console.log(company);
   axios
     .post(
-      `http://localhost:3010/company/${company._id}`,
+      `${API_URL}/company/${company._id}`,
       {
         name: updatedCompany.company,
       },
@@ -87,7 +88,7 @@ export const axiosDeleteCompany = (dispatch, company_id) => {
   console.log('in the axiosDeleteCompany call');
   console.log(company_id);
   axios
-    .delete(`http://localhost:3010/company/${company_id}`, authHeader())
+    .delete(`${API_URL}/company/${company_id}`, authHeader())
     .then(function (response) {
       // handle success
       axiosGetAllCompanies(dispatch)
@@ -97,7 +98,7 @@ export const axiosDeleteCompany = (dispatch, company_id) => {
 
 export const axiosFetchCurrentCompany = (dispatch) => {
   axios
-    .get(`http://localhost:3010/company/${localStorage.getItem('currentCompany')}`, authHeader())
+    .get(`${API_URL}/company/${localStorage.getItem('currentCompany')}`, authHeader())
     .then(function (response) {
       // handle success
       dispatch({

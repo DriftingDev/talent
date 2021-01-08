@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { axiosFetchCurrentCompany } from '../company/actions';
+import API_URL from '../actionUtils'
 
 let token;
 const authHeader = () => {
@@ -13,7 +14,7 @@ const authHeader = () => {
 
 export const axiosLoginUser = (user, dispatch) => {
   axios
-    .post('http://localhost:3010/auth/login', {
+    .post(`${API_URL}/auth/login`, {
       email: user.email,
       password: user.password,
       //remember: user.rememberMe
@@ -36,7 +37,7 @@ export const axiosLoginUser = (user, dispatch) => {
 
 export const axiosRegisterUser = (user, dispatch) => {
   axios
-    .post('http://localhost:3010/auth/register', {
+    .post(`${API_URL}/auth/register`, {
       email: user.email,
       password: user.password,
       accname: user.accname,
@@ -51,7 +52,7 @@ export const axiosRegisterUser = (user, dispatch) => {
 
 export const axiosAddUserToCompany = (userId, companyDispatch) => {
   axios
-  .post(`http://localhost:3010/user/${userId}/addCompany`,{
+  .post(`${API_URL}/user/${userId}/addCompany`,{
     company_id: localStorage.getItem('currentCompany')
   }, authHeader())
   .then((resp) => {
@@ -63,7 +64,7 @@ export const axiosAddUserToCompany = (userId, companyDispatch) => {
 
 export const axiosCreateUser = (user, companyDispatch) => {
   axios
-    .post('http://localhost:3010/auth/register', user)
+    .post(`${API_URL}/auth/register`, user)
     .then(function (response) {
       console.log(response)
       axiosAddUserToCompany(response.data.user._id, companyDispatch)
@@ -75,7 +76,7 @@ export const axiosCreateUser = (user, companyDispatch) => {
 
 export const axiosFetchUser = (dispatch) => {
   axios
-    .get('http://localhost:3010/auth/checkToken', authHeader())
+    .get(`${API_URL}/auth/checkToken`, authHeader())
     .then((resp) => {
       dispatch({
         type: 'setUser',
@@ -89,7 +90,7 @@ export const axiosFetchUser = (dispatch) => {
 
 export const axiosGetAllUsers = (dispatch) => {
   axios
-    .get('http://localhost:3010/user/all', authHeader())
+    .get(`${API_URL}/user/all`, authHeader())
     .then((response) => {
       console.log(response.data);
       dispatch({
