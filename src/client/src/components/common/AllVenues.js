@@ -25,7 +25,7 @@ const AllVenues = () => {
     if(!VenueState.loaded){
       CurrentUserState.user.is_artist ? getVenuesByUser() : getVenuesByCompany()
     }
-  },[VenueState, CompanyState])
+  },[VenueState, CompanyState, CurrentUserState])
 
   return(
     <>

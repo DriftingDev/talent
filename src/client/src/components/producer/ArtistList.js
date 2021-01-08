@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 // import artists from '../../data/artists'
 import { CompanyContext } from '../../store/company';
@@ -14,7 +14,6 @@ function ArtistList() {
   let artists
 
   const { state: CompanyState, fetchCurrentCompany } = useContext(CompanyContext)
-  const { state: UserState, getUsers } = useContext(UsersContext)
 
   useEffect(() => {
     if(CompanyState.currentCompany === null && localStorage.getItem('currentCompany')){

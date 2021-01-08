@@ -1,12 +1,9 @@
 import React from 'react'
-import { useHistory } from 'react-router'
 import {Accordion, Card, Button} from 'react-bootstrap'
 import ShowCard from '../layout/ShowCard'
 import moment from 'moment'
 
 const ShowAccordion = ({shows, showOptions}) => {
-
-  const history = useHistory()
 
   var groupBy = function(xs, key) {
     return xs.reduce(function(rv, x) {

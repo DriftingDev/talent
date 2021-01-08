@@ -63,7 +63,6 @@ function App() {
               <Route path='/artists' component={Artists} exact />
               <Route path='/artists/create' component={RegisterArtist} exact />
               <Route path='/artists/:id' component={DisplayArtist} exact />
-        
               </Switch>
             </DataProvider>
           </PrivateRoutes>

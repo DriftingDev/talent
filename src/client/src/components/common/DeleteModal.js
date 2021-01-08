@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 //Bootstrap
 import { Button, Modal } from 'react-bootstrap';
 

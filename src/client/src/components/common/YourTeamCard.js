@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Card, Col, Row, Button } from 'react-bootstrap';
+import { Container, Card, Col, Row } from 'react-bootstrap';
 import { BsEnvelope } from 'react-icons/bs';
 import { FiPhone } from 'react-icons/fi';
 

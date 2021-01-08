@@ -20,7 +20,7 @@ const VenueAccordion = ({venues, withLink}) => {
     if(ShowState.shows === null && !CurrentUserState.user.is_artist){
       getShows()
     }
-  },[ShowState])
+  },[ShowState, CurrentUserState])
 
   const AccordionVenues = venues.map((venue, index) => {
     let canDelete = false

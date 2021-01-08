@@ -4,12 +4,10 @@ import { Container, Row, Col, Button, Alert } from 'react-bootstrap'
 import NavBar from '../layout/NavBar'
 import Loading from '../layout/Loading'
 import ArtistNextShow from '../artist/ArtistNextShow'
-import ShowAccordion from '../common/ShowAccordion'
 import CalendarDisplay from '../common/CalendarDisplay'
 import {ShowContext} from '../../store/show'
 import {CurrentUserContext} from '../../store/currentUser'
 import { CompanyContext } from '../../store/company'
-import moment from 'moment'
 import ShowAccordionFrame from '../layout/ShowAccordionFrame'
 import { VenueContext } from '../../store/venue'
 
@@ -35,7 +33,7 @@ const AllShows = () => {
     if(!VenueState.loaded && !CurrentUserState.user.is_artist) {
       getVenuesByCompany()
     }
-  }, [CurrentUserState, ShowState, VenueState])
+  }, [CurrentUserState, ShowState, VenueState, CompanyState])
 
   let artistsExist
   if(CompanyState.currentCompany != null){

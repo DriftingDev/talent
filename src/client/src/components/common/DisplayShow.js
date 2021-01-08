@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
-import { AiFillAlipaySquare } from 'react-icons/ai'
 import { useHistory, useParams } from 'react-router'
 import { CompanyContext } from '../../store/company'
 import { CurrentUserContext } from '../../store/currentUser'

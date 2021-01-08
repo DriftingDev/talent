@@ -44,7 +44,7 @@ const Companies = () => {
         type: "clearVenues"
       })
     }
-  }, [companyState, ShowState, VenueState]);
+  }, [companyState, ShowState, VenueState, CurrentUserState]);
 
   const validationSchema = object({
     company: string().required('A company is required'),

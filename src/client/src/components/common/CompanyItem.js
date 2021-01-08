@@ -9,7 +9,7 @@ import {CompanyContext} from '../../store/company'
 const CompanyItem = ({ company }) => {
   const history = useHistory();
   const { state: currentUserState } = useContext(CurrentUserContext);
-  const { state: companyState, dispatch: companyDispatch, deleteCompany } = useContext(CompanyContext);
+  const { dispatch: companyDispatch, deleteCompany } = useContext(CompanyContext);
 
   const selectCompany = (company) => {
     if (localStorage.getItem('currentCompany')) {

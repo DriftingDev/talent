@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
 import { Container } from "react-bootstrap"
-import { useHistory, useParams } from "react-router"
+import { useParams } from "react-router"
 import { CurrentUserContext } from "../../store/currentUser"
 import { ShowContext } from "../../store/show"
 import { VenueContext } from "../../store/venue"
@@ -11,8 +11,6 @@ import VenueAccordion from "./VenueAccordion"
 
 
 const DisplayVenue = () => {
-
-  const history = useHistory()
 
   const { id } = useParams()
   let venueById = null;
@@ -31,7 +29,7 @@ const DisplayVenue = () => {
         CurrentUserState.user.is_artist ? getShowsByUser() : getShows()
       }
     }
-  },[VenueState, ShowState])
+  },[VenueState, ShowState, CurrentUserState])
 
   if(ShowState.loaded && VenueState.loaded) {
     venueById = VenueState.venues.filter(venue => venue._id === id)

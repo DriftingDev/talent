@@ -41,13 +41,6 @@ function NavBar() {
     history.push('/')
   }
 
-  let dynamicURL;
-
-  if(currentUserState.user){
-    currentUserState.user.is_artist ?
-    dynamicURL = 'artist' : dynamicURL = 'producer'
-  }
-
   return (
     <Navbar bg='dark' variant='dark'>
 

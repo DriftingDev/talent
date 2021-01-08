@@ -10,9 +10,7 @@ import { object, string } from 'yup'
 function CompanyEditModal({ company }) {
   const [show, setShow] = useState(false);
 
-  const { state: companyState, updateCompany } = useContext(
-    CompanyContext
-  );
+  const { updateCompany } = useContext( CompanyContext )
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
