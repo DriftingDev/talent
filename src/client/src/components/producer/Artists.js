@@ -24,7 +24,7 @@ const Artists = () => {
       <Container>
         <Row className='d-flex justify-content-center'>
           <Col xs={6} className='pt-2'>
-            <h1>Artists</h1>
+            <h1>ARTISTS</h1>
           </Col>
           <Col xs={6} className='pt-2'>
             <Button

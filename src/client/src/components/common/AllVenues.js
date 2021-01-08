@@ -40,7 +40,7 @@ const AllVenues = () => {
           <>
             <Row className='justify-content-center '>
               <Col xs={6} className='pt-2'>
-                <h1>Venues</h1>
+                <h1>VENUES</h1>
               </Col>
               {!CurrentUserState.user.is_artist && (
                 <Col xs={6} className='pt-2'>
@@ -49,7 +49,7 @@ const AllVenues = () => {
                       history.push('/venues/create');
                     }}
                     className='float-right'
-                    >
+                  >
                     Create Venues
                   </Button>
                 </Col>
