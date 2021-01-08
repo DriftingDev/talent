@@ -33,13 +33,9 @@ const VenueAccordion = ({ venues, withLink }) => {
     }
 
     return (
-      <Card key={index} className='custom-card'>
-        <Card.Header className='noPadding'>
-          <Accordion.Toggle
-            as={Button}
-            variant='link'
-            eventKey={`${index + 1}`}
-          >
+      <Card key={index}>
+        <Card.Header>
+          <Accordion.Toggle as={Button} eventKey={`${index + 1}`}>
             <div className={'d-flex justify-content-between'}>
               {venue.name}
               {venue.capacity && <>Capacity: {venue.capacity}</>}

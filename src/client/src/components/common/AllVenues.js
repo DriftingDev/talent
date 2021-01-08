@@ -40,7 +40,7 @@ const AllVenues = () => {
           <>
             <Row className='py-2 align-items-center'>
               <Col xs={6}>
-              <h1 className='title-font'>VENUES</h1>
+                <h1 className='title-font'>VENUES</h1>
               </Col>
               {!CurrentUserState.user.is_artist && (
                 <Col xs={6}>
@@ -55,8 +55,8 @@ const AllVenues = () => {
                 </Col>
               )}
             </Row>
-            <Row >
-              <Col xs={12} md={10} lg={9}>
+            <Row>
+              <Col>
                 {VenueState.venues.length > 0 ? (
                   <VenueAccordion venues={VenueState.venues} withLink={true} />
                 ) : (
