@@ -625,9 +625,8 @@ describe('Route testing', () => {
             expect(res.body).to.haveOwnProperty('venue')
             newVenueId = res.body.venue._id
             expect(res.body).to.haveOwnProperty('company')
-            expect(res.body.venue.company._id).to.equal(newCompanyId)
-            console.log(res.body)
-            expect(res.body.company.venues[0]).to.equal(newVenueId)
+            expect(res.body.venue.company).to.equal(newCompanyId)
+            expect(res.body.company.venues[0]._id).to.equal(newVenueId)
             done()
           })
       })
@@ -784,8 +783,8 @@ describe('Route testing', () => {
             .set({"Authorization": `Bearer ${artistToken}`})
             .end((err,res) => {
               expect(res).to.have.status(200)
-              expect(res.body).to.be.an('array')
-              expect(res.body.length).to.equal(1)
+              expect(res.body.venues).to.be.an('array')
+              expect(res.body.venues.length).to.equal(1)
               done()
             })
         })
