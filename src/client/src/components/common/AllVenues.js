@@ -30,35 +30,44 @@ const AllVenues = () => {
         ? getVenuesByUser()
         : getVenuesByCompany();
     }
-  },[VenueState, CompanyState, CurrentUserState])
+  }, [VenueState, CompanyState, CurrentUserState]);
 
   return (
     <>
       <NavBar />
-      <Container bg='dark' fluid>
-        { VenueState.loaded ?
-        <>
-        <Row>
-          <Col>
-            <h1>Venues</h1>
-          </Col>
-          {!CurrentUserState.user.is_artist && 
-          <Button onClick={()=>{history.push('/venues/create')}}>
-            Create Venues
-          </Button>
-          }
-        </Row>
-        <Row>
-          {VenueState.venues.length > 0 ? 
-          <VenueAccordion venues={VenueState.venues} withLink={true}/>
-          :
-          <h2>No Venues have been created yet.</h2>
-          }
-        </Row>
-        </>
-        :
-        <Loading />
-        }
+      <Container bg='dark'>
+        {VenueState.loaded ? (
+          <>
+            <Row className='justify-content-center '>
+              <Col xs={6} className='pt-2'>
+                <h1>Venues</h1>
+              </Col>
+              {!CurrentUserState.user.is_artist && (
+                <Col xs={6} className='pt-2'>
+                  <Button
+                    onClick={() => {
+                      history.push('/venues/create');
+                    }}
+                    className='float-right'
+                    >
+                    Create Venues
+                  </Button>
+                </Col>
+              )}
+            </Row>
+            <Row className='justify-content-center'>
+              <Col xs={12} md={10} lg={9}>
+                {VenueState.venues.length > 0 ? (
+                  <VenueAccordion venues={VenueState.venues} withLink={true} />
+                ) : (
+                  <h2>No Venues have been created yet.</h2>
+                )}
+              </Col>
+            </Row>
+          </>
+        ) : (
+          <Loading />
+        )}
       </Container>
     </>
   );

@@ -7,19 +7,18 @@ import { VenueContext } from '../../store/venue';
 import DeleteModal from '../common/DeleteModal';
 import EditVenueModal from '../producer/EditVenueModal';
 
-const VenueAccordion = ({venues, withLink}) => {
+const VenueAccordion = ({ venues, withLink }) => {
+  const history = useHistory();
 
-  const history = useHistory()
-
-  const { deleteVenue } = useContext(VenueContext)
-  const { state: CurrentUserState } = useContext(CurrentUserContext)
-  const { state: ShowState, getShows } = useContext(ShowContext)
+  const { deleteVenue } = useContext(VenueContext);
+  const { state: CurrentUserState } = useContext(CurrentUserContext);
+  const { state: ShowState, getShows } = useContext(ShowContext);
 
   useEffect(() => {
     if (ShowState.shows === null && !CurrentUserState.user.is_artist) {
       getShows();
     }
-  },[ShowState, CurrentUserState])
+  }, [ShowState, CurrentUserState]);
 
   const AccordionVenues = venues.map((venue, index) => {
     let canDelete = false;
@@ -35,7 +34,7 @@ const VenueAccordion = ({venues, withLink}) => {
 
     return (
       <Card key={index} className='card'>
-        <Card.Header>
+        <Card.Header className='noPadding'>
           <Accordion.Toggle
             as={Button}
             variant='link'
@@ -67,6 +66,7 @@ const VenueAccordion = ({venues, withLink}) => {
                 onClick={() => {
                   history.push(`venues/${venue._id}`);
                 }}
+                className='mr-1'
               >
                 View Venue
               </Button>
