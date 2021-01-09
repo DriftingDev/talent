@@ -17,7 +17,7 @@ const RegisterProducer = () => {
   const history = useHistory()
 
   const { state, createUser } = useContext(CurrentUserContext);
-  const { dispatch } = useContext(CompanyContext)
+  const { dispatch: companyDispatch } = useContext(CompanyContext)
 
   const validationSchema = object({
     email: string().required('An email is required'),
@@ -39,7 +39,8 @@ const RegisterProducer = () => {
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            createUser(values, dispatch);
+            companyDispatch({type: "clearCurrentCompany"})
+            createUser(values, companyDispatch);
             history.push('/team')
           }}
         >

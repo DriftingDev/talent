@@ -54,6 +54,7 @@ function EditUserModal({ user }) {
             if(values.password === ''){
               delete values.password
             }
+            companyDispatch({type: 'clearCurrentCompany'})
             updateUser(values, companyDispatch);
             handleClose()
           }}
