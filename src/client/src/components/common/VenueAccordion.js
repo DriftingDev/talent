@@ -10,7 +10,7 @@ import EditVenueModal from '../producer/EditVenueModal';
 const VenueAccordion = ({ venues, withLink }) => {
   const history = useHistory();
 
-  const { deleteVenue } = useContext(VenueContext);
+  const { dispatch: venueDispatch, deleteVenue } = useContext(VenueContext);
   const { state: CurrentUserState } = useContext(CurrentUserContext);
   const { state: ShowState, getShows } = useContext(ShowContext);
 
@@ -78,6 +78,9 @@ const VenueAccordion = ({ venues, withLink }) => {
                       object={venue}
                       name={'venue'}
                       deleteFunc={deleteVenue}
+                      dispatch={() =>{
+                        venueDispatch({type: "clearVenues"})
+                      }}
                     />
                   )}
                 </>
