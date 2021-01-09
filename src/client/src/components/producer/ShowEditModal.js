@@ -17,7 +17,7 @@ function ShowEditModal({ showObject }) {
 
   const [show, setShow] = useState(false);
 
-  const { updateShow } = useContext(ShowContext);
+  const { state: showState, dispatch: showDispatch, updateShow } = useContext(ShowContext);
   const { state: companyState } = useContext(CompanyContext)
 
   const handleClose = () => setShow(false);
@@ -51,9 +51,6 @@ function ShowEditModal({ showObject }) {
                     .filter(user => user.is_artist)
                     .map(artist => artist.accname)
   }
-  
-  // console.log(artistArray)
-  // console.log(showObject)
 
   return (
     <>
@@ -86,6 +83,9 @@ function ShowEditModal({ showObject }) {
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
+              showDispatch({
+                type: 'clearShows'
+              })
               updateShow(values, companyState.currentCompany)
               setShow(false)
             }}

@@ -10,7 +10,7 @@ const ShowCard = ({show, showOptions}) => {
   
   const history = useHistory()
 
-  const { deleteShow } = useContext(ShowContext)
+  const { dispatch: showDispatch, deleteShow } = useContext(ShowContext)
 
   return(
     <Card border='info' bg='dark' >
@@ -49,7 +49,7 @@ const ShowCard = ({show, showOptions}) => {
       }
       { showOptions.withDeleteEdit &&
         <>
-        <DeleteModal object={show} name='show' deleteFunc={deleteShow} />
+        <DeleteModal object={show} name='show' deleteFunc={deleteShow} dispatch={() => {showDispatch({type: "clearShows"})}} />
         <ShowEditModal showObject={show}/>
         </>
       }
