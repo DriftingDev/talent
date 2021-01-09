@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 //Bootstrap
 import { Button, Form, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,6 +7,7 @@ import { Formik, Form as BaseForm } from 'formik';
 import { object, string, number } from 'yup';
 //Components
 import NavBar from '../layout/NavBar';
+import PasswordModal from '../layout/PasswordModal'
 //Global State
 import { CurrentUserContext } from '../../store/currentUser';
 import { CompanyContext } from '../../store/company'
@@ -17,7 +18,9 @@ const RegisterArtist = () => {
   const history = useHistory()
 
   const { state, createUser } = useContext(CurrentUserContext);
-  const { dispatch } = useContext(CompanyContext)
+  const { dispatch: companyDispatch } = useContext(CompanyContext)
+
+  const [ modalState, setModalState ] = useState(false)
 
   const validationSchema = object({
     email: string().required('An email is required'),
@@ -25,6 +28,12 @@ const RegisterArtist = () => {
     accname: string().required('A username is required'),
     contact: number().typeError("Must be a number")
   });
+
+  const handleClose = (values, dispatch) => {
+    createUser(values, dispatch);
+    history.push('/artists')
+  }
+
   return (
     <>
       <NavBar />
@@ -40,11 +49,19 @@ const RegisterArtist = () => {
           validationSchema={validationSchema}
           onSubmit={(values) => {
             values.is_artist = true
-            createUser(values, dispatch);
+            createUser(values, companyDispatch);
             history.push('/artists')
+            //setModalState(true)
           }}
         >
-          {({ getFieldProps, errors, touched }) => (
+          {({ getFieldProps, errors, touched, values }) => (
+            <>
+            {/* <PasswordModal 
+              password={values.password}
+              email={values.email}
+              modalState={modalState}
+              handleClose={(values, dispatch) => {handleClose(values, dispatch)}}
+            /> */}
             <BaseForm className='login-form'>
               <div className='d-flex'>
                 <h4>Create New Artist</h4>
@@ -107,6 +124,7 @@ const RegisterArtist = () => {
                 Create Artist
               </Button>
             </BaseForm>
+            </>
           )}
         </Formik>
       </Container>
