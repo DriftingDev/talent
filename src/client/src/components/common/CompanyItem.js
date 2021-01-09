@@ -40,7 +40,11 @@ const CompanyItem = ({ company }) => {
               { !currentUserState.user.is_artist &&
               <>
               <CompanyEditModal company={company} />
-              <DeleteModal object={company} name={"company"} deleteFunc={deleteCompany} />
+              <DeleteModal 
+                object={company} 
+                name={"company"} 
+                deleteFunc={deleteCompany} 
+                dispatch={() => {companyDispatch({type: "clearCompanies"})}} />
               </>
               }
               <Button

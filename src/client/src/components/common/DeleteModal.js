@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 //Bootstrap
 import { Button, Modal } from 'react-bootstrap';
 
-function DeleteModal({ object, name, deleteFunc}) {
+function DeleteModal({ object, name, deleteFunc, dispatch}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -34,7 +34,12 @@ function DeleteModal({ object, name, deleteFunc}) {
         <Modal.Body>
           <h3>Are you sure you want to delete this {name}</h3>
           <hr></hr>
-          <Button variant='success' onClick={deleteObject}>
+          <Button variant='success' 
+            onClick={() => {
+              deleteObject()
+              dispatch()
+            }}
+          >
             Yes
           </Button>
           <Button variant='danger' onClick={handleClose}>
