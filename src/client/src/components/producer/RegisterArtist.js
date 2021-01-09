@@ -49,6 +49,7 @@ const RegisterArtist = () => {
           validationSchema={validationSchema}
           onSubmit={(values) => {
             values.is_artist = true
+            companyDispatch({type: "clearCurrentCompany"})
             createUser(values, companyDispatch);
             history.push('/artists')
             //setModalState(true)
