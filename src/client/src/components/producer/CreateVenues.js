@@ -29,7 +29,7 @@ const CreateVenues = () => {
 
   // History and context setup
   const history = useHistory()
-  const { createVenues } = useContext(VenueContext)
+  const { state: venueState, dispatch: venueDispatch, createVenues, getVenuesByCompany } = useContext(VenueContext)
   const { state: companyState, fetchCurrentCompany } = useContext(CompanyContext)
   const { state: currentUserState } = useContext(CurrentUserContext)
 
@@ -43,6 +43,9 @@ const CreateVenues = () => {
     }  
     if (companyState.currentCompany === null) {
       fetchCurrentCompany()
+    }
+    if (!venueState.loaded){
+      getVenuesByCompany()
     }
   },[companyState])
 
@@ -97,7 +100,9 @@ const CreateVenues = () => {
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log(values)
+          venueDispatch({
+            type: "clearVenues"
+          })
           createVenues(values)
           history.push("/venues")
       }}
@@ -192,7 +197,11 @@ const CreateVenues = () => {
           >
           </FieldArray>
           <Button variant='primary' size='lg' type='submit' block>
-            Create Venues
+            {venueState.loaded ? 
+            <>Create Venues</>
+            :
+            <Loading />
+            }
           </Button>
         </BaseForm>
       )}
