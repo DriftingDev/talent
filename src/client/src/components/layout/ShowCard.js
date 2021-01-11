@@ -12,7 +12,7 @@ const ShowCard = ({ show, showOptions }) => {
   const { deleteShow } = useContext(ShowContext);
 
   return (
-    <Card border='info' bg='dark' className='px-3 py-2'>
+    <Card border='info' bg='dark' className='px-3 py-2 mb-2'>
       {showOptions.withTitle && <Card.Title>{show.showName}</Card.Title>}
       {showOptions.withTime && (
         <Card.Subtitle>
