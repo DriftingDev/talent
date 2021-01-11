@@ -29,8 +29,7 @@ const RegisterArtist = () => {
     contact: number().typeError("Must be a number")
   });
 
-  const handleClose = (values, dispatch) => {
-    createUser(values, dispatch);
+  const handleClose = () => {
     history.push('/artists')
   }
 
@@ -51,18 +50,17 @@ const RegisterArtist = () => {
             values.is_artist = true
             companyDispatch({type: "clearCurrentCompany"})
             createUser(values, companyDispatch);
-            history.push('/artists')
-            //setModalState(true)
+            setModalState(true)
           }}
         >
           {({ getFieldProps, errors, touched, values }) => (
             <>
-            {/* <PasswordModal 
+            <PasswordModal 
               password={values.password}
               email={values.email}
               modalState={modalState}
-              handleClose={(values, dispatch) => {handleClose(values, dispatch)}}
-            /> */}
+              handleClose={() => {handleClose()}}
+            />
             <BaseForm className='login-form'>
               <div className='d-flex'>
                 <h4>Create New Artist</h4>
