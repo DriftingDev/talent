@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { Accordion, Card, Button } from 'react-bootstrap';
+import { Accordion, Card, Button, Badge, Row, Col } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import { CurrentUserContext } from '../../store/currentUser';
 import { ShowContext } from '../../store/show';
@@ -35,16 +35,29 @@ const VenueAccordion = ({ venues, withLink }) => {
     return (
       <Card key={index}>
         <Card.Header>
-          <Accordion.Toggle as={Button} eventKey={`${index + 1}`}>
-            <div className={'d-flex justify-content-between'}>
-              {venue.name}
-              {venue.capacity && <>Capacity: {venue.capacity}</>}
-            </div>
-          </Accordion.Toggle>
+          <Row className='align-items-center'>
+            <Col>
+              <Accordion.Toggle
+                as={Button}
+                // variant='link'
+                eventKey={`${index + 1}`}
+              >
+                {' '}
+                {venue.name}{' '}
+              </Accordion.Toggle>
+            </Col>
+            <Col className='d-flex'>
+              <Badge pill variant='Info' className='ml-auto'>
+                <span className='white'>
+                  Capacity {venue.capacity && <> {venue.capacity}</>}
+                </span>
+              </Badge>
+            </Col>
+          </Row>
         </Card.Header>
         <Accordion.Collapse eventKey={`${index + 1}`}>
           <>
-            <Card.Body>
+            <Card.Body className='accordian-custom'>
               {venue.address && <p>Address: {venue.address}</p>}
               {venue.contactEmail && <p>Email: {venue.contactEmail}</p>}
               {venue.contactPhone && <p>Phone: {venue.contactPhone}</p>}
@@ -55,8 +68,7 @@ const VenueAccordion = ({ venues, withLink }) => {
                   <p>{venue.details}</p>
                 </>
               )}
-            </Card.Body>
-            <Card.Footer>
+
               <Button
                 variant='info'
                 onClick={() => {
@@ -78,7 +90,7 @@ const VenueAccordion = ({ venues, withLink }) => {
                   )}
                 </>
               )}
-            </Card.Footer>
+            </Card.Body>
           </>
         </Accordion.Collapse>
       </Card>
