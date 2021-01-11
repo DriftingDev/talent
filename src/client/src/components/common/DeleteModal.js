@@ -2,23 +2,25 @@ import React, { useState } from 'react';
 //Bootstrap
 import { Button, Modal } from 'react-bootstrap';
 
-function DeleteModal({ object, name, deleteFunc}) {
+function DeleteModal({ object, name, deleteFunc }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const deleteObject = () => {
-    deleteFunc(object._id)
-    setShow(false)
-  }
+    deleteFunc(object._id);
+    setShow(false);
+  };
 
   return (
     <>
       <Button
         variant='danger'
         type='submit'
+        size='sm'
         onClick={handleShow}
+        className='mb-2 ml-1'
       >
         Delete
       </Button>{' '}

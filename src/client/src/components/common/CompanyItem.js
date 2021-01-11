@@ -1,32 +1,34 @@
 import React, { useContext } from 'react';
 import { Card, Col, Row, Button } from 'react-bootstrap';
 import CompanyEditModal from './CompanyEditModal';
-import DeleteModal from './DeleteModal'
-import { useHistory } from 'react-router'
-import {CurrentUserContext} from '../../store/currentUser'
-import {CompanyContext} from '../../store/company'
+import DeleteModal from './DeleteModal';
+import { useHistory } from 'react-router';
+import { CurrentUserContext } from '../../store/currentUser';
+import { CompanyContext } from '../../store/company';
 
 const CompanyItem = ({ company }) => {
   const history = useHistory();
   const { state: currentUserState } = useContext(CurrentUserContext);
-  const { dispatch: companyDispatch, deleteCompany } = useContext(CompanyContext);
+  const { dispatch: companyDispatch, deleteCompany } = useContext(
+    CompanyContext
+  );
 
   const selectCompany = (company) => {
     if (localStorage.getItem('currentCompany')) {
-      localStorage.removeItem('currentCompany')
+      localStorage.removeItem('currentCompany');
       companyDispatch({
-        type: "clearCurrentCompany"
-      })
+        type: 'clearCurrentCompany',
+      });
     }
-    localStorage.setItem('currentCompany',company._id)
+    localStorage.setItem('currentCompany', company._id);
     companyDispatch({
-      type: "setCurrentCompany",
-      payload: company
-    })
-    currentUserState.user.is_artist ? 
-      history.push("/shows") :
-      history.push("/calendar")
-  }
+      type: 'setCurrentCompany',
+      payload: company,
+    });
+    currentUserState.user.is_artist
+      ? history.push('/shows')
+      : history.push('/calendar');
+  };
   // console.log(company);
   return (
     <>
@@ -37,12 +39,16 @@ const CompanyItem = ({ company }) => {
               <div className='px-1 '>
                 <p>{company.name}</p>
               </div>
-              { !currentUserState.user.is_artist &&
-              <>
-              <CompanyEditModal company={company} />
-              <DeleteModal object={company} name={"company"} deleteFunc={deleteCompany} />
-              </>
-              }
+              {!currentUserState.user.is_artist && (
+                <>
+                  <CompanyEditModal company={company} />
+                  <DeleteModal
+                    object={company}
+                    name={'company'}
+                    deleteFunc={deleteCompany}
+                  />
+                </>
+              )}
               <Button
                 variant='primary'
                 size='sm'

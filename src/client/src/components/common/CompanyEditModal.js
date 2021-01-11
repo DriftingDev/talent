@@ -5,12 +5,12 @@ import { Button, Modal, Form } from 'react-bootstrap';
 //Formik & Yup
 import { Formik, Form as BaseForm } from 'formik';
 import { CompanyContext } from '../../store/company';
-import { object, string } from 'yup'
+import { object, string } from 'yup';
 
 function CompanyEditModal({ company }) {
   const [show, setShow] = useState(false);
 
-  const { updateCompany } = useContext( CompanyContext )
+  const { updateCompany } = useContext(CompanyContext);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -26,6 +26,7 @@ function CompanyEditModal({ company }) {
         size='sm'
         type='submit'
         onClick={handleShow}
+        className='mb-2'
       >
         Edit
       </Button>{' '}
