@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router';
 //Bootstrap
 import { Button, Modal, Form } from 'react-bootstrap';
 //Formik & Yup
@@ -7,18 +7,17 @@ import { Formik, Form as BaseForm, Field, getIn } from 'formik';
 import { object, string, array, date, ref, number } from 'yup';
 //Context
 import { ShowContext } from '../../store/show';
-import { CompanyContext } from '../../store/company'
+import { CompanyContext } from '../../store/company';
 //Components
-import DateTimePicker from 'react-datetime-picker'
-
+import DateTimePicker from 'react-datetime-picker';
 
 function ShowEditModal({ showObject }) {
-  const history = useHistory()
+  const history = useHistory();
 
   const [show, setShow] = useState(false);
 
   const { updateShow } = useContext(ShowContext);
-  const { state: companyState } = useContext(CompanyContext)
+  const { state: companyState } = useContext(CompanyContext);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -31,43 +30,39 @@ function ShowEditModal({ showObject }) {
         const touch = getIn(form.touched, name);
         return touch && error ? error : null;
       }}
-  
     />
   );
 
   const validationSchema = object({
-    showName: string().required("A show name is required"),
-    eventStart: date().required("An event must have a start date"),
-    eventEnd: date().min(
-      ref('eventStart'),"End date must be after start date"
-    ).required('An end date is required'),
-    venue: string().required("A venue is required"),
-    artists: array().min(1, "you must select at least one artist")
-  })
-  
+    showName: string().required('A show name is required'),
+    eventStart: date().required('An event must have a start date'),
+    eventEnd: date()
+      .min(ref('eventStart'), 'End date must be after start date')
+      .required('An end date is required'),
+    venue: string().required('A venue is required'),
+    artists: array().min(1, 'you must select at least one artist'),
+  });
+
   let artistArray;
   if (companyState.currentCompany != null) {
     artistArray = companyState.currentCompany.users
-                    .filter(user => user.is_artist)
-                    .map(artist => artist.accname)
+      .filter((user) => user.is_artist)
+      .map((artist) => artist.accname);
   }
-  
+
   // console.log(artistArray)
   // console.log(showObject)
 
   return (
     <>
-      <Button
-        variant='info'
-        type='submit'
-        onClick={handleShow}
-      >
+      <Button variant='info' type='submit' size='sm' onClick={handleShow}>
         Edit
       </Button>{' '}
       <Modal
         show={show}
         onHide={handleClose}
         // aria-labelledby='contained-modal-title-vcenter'
+
         centered
       >
         <Modal.Header closeButton>
@@ -81,16 +76,23 @@ function ShowEditModal({ showObject }) {
               eventStart: showObject.eventStart,
               showName: showObject.showName,
               venue: showObject.venue.name,
-              artists: showObject.artists.map(artist => artist.accname),
-              descrip: showObject.descrip
+              artists: showObject.artists.map((artist) => artist.accname),
+              descrip: showObject.descrip,
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
-              updateShow(values, companyState.currentCompany)
-              setShow(false)
+              updateShow(values, companyState.currentCompany);
+              setShow(false);
             }}
           >
-            {({ getFieldProps, errors, touched, values, setFieldValue, setFieldTouched }) => (
+            {({
+              getFieldProps,
+              errors,
+              touched,
+              values,
+              setFieldValue,
+              setFieldTouched,
+            }) => (
               <BaseForm className='standard-form'>
                 <Form.Group controlId='showName'>
                   <Form.Label>Show Name</Form.Label>
@@ -116,11 +118,10 @@ function ShowEditModal({ showObject }) {
 
                 <Form.Group controlId='venue'>
                   <Form.Label>Venue</Form.Label>
-                    <Form.Control
-                      as='select'
-                      {...getFieldProps("venue")}
-                    >
-                    {companyState.currentCompany.venues.map(venue => <option value={venue.name} label={venue.name}/>)}
+                  <Form.Control as='select' {...getFieldProps('venue')}>
+                    {companyState.currentCompany.venues.map((venue) => (
+                      <option value={venue.name} label={venue.name} />
+                    ))}
                   </Form.Control>
                 </Form.Group>
 
@@ -129,41 +130,51 @@ function ShowEditModal({ showObject }) {
                   {artistArray.map((artist) => {
                     return (
                       <Form.Label>
-                        {values.artists.includes(artist) ?
-                        <Field type='checkbox' name='artists' value={`${artist}`} checked /> 
-                          :
-                        <Field type='checkbox' name='artists' value={`${artist}`} /> }
+                        {values.artists.includes(artist) ? (
+                          <Field
+                            type='checkbox'
+                            name='artists'
+                            value={`${artist}`}
+                            checked
+                          />
+                        ) : (
+                          <Field
+                            type='checkbox'
+                            name='artists'
+                            value={`${artist}`}
+                          />
+                        )}
                         {artist}
                       </Form.Label>
-                      )
-                    })
-                  }
-                {!!errors.artists && errors.artists}                    
+                    );
+                  })}
+                  {!!errors.artists && errors.artists}
                 </Form.Group>
 
                 <h5>Start Date</h5>
                 <DateTimePicker
-                          value={values.eventStart}
-                          onChange={(e) => {
-                              setFieldValue(`eventStart`, e);
-                              setFieldTouched(`eventStart`, true);
-                            }}
-                          className="form-control"
-                          disableClock={true}
-                        />
-                        <ErrorMessage name={`values.eventStart`} />
+                  value={values.eventStart}
+                  onChange={(e) => {
+                    setFieldValue(`eventStart`, e);
+                    setFieldTouched(`eventStart`, true);
+                  }}
+                  className='form-control'
+                  disableClock={true}
+                />
+                <ErrorMessage name={`values.eventStart`} />
 
                 <h5>End Date</h5>
                 <DateTimePicker
                   value={
-                    values.eventStart > values.eventEnd ?
-                    values.eventStart : values.eventEnd
+                    values.eventStart > values.eventEnd
+                      ? values.eventStart
+                      : values.eventEnd
                   }
                   onChange={(e) => {
-                      setFieldValue(`eventEnd`, e);
-                      setFieldTouched(`eventEnd`, true);
-                    }}
-                  className="form-control"
+                    setFieldValue(`eventEnd`, e);
+                    setFieldTouched(`eventEnd`, true);
+                  }}
+                  className='form-control'
                   disableClock={true}
                 />
                 <ErrorMessage name={`eventEnd`} />

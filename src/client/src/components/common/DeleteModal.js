@@ -15,13 +15,7 @@ function DeleteModal({ object, name, deleteFunc }) {
 
   return (
     <>
-      <Button
-        variant='danger'
-        type='submit'
-        size='sm'
-        onClick={handleShow}
-        className='mb-2 ml-1'
-      >
+      <Button variant='danger' type='submit' size='sm' onClick={handleShow}>
         Delete
       </Button>{' '}
       <Modal
