@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 //Bootstrap
 import { Button, Modal, Form } from 'react-bootstrap';
+import { ImPencil } from 'react-icons/im';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //Formik & Yup
 import { Formik, Form as BaseForm } from 'formik';
@@ -18,7 +19,7 @@ function EditVenueModal({ venue }) {
 
   const validationSchema = object({
     name: string().required('A venue name is required'),
-    capacity: number("Must be a number")
+    capacity: number('Must be a number'),
   });
 
   return (
@@ -26,8 +27,10 @@ function EditVenueModal({ venue }) {
       <Button
         type='submit'
         onClick={handleShow}
+        size='sm'
+        className='mb-2 ml-auto'
       >
-        Edit
+        <ImPencil />
       </Button>{' '}
       <Modal
         show={show}
@@ -41,24 +44,23 @@ function EditVenueModal({ venue }) {
         <Modal.Body>
           <Formik
             initialValues={{
-              name: venue.name ,
-              address: venue.address || "",
-              contactEmail: venue.contactEmail || "",
-              contactPhone: venue.contactPhone || "",
-              capacity: venue.capacity || "",
-              details: venue.details || "",
-              website: venue.website || "",
+              name: venue.name,
+              address: venue.address || '',
+              contactEmail: venue.contactEmail || '',
+              contactPhone: venue.contactPhone || '',
+              capacity: venue.capacity || '',
+              details: venue.details || '',
+              website: venue.website || '',
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
-              venueDispatch({type: "clearVenues"})
+              venueDispatch({ type: 'clearVenues' });
               updateVenue(values, venue);
-              handleClose()
+              handleClose();
             }}
           >
             {({ getFieldProps, errors, touched }) => (
               <BaseForm className='standard-form'>
-
                 <Form.Group controlId='name'>
                   <Form.Label>Venue Name</Form.Label>
                   <Form.Control
@@ -72,23 +74,17 @@ function EditVenueModal({ venue }) {
 
                 <Form.Group controlId='address'>
                   <Form.Label>Address</Form.Label>
-                  <Form.Control
-                    {...getFieldProps('address')}
-                  />
+                  <Form.Control {...getFieldProps('address')} />
                 </Form.Group>
 
                 <Form.Group controlId='contactEmail'>
                   <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    {...getFieldProps('contactEmail')}
-                  />
+                  <Form.Control {...getFieldProps('contactEmail')} />
                 </Form.Group>
 
                 <Form.Group controlId='contactPhone'>
                   <Form.Label>Phone Number</Form.Label>
-                  <Form.Control
-                    {...getFieldProps('contactPhone')}
-                  />
+                  <Form.Control {...getFieldProps('contactPhone')} />
                 </Form.Group>
 
                 <Form.Group controlId='capacity'>
@@ -104,22 +100,17 @@ function EditVenueModal({ venue }) {
 
                 <Form.Group controlId='details'>
                   <Form.Label>details / description</Form.Label>
-                  <Form.Control
-                    {...getFieldProps('details')}
-                  />
+                  <Form.Control {...getFieldProps('details')} />
                 </Form.Group>
 
                 <Form.Group controlId='website'>
                   <Form.Label>Website Link</Form.Label>
-                  <Form.Control
-                    {...getFieldProps('website')}
-                  />
+                  <Form.Control {...getFieldProps('website')} />
                 </Form.Group>
 
                 <Button variant='primary' size='lg' type='submit' block>
                   Update Venue
                 </Button>
-
               </BaseForm>
             )}
           </Formik>

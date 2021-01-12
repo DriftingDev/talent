@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 //Bootstrap
 import { Button, Modal } from 'react-bootstrap';
+import { MdDeleteForever } from 'react-icons/md';
 
 function DeleteModal({ object, name, deleteFunc, dispatch }) {
   const [show, setShow] = useState(false);
@@ -20,9 +21,9 @@ function DeleteModal({ object, name, deleteFunc, dispatch }) {
         type='submit'
         size='sm'
         onClick={handleShow}
-        className='mb-2'
+        className='mb-2 ml-auto'
       >
-        Delete
+        <MdDeleteForever />
       </Button>{' '}
       <Modal
         show={show}

@@ -6,6 +6,8 @@ import { ShowContext } from '../../store/show';
 import { VenueContext } from '../../store/venue';
 import DeleteModal from '../common/DeleteModal';
 import EditVenueModal from '../producer/EditVenueModal';
+import { ImLocation2, ImPhone } from 'react-icons/im';
+import { MdEmail } from 'react-icons/md';
 
 const VenueAccordion = ({ venues, withLink }) => {
   const history = useHistory();
@@ -56,45 +58,60 @@ const VenueAccordion = ({ venues, withLink }) => {
           </Row>
         </Card.Header>
         <Accordion.Collapse eventKey={`${index + 1}`}>
-          <>
-            <Card.Body className='accordian-custom'>
-              {venue.address && <p>Address: {venue.address}</p>}
-              {venue.contactEmail && <p>Email: {venue.contactEmail}</p>}
-              {venue.contactPhone && <p>Phone: {venue.contactPhone}</p>}
-              {venue.details && (
-                <>
-                  <hr></hr>
-                  <p>Details</p>
-                  <p>{venue.details}</p>
-                </>
-              )}
-
-              <Button
-                variant='info'
-                onClick={() => {
-                  history.push(`venues/${venue._id}`);
-                }}
-                className='mr-1'
-              >
-                View Venue
-              </Button>
+          <Card.Body className='accordian-custom d-flex'>
+            <Row>
+              <Col>
+                {venue.address && (
+                  <p>
+                    <ImLocation2 /> {venue.address}
+                  </p>
+                )}
+                {venue.contactEmail && (
+                  <p>
+                    <MdEmail /> {venue.contactEmail}
+                  </p>
+                )}
+                {venue.contactPhone && (
+                  <p>
+                    <ImPhone /> {venue.contactPhone}
+                  </p>
+                )}
+                {venue.details && (
+                  <>
+                    <hr></hr>
+                    <p>Details</p>
+                    <p>{venue.details}</p>
+                  </>
+                )}
+                <Button
+                  variant='info'
+                  onClick={() => {
+                    history.push(`venues/${venue._id}`);
+                  }}
+                  className='mr-1'
+                >
+                  View Venue
+                </Button>
+              </Col>
+            </Row>
+            <div className='ml-auto'>
               {!CurrentUserState.user.is_artist && (
                 <>
-                  <EditVenueModal venue={venue} />
                   {ShowState.loaded && canDelete && (
                     <DeleteModal
                       object={venue}
                       name={'venue'}
                       deleteFunc={deleteVenue}
-                      dispatch={() =>{
-                        venueDispatch({type: "clearVenues"})
+                      dispatch={() => {
+                        venueDispatch({ type: 'clearVenues' });
                       }}
                     />
                   )}
+                  <EditVenueModal venue={venue} />
                 </>
               )}
-            </Card.Body>
-          </>
+            </div>
+          </Card.Body>
         </Accordion.Collapse>
       </Card>
     );
