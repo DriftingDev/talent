@@ -83,6 +83,7 @@ const VenueAccordion = ({ venues, withLink }) => {
                     <p>{venue.details}</p>
                   </>
                 )}
+                { !history.location.pathname.slice(8) &&
                 <Button
                   variant='info'
                   onClick={() => {
@@ -92,6 +93,7 @@ const VenueAccordion = ({ venues, withLink }) => {
                 >
                   View Venue
                 </Button>
+                }
               </Col>
             </Row>
             <div className='ml-auto'>
