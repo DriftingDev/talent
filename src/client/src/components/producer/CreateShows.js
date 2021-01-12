@@ -33,7 +33,7 @@ const CreateShows = () => {
 
   // History and context setup
   const history = useHistory()
-  const { createShows } = useContext(ShowContext)
+  const { state: showState, dispatch: showDispatch, createShows, getShows } = useContext(ShowContext)
   const { state: companyState, fetchCurrentCompany } = useContext(CompanyContext)
   const { state: currentUserState } = useContext(CurrentUserContext)
   const { state: venueState, getVenuesByCompany } = useContext(VenueContext)
@@ -52,7 +52,10 @@ const CreateShows = () => {
     if (!venueState.loaded) {
       getVenuesByCompany()
     }
-  },[companyState])
+    if (!showState.loaded) {
+      getShows()
+    }
+  },[companyState, venueState, showState])
 
   // Formik Validation Schema
   const validationSchema = object({
@@ -122,6 +125,9 @@ const CreateShows = () => {
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
+              showDispatch({
+                type: "clearShows"
+              })
               createShows(values, companyState.currentCompany)
               history.push("/shows")
           }}
@@ -251,8 +257,12 @@ const CreateShows = () => {
                 type='submit'
                 block
               >
-                Create Shows
-              </Button>
+                {showState.loaded ? 
+                <>Create Shows</>
+                :
+                <Loading />
+                }
+                </Button>
             </BaseForm>
             )}
           </Formik>

@@ -16,8 +16,8 @@ function ShowEditModal({ showObject }) {
 
   const [show, setShow] = useState(false);
 
-  const { updateShow } = useContext(ShowContext);
-  const { state: companyState } = useContext(CompanyContext);
+  const { state: showState, dispatch: showDispatch, updateShow } = useContext(ShowContext);
+  const { state: companyState } = useContext(CompanyContext)
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -50,9 +50,6 @@ function ShowEditModal({ showObject }) {
       .map((artist) => artist.accname);
   }
 
-  // console.log(artistArray)
-  // console.log(showObject)
-
   return (
     <>
       <Button variant='info' type='submit' size='sm' onClick={handleShow}>
@@ -81,8 +78,11 @@ function ShowEditModal({ showObject }) {
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
-              updateShow(values, companyState.currentCompany);
-              setShow(false);
+              showDispatch({
+                type: 'clearShows'
+              })
+              updateShow(values, companyState.currentCompany)
+              setShow(false)
             }}
           >
             {({

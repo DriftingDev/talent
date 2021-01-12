@@ -9,7 +9,7 @@ import { ShowContext } from '../../store/show';
 const ShowCard = ({ show, showOptions }) => {
   const history = useHistory();
 
-  const { deleteShow } = useContext(ShowContext);
+  const { dispatch: showDispatch, deleteShow } = useContext(ShowContext)
 
   return (
     <Card border='info' bg='dark' className='px-3 py-2 mb-2'>
@@ -48,25 +48,20 @@ const ShowCard = ({ show, showOptions }) => {
         {showOptions.withDescrip && show.descrip && <p>{show.descrip}</p>}
       </Card.Text>
       <Card.Footer>
-        {showOptions.withAllShowsLink && (
-          <>
-            <Button
-              variant={'info'}
-              onClick={() => {
-                history.push(`/shows/${show.showNameSlug}`);
-              }}
-            >
-              All show times
-            </Button>
-            <hr></hr>
-          </>
-        )}
-        {showOptions.withDeleteEdit && (
-          <>
-            <DeleteModal object={show} name='show' deleteFunc={deleteShow} />
-            <ShowEditModal showObject={show} />
-          </>
-        )}
+      { showOptions.withAllShowsLink && 
+        <>
+        <Button variant={'info'} onClick={() => {history.push(`/shows/${show.showNameSlug}`)}}>
+          All show times
+        </Button>
+        <hr></hr>
+        </>
+      }
+      { showOptions.withDeleteEdit &&
+        <>
+        <DeleteModal object={show} name='show' deleteFunc={deleteShow} dispatch={() => {showDispatch({type: "clearShows"})}} />
+        <ShowEditModal showObject={show}/>
+        </>
+      }
       </Card.Footer>
     </Card>
   );

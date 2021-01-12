@@ -19,7 +19,7 @@ import { VenueContext } from '../../store/venue';
 const Companies = () => {
   const history = useHistory();
 
-  const { state: companyState, createCompany, getAllCompanies } = useContext(CompanyContext);
+  const { state: companyState, createCompany, getAllCompanies, dispatch: companyDispatch } = useContext(CompanyContext);
   const { state: CurrentUserState } = useContext(CurrentUserContext)
   const { state: ShowState, dispatch: showDispatch} = useContext(ShowContext)
   const { state: VenueState, dispatch: venueDispatch } = useContext(VenueContext)
@@ -53,7 +53,6 @@ const Companies = () => {
   return (
     <>
       <NavBar />
-      {companyState.loaded ?
       <Container
         bg='dark'
         fluid
@@ -62,14 +61,17 @@ const Companies = () => {
       >
       {!CurrentUserState.user.is_artist &&
         <Formik
-          initialValues={{
+        initialValues={{
             company: '',
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
+            companyDispatch({
+              type: "clearCompanies"
+            })
             createCompany(values);
           }}
-        >
+          >
           {({ getFieldProps, errors, touched }) => (
             <BaseForm className='standard-form text-center'>
               <h4 className='text-center'>Create Company</h4>
@@ -78,19 +80,24 @@ const Companies = () => {
                   {...getFieldProps('company')}
                   placeholder='Enter Company Name'
                   isInvalid={touched.company && !!errors.company}
-                />
+                  />
                 <Form.Control.Feedback type='invalid'>
                   {errors.company}
                 </Form.Control.Feedback>
               </Form.Group>
               <Button variant='outline-light' size='lg' type='submit' block>
-                Create Company
+                {companyState.loaded ? 
+                <>Create Company</>
+                :
+                <Loading />
+              }
               </Button>
             </BaseForm>
           )}
         </Formik>
       }
-        {companyState.companies.length > 0 ?
+      {companyState.loaded ?
+        companyState.companies.length > 0 ?
         <>
           {companyState.companies.map((company) => (
             <CompanyItem company={company} />
@@ -98,11 +105,10 @@ const Companies = () => {
         </>
         :
         <h2>This account doesn't have any companies attached to it</h2>
-      }
-      </Container>
       :
       <Loading />
       }
+      </Container>
     </>
   );
 };

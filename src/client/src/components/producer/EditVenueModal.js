@@ -11,7 +11,7 @@ import { VenueContext } from '../../store/venue';
 function EditVenueModal({ venue }) {
   const [show, setShow] = useState(false);
 
-  const { updateVenue } = useContext(VenueContext);
+  const { dispatch: venueDispatch, updateVenue } = useContext(VenueContext);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -51,6 +51,7 @@ function EditVenueModal({ venue }) {
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
+              venueDispatch({type: "clearVenues"})
               updateVenue(values, venue);
               handleClose()
             }}
