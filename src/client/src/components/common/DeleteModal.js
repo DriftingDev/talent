@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 //Bootstrap
 import { Button, Modal } from 'react-bootstrap';
 
-function DeleteModal({ object, name, deleteFunc, dispatch}) {
+function DeleteModal({ object, name, deleteFunc, dispatch }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -15,7 +15,13 @@ function DeleteModal({ object, name, deleteFunc, dispatch}) {
 
   return (
     <>
-      <Button variant='danger' type='submit' size='sm' onClick={handleShow}>
+      <Button
+        variant='danger'
+        type='submit'
+        size='sm'
+        onClick={handleShow}
+        className='mb-2'
+      >
         Delete
       </Button>{' '}
       <Modal
@@ -30,10 +36,11 @@ function DeleteModal({ object, name, deleteFunc, dispatch}) {
         <Modal.Body>
           <h3>Are you sure you want to delete this {name}</h3>
           <hr></hr>
-          <Button variant='success' 
+          <Button
+            variant='success'
             onClick={() => {
-              deleteObject()
-              dispatch()
+              deleteObject();
+              dispatch();
             }}
           >
             Yes
