@@ -39,20 +39,24 @@ const CompanyItem = ({ company }) => {
               <div className='px-1 '>
                 <p>{company.name}</p>
               </div>
-              { !currentUserState.user.is_artist &&
-              <>
-              <CompanyEditModal company={company} />
-              <DeleteModal 
-                object={company} 
-                name={"company"} 
-                deleteFunc={deleteCompany} 
-                dispatch={() => {companyDispatch({type: "clearCompanies"})}} />
-              </>
-              }
+              {!currentUserState.user.is_artist && (
+                <>
+                  <CompanyEditModal company={company} />
+                  <DeleteModal
+                    object={company}
+                    name={'company'}
+                    deleteFunc={deleteCompany}
+                    dispatch={() => {
+                      companyDispatch({ type: 'clearCompanies' });
+                    }}
+                  />
+                </>
+              )}
               <Button
                 variant='primary'
                 size='sm'
                 type='submit'
+                className='mb-2'
                 onClick={() => {
                   selectCompany(company);
                 }}
