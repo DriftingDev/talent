@@ -79,7 +79,7 @@ const CompanyItem = ({ company }) => {
             <Col className='light-gray-box text-center noPadding'>
               <div className='py-3'>
                 <p>Artists</p>
-                <h3>{company.users.length}</h3>
+                <h3>{company.users.filter(u => u.is_artist).length}</h3>
               </div>
             </Col>
           </Row>
