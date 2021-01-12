@@ -18,10 +18,10 @@ function NavBar() {
     CurrentUserContext
   );
   const { state: showState, dispatch: showDispatch } = useContext(ShowContext);
-  const { dispatch: companyDispatch } = useContext(CompanyContext);
+  const { state: companyState, dispatch: companyDispatch } = useContext(CompanyContext);
   const { dispatch: venueDispatch } = useContext(VenueContext);
 
-  useEffect(() => {}, [currentUserState, showState]);
+  useEffect(() => {}, [currentUserState, companyState]);
 
   const logoutFunc = () => {
     currentUserDispatch({
@@ -40,12 +40,13 @@ function NavBar() {
     localStorage.removeItem('currentCompany');
     history.push('/');
   };
+  
 
   return (
     <Navbar bg='dark' variant='dark'>
 
       <Navbar.Brand onClick={() => history.push('/')}>
-        Talent
+        Talent {companyState.currentCompany && <> // {companyState.currentCompany.name} </>}
       </Navbar.Brand>
       {(currentUserState.user && localStorage.getItem('currentCompany')) &&
       <NavDropdown title="ICON HERE" className='ml-auto'>
