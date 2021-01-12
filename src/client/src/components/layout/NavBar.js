@@ -1,9 +1,10 @@
 import { useContext, useEffect } from 'react';
-import { Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Navbar, NavDropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthOptions from '../auth/AuthOptions';
 import ArtistOptions from '../layout/ArtistOptions';
 import ProducerOptions from '../layout/ProducerOptions';
+import logo from '../../data/talentlogo2.png'
 import { CurrentUserContext } from '../../store/currentUser';
 import { ShowContext } from '../../store/show';
 import { CompanyContext } from '../../store/company';
@@ -18,10 +19,14 @@ function NavBar() {
     CurrentUserContext
   );
   const { state: showState, dispatch: showDispatch } = useContext(ShowContext);
-  const { state: companyState, dispatch: companyDispatch } = useContext(CompanyContext);
+  const { state: companyState, dispatch: companyDispatch, fetchCurrentCompany } = useContext(CompanyContext);
   const { dispatch: venueDispatch } = useContext(VenueContext);
 
-  useEffect(() => {}, [currentUserState, companyState]);
+  useEffect(() => {
+    if(!companyState.currentCompany && localStorage.getItem('currentCompany')){
+      fetchCurrentCompany()
+    }
+  }, [currentUserState, companyState]);
 
   const logoutFunc = () => {
     currentUserDispatch({
@@ -46,7 +51,9 @@ function NavBar() {
     <Navbar bg='dark' variant='dark'>
 
       <Navbar.Brand onClick={() => history.push('/')}>
-        Talent {companyState.currentCompany && <> // {companyState.currentCompany.name} </>}
+      <img src={logo} alt="Logo"
+        height="35"
+        className="d-inline-block align-top invert" /> {companyState.currentCompany && <Button className="d-inline-block align-bottom">{'  '}{companyState.currentCompany.name} </Button>}
       </Navbar.Brand>
       {(currentUserState.user && localStorage.getItem('currentCompany')) &&
       <NavDropdown title="ICON HERE" className='ml-auto'>
