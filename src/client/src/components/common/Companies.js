@@ -9,7 +9,7 @@ import { object, string } from 'yup';
 //Components
 import NavBar from '../layout/NavBar';
 import CompanyItem from './CompanyItem';
-import Loading from '../layout/Loading'
+import Loading from '../layout/Loading';
 //Global State
 import { CompanyContext } from '../../store/company';
 import { CurrentUserContext } from '../../store/currentUser';
@@ -19,30 +19,42 @@ import { VenueContext } from '../../store/venue';
 const Companies = () => {
   const history = useHistory();
 
-  const { state: companyState, createCompany, getAllCompanies, dispatch: companyDispatch } = useContext(CompanyContext);
-  const { state: CurrentUserState } = useContext(CurrentUserContext)
-  const { state: ShowState, dispatch: showDispatch} = useContext(ShowContext)
-  const { state: VenueState, dispatch: venueDispatch } = useContext(VenueContext)
+  const {
+    state: companyState,
+    createCompany,
+    getAllCompanies,
+    dispatch: companyDispatch,
+  } = useContext(CompanyContext);
+  const { state: CurrentUserState } = useContext(CurrentUserContext);
+  const { state: ShowState, dispatch: showDispatch } = useContext(ShowContext);
+  const { state: VenueState, dispatch: venueDispatch } = useContext(
+    VenueContext
+  );
 
   useEffect(() => {
-    if(companyState.loaded) {
-      if (companyState.companies.length === 1 && !localStorage.getItem('currentCompany')){
-        localStorage.setItem('currentCompany', companyState.companies[0]._id)
-        CurrentUserState.user.is_artist ? history.push('/shows') : history.push('/calendar')
+    if (companyState.loaded) {
+      if (
+        companyState.companies.length === 1 &&
+        !localStorage.getItem('currentCompany')
+      ) {
+        localStorage.setItem('currentCompany', companyState.companies[0]._id);
+        CurrentUserState.user.is_artist
+          ? history.push('/shows')
+          : history.push('/calendar');
       }
     }
     if (companyState.companies === null) {
       getAllCompanies();
     }
-    if (ShowState.loaded){
+    if (ShowState.loaded) {
       showDispatch({
-        type: "clearShows"
-      })
+        type: 'clearShows',
+      });
     }
-    if (VenueState.loaded){
+    if (VenueState.loaded) {
       venueDispatch({
-        type: "clearVenues"
-      })
+        type: 'clearVenues',
+      });
     }
   }, [companyState, ShowState, VenueState, CurrentUserState]);
 
@@ -59,55 +71,54 @@ const Companies = () => {
         style={{ paddingLeft: 0, paddingRight: 0 }}
         className='justify-content-around pt-2'
       >
-      {!CurrentUserState.user.is_artist &&
-        <Formik
-        initialValues={{
-            company: '',
-          }}
-          validationSchema={validationSchema}
-          onSubmit={(values) => {
-            companyDispatch({
-              type: "clearCompanies"
-            })
-            createCompany(values);
-          }}
+        {!CurrentUserState.user.is_artist && (
+          <Formik
+            initialValues={{
+              company: '',
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
+              companyDispatch({
+                type: 'clearCompanies',
+              });
+              createCompany(values);
+            }}
           >
-          {({ getFieldProps, errors, touched }) => (
-            <BaseForm className='standard-form text-center'>
-              <h4 className='text-center'>Create Company</h4>
-              <Form.Group controlId='company'>
-                <Form.Control
-                  {...getFieldProps('company')}
-                  placeholder='Enter Company Name'
-                  isInvalid={touched.company && !!errors.company}
+            {({ getFieldProps, errors, touched }) => (
+              <BaseForm className='standard-form text-center'>
+                <h4 className='text-center'>Create Company</h4>
+                <Form.Group controlId='company'>
+                  <Form.Control
+                    {...getFieldProps('company')}
+                    placeholder='Enter Company Name'
+                    isInvalid={touched.company && !!errors.company}
                   />
-                <Form.Control.Feedback type='invalid'>
-                  {errors.company}
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Button variant='outline-light' size='lg' type='submit' block>
-                {companyState.loaded ? 
-                <>Create Company</>
-                :
-                <Loading />
-              }
-              </Button>
-            </BaseForm>
-          )}
-        </Formik>
-      }
-      {companyState.loaded ?
-        companyState.companies.length > 0 ?
-        <>
-          {companyState.companies.map((company) => (
-            <CompanyItem company={company} />
-          ))}
-        </>
-        :
-        <h2>This account doesn't have any companies attached to it</h2>
-      :
-      <Loading />
-      }
+                  <Form.Control.Feedback type='invalid'>
+                    {errors.company}
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Button variant='outline-light' size='lg' type='submit' block>
+                  {companyState.loaded ? <>Create Company</> : <Loading />}
+                </Button>
+              </BaseForm>
+            )}
+          </Formik>
+        )}
+        {companyState.loaded ? (
+          companyState.companies.length > 0 ? (
+            <>
+              {companyState.companies.map((company) => (
+                <CompanyItem company={company} />
+              ))}
+            </>
+          ) : (
+            <h4 className='no-records'>
+              This account doesn't have any companies attached to it.
+            </h4>
+          )
+        ) : (
+          <Loading />
+        )}
       </Container>
     </>
   );

@@ -43,7 +43,7 @@
   border-radius: 10px;
 }
 
-form, label, h1 {
+form, label, h1, h2, h4 {
   color: white !important;
 }
 
@@ -83,4 +83,14 @@ div.noMargin {
 .accordian-custom {
   background-color: #000000;
   border: 3px;
+}
+
+.no-records {
+  background-color: #212121;
+  width: 100%;
+  max-width: 350px;
+  padding: 20px;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 10px;
 }
