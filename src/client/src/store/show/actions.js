@@ -1,16 +1,5 @@
 import axios from 'axios'
-import moment from 'moment'
-import API_URL from '../actionUtils'
-
-let token;
-const authHeader = () => {
-  let returnVal = null
-  if (localStorage.getItem('token')) {
-    token = JSON.parse(localStorage.getItem('token'));
-    returnVal = { headers: { Authorization: 'Bearer ' + token } };
-  }
-  return returnVal
-};
+import {API_URL, authHeader } from '../actionUtils'
 
 export const axiosGetShows = (dispatch) => {
   axios
@@ -21,9 +10,7 @@ export const axiosGetShows = (dispatch) => {
         payload: resp.data.shows
       })
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    .catch(console.log);
 }
 
 export const axiosGetShowsByUser = (dispatch, id) => {
@@ -35,9 +22,7 @@ export const axiosGetShowsByUser = (dispatch, id) => {
         payload: resp.data.shows
       })
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    .catch(console.log);
 }
 
 export const axiosBatchCreateShows = async (dispatch, showsObject, currentCompany) => {
@@ -69,9 +54,7 @@ export const axiosBatchCreateShows = async (dispatch, showsObject, currentCompan
                 axiosGetShows(dispatch)
               }
             })
-            .catch((err) =>{
-              console.log(err)
-            })
+            .catch(console.log)
   })
 }
 
@@ -100,9 +83,7 @@ export const axiosUpdateShow = (dispatch, showsObject, currentCompany) => {
       console.log(resp)
       axiosGetShows(dispatch)
     })
-    .catch((err) => {
-      console.log(err)
-    })
+    .catch(console.log)
 }
 
 export const axiosDeleteShow = (dispatch, id) => {

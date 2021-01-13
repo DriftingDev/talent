@@ -1,7 +1,6 @@
 import React, { useReducer, createContext } from 'react'
 import { defaultStateShape, usersReducer } from './reducer'
 import {
-  axiosGetUsers,
   axiosUpdateTokenUser
 } from "./actions"
 
@@ -15,10 +14,9 @@ const Context = createContext({
 
 const UsersProvider = ({children}) => {
   const [state, dispatch] = useReducer(usersReducer, defaultStateShape)
-  const getUsers = () => {axiosGetUsers(dispatch)}
   const updateUser = (values, companyDispatch) => {axiosUpdateTokenUser(values, companyDispatch)}
   return (
-    <Context.Provider value={{ state, dispatch, getUsers, updateUser }}>
+    <Context.Provider value={{ state, dispatch, updateUser }}>
       { children }
     </Context.Provider>
   )

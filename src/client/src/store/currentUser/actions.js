@@ -1,23 +1,12 @@
 import axios from 'axios';
 import { axiosFetchCurrentCompany } from '../company/actions';
-import API_URL from '../actionUtils'
-
-let token;
-const authHeader = () => {
-  let returnVal = null;
-  if (localStorage.getItem('token')) {
-    token = JSON.parse(localStorage.getItem('token'));
-    returnVal = { headers: { Authorization: 'Bearer ' + token } };
-  }
-  return returnVal;
-};
+import {API_URL, authHeader } from '../actionUtils'
 
 export const axiosLoginUser = (user, dispatch) => {
   axios
     .post(`${API_URL}/auth/login`, {
       email: user.email,
       password: user.password,
-      //remember: user.rememberMe
     })
     .then(function (response) {
       localStorage.setItem('token', JSON.stringify(response.data.token));
@@ -45,9 +34,7 @@ export const axiosRegisterUser = (user, dispatch) => {
     .then(function (response) {
       axiosLoginUser(user, dispatch);
     })
-    .catch(function (error) {
-      console.log(error);
-    });
+    .catch(console.log);
 };
 
 export const axiosAddUserToCompany = (userId, companyDispatch) => {
@@ -69,9 +56,7 @@ export const axiosCreateUser = (user, companyDispatch) => {
       console.log(response)
       axiosAddUserToCompany(response.data.user._id, companyDispatch)
     })
-    .catch(function (error) {
-      console.log(error);
-    });
+    .catch(console.log);
 };
 
 export const axiosFetchUser = (dispatch) => {
@@ -83,9 +68,7 @@ export const axiosFetchUser = (dispatch) => {
         payload: resp.data.user,
       });
     })
-    .catch(function (error) {
-      console.log(error);
-    });
+    .catch(console.log);
 };
 
 export const axiosGetAllUsers = (dispatch) => {
@@ -98,7 +81,5 @@ export const axiosGetAllUsers = (dispatch) => {
         payload: response.data,
       });
     })
-    .catch(function (error) {
-      console.log(error);
-    });
+    .catch(console.log);
 };

@@ -27,6 +27,7 @@ import { CurrentUserContext } from './store/currentUser';
 import DataProvider from './store/DataProvider';
 
 function App() {
+  
   const { state: currentUserState, fetchUser } = useContext(CurrentUserContext);
   const unloadedUser = localStorage.getItem('token') && !currentUserState.user;
 
@@ -56,7 +57,6 @@ function App() {
               <Route path='/shows/:slug' component={DisplayShow} exact />
               <Route path='/artists' component={Artists} exact />
               <Route path='/artists/create' component={RegisterArtist} exact />
-              {/* <Route path='/artists/:id' component={Artists} /> */}
               <Route path='/venues' component={AllVenues} exact />
               <Route path='/venues/create' component={CreateVenues} exact />
               <Route path='/venues/:id' component={DisplayVenue} exact />

@@ -1,15 +1,5 @@
 import axios from 'axios'
-import API_URL from '../actionUtils'
-
-let token;
-const authHeader = () => {
-  let returnVal = null
-  if (localStorage.getItem('token')) {
-    token = JSON.parse(localStorage.getItem('token'));
-    returnVal = { headers: { Authorization: 'Bearer ' + token } };
-  }
-  return returnVal
-};
+import {API_URL, authHeader } from '../actionUtils'
 
 export const axiosVenuesByUser = (dispatch) => {
   axios
