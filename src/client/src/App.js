@@ -17,6 +17,7 @@ import CreateVenues from './components/producer/CreateVenues';
 import DisplayVenue from './components/common/DisplayVenue';
 import Team from './components/common/Team';
 import RegisterProducer from './components/producer/RegisterProducer';
+import NotFound from './components/common/NotFound'
 //Router
 import { Route, Switch } from 'react-router-dom';
 import Artists from './components/producer/Artists';
@@ -66,6 +67,7 @@ function App() {
               </Switch>
             </DataProvider>
           </PrivateRoutes>
+          <Route component={NotFound} />
         </Switch>
       )}
     </>
