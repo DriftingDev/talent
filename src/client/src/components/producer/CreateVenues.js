@@ -35,19 +35,20 @@ const CreateVenues = () => {
 
   // useEffect for redirect and loading of current company if not loaded
   useEffect(() => {   
-    if(!localStorage.getItem('currentCompany')){
-      history.push('/companies')
-    } 
-    if (currentUserState.user.is_artist){
-      history.push('/venues')
-    }  
-    if (companyState.currentCompany === null) {
-      fetchCurrentCompany()
-    }
-    if (!venueState.loaded){
-      getVenuesByCompany()
-    }
   },[companyState])
+  
+  if(!localStorage.getItem('currentCompany')){
+    history.push('/companies')
+  } 
+  if (currentUserState.user.is_artist){
+    history.push('/venues')
+  }  
+  if (companyState.currentCompany === null) {
+    fetchCurrentCompany()
+  }
+  if (!venueState.loaded){
+    getVenuesByCompany()
+  }
 
   // Formik Validation Schema
   const validationSchema = object({

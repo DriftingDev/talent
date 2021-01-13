@@ -20,18 +20,19 @@ function DisplayArtist() {
   const { state: ShowState, getShows } = useContext(ShowContext)
 
   useEffect(() => {
-    if(CurrentUserState.user.is_artist && CurrentUserState.user._id !== id){
-      history.push('/shows')
-    }
-    if(CompanyState.currentCompany === null && localStorage.getItem('currentCompany')){
-      fetchCurrentCompany()
-    } else if (CompanyState.currentCompany === null && !localStorage.getItem('currentCompany')) {
-      history.push('/companies')
-    }
-    if(!ShowState.loaded){
-      getShows()
-    }
   },[CompanyState, ShowState])
+  
+  if(CurrentUserState.user.is_artist && CurrentUserState.user._id !== id){
+    history.push('/shows')
+  }
+  if(CompanyState.currentCompany === null && localStorage.getItem('currentCompany')){
+    fetchCurrentCompany()
+  } else if (CompanyState.currentCompany === null && !localStorage.getItem('currentCompany')) {
+    history.push('/companies')
+  }
+  if(!ShowState.loaded){
+    getShows()
+  }
 
   let artist;
   let artistShows = []

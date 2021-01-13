@@ -21,10 +21,11 @@ function NavBar() {
   const { dispatch: venueDispatch } = useContext(VenueContext);
 
   useEffect(() => {
-    if(!companyState.currentCompany && localStorage.getItem('currentCompany')){
-      fetchCurrentCompany()
-    }
   }, [currentUserState, companyState]);
+  
+  if(!companyState.currentCompany && localStorage.getItem('currentCompany')){
+    fetchCurrentCompany()
+  }
 
   const logoutFunc = () => {
     currentUserDispatch({

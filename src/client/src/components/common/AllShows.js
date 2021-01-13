@@ -25,24 +25,25 @@ const AllShows = () => {
   const [errorState, setErrorState] = useState({ show: false, message: null });
 
   useEffect(() => {
-    if (!localStorage.getItem('currentCompany')) {
-      history.push('/companies');
-    }
-    if (
-      localStorage.getItem('currentCompany') &&
-      CompanyState.currentCompany === null
-    ) {
-      fetchCurrentCompany();
-    }
-    if (ShowState.shows == null) {
-      CurrentUserState.user.is_artist
-        ? getShowsByUser(CurrentUserState.user._id)
-        : getShows();
-    }
-    if (!VenueState.loaded && !CurrentUserState.user.is_artist) {
-      getVenuesByCompany();
-    }
   }, [CurrentUserState, ShowState, VenueState, CompanyState]);
+  
+  if (!localStorage.getItem('currentCompany')) {
+    history.push('/companies');
+  }
+  if (
+    localStorage.getItem('currentCompany') &&
+    CompanyState.currentCompany === null
+  ) {
+    fetchCurrentCompany();
+  }
+  if (ShowState.shows == null) {
+    CurrentUserState.user.is_artist
+      ? getShowsByUser(CurrentUserState.user._id)
+      : getShows();
+  }
+  if (!VenueState.loaded && !CurrentUserState.user.is_artist) {
+    getVenuesByCompany();
+  }
 
   let artistsExist;
   if (CompanyState.currentCompany != null) {

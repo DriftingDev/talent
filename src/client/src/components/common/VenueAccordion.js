@@ -17,10 +17,11 @@ const VenueAccordion = ({ venues, withLink }) => {
   const { state: ShowState, getShows } = useContext(ShowContext);
 
   useEffect(() => {
-    if (ShowState.shows === null && !CurrentUserState.user.is_artist) {
-      getShows();
-    }
   }, [ShowState, CurrentUserState]);
+  
+  if (ShowState.shows === null && !CurrentUserState.user.is_artist) {
+    getShows();
+  }
 
   const AccordionVenues = venues.map((venue, index) => {
     let canDelete = false;

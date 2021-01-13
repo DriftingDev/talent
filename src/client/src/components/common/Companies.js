@@ -32,31 +32,32 @@ const Companies = () => {
   );
 
   useEffect(() => {
-    if (companyState.loaded) {
-      if (
-        companyState.companies.length === 1 &&
-        !localStorage.getItem('currentCompany')
-      ) {
-        localStorage.setItem('currentCompany', companyState.companies[0]._id);
-        CurrentUserState.user.is_artist
-          ? history.push('/shows')
-          : history.push('/calendar');
-      }
-    }
-    if (companyState.companies === null) {
-      getAllCompanies();
-    }
-    if (ShowState.loaded) {
-      showDispatch({
-        type: 'clearShows',
-      });
-    }
-    if (VenueState.loaded) {
-      venueDispatch({
-        type: 'clearVenues',
-      });
-    }
   }, [companyState, ShowState, VenueState, CurrentUserState]);
+  
+  if (companyState.loaded) {
+    if (
+      companyState.companies.length === 1 &&
+      !localStorage.getItem('currentCompany')
+    ) {
+      localStorage.setItem('currentCompany', companyState.companies[0]._id);
+      CurrentUserState.user.is_artist
+        ? history.push('/shows')
+        : history.push('/calendar');
+    }
+  }
+  if (companyState.companies === null) {
+    getAllCompanies();
+  }
+  if (ShowState.loaded) {
+    showDispatch({
+      type: 'clearShows',
+    });
+  }
+  if (VenueState.loaded) {
+    venueDispatch({
+      type: 'clearVenues',
+    });
+  }
 
   const validationSchema = object({
     company: string().required('A company is required'),
@@ -107,8 +108,8 @@ const Companies = () => {
         {companyState.loaded ? (
           companyState.companies.length > 0 ? (
             <>
-              {companyState.companies.map((company) => (
-                <CompanyItem company={company} />
+              {companyState.companies.map((company,i) => (
+                <CompanyItem key={i} company={company} />
               ))}
             </>
           ) : (

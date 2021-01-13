@@ -20,16 +20,17 @@ const DisplayShow = () => {
   const {state: CompanyState, fetchCurrentCompany} = useContext(CompanyContext)
 
   useEffect(() => {
-    if(!localStorage.getItem('currentCompany')) {
-      history.push('/companies')
-    }
-    if (!ShowState.loaded) {
-      getShows()
-    }
-    if(CompanyState.currentCompany === null) (
-      fetchCurrentCompany()
-    )
   },[CurrentUserState, ShowState, CompanyState])
+  
+  if(!localStorage.getItem('currentCompany')) {
+    history.push('/companies')
+  }
+  if (!ShowState.loaded) {
+    getShows()
+  }
+  if(CompanyState.currentCompany === null) (
+    fetchCurrentCompany()
+  )
 
   let showsToDisplay = [];
   if(ShowState.loaded) {

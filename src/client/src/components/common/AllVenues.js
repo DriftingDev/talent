@@ -19,18 +19,19 @@ const AllVenues = () => {
   );
 
   useEffect(() => {
-    if (!localStorage.getItem('currentCompany')) {
-      history.push('/companies');
-    }
-    if (CompanyState.currentCompany === null) {
-      fetchCurrentCompany();
-    }
-    if (!VenueState.loaded) {
-      CurrentUserState.user.is_artist
-        ? getVenuesByUser()
-        : getVenuesByCompany();
-    }
   }, [VenueState, CompanyState, CurrentUserState]);
+  
+  if (!localStorage.getItem('currentCompany')) {
+    history.push('/companies');
+  }
+  if (CompanyState.currentCompany === null) {
+    fetchCurrentCompany();
+  }
+  if (!VenueState.loaded) {
+    CurrentUserState.user.is_artist
+      ? getVenuesByUser()
+      : getVenuesByCompany();
+  }
 
   return (
     <>

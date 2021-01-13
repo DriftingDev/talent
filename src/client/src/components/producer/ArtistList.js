@@ -15,18 +15,19 @@ function ArtistList() {
   );
 
   useEffect(() => {
-    if (
-      CompanyState.currentCompany === null &&
-      localStorage.getItem('currentCompany')
-    ) {
-      fetchCurrentCompany();
-    } else if (
-      CompanyState.currentCompany === null &&
-      !localStorage.getItem('currentCompany')
-    ) {
-      history.push('/companies');
-    }
   }, [CompanyState]);
+  
+  if (
+    CompanyState.currentCompany === null &&
+    localStorage.getItem('currentCompany')
+  ) {
+    fetchCurrentCompany();
+  } else if (
+    CompanyState.currentCompany === null &&
+    !localStorage.getItem('currentCompany')
+  ) {
+    history.push('/companies');
+  }
 
   if (CompanyState.currentCompany != null) {
     artists = CompanyState.currentCompany.users.filter(

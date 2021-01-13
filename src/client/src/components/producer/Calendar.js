@@ -14,15 +14,15 @@ const Calendar = () => {
   const {state: ShowState, getShows} = useContext(ShowContext)
   const {state: CurrentUserState} = useContext(CurrentUserContext)
 
-  useEffect(() =>{
-    if(CurrentUserState.user.is_artist) {
-      history.push('/companies')
-    }
-    if(ShowState.shows == null) {
-      getShows()
-    }
-
+  useEffect(() =>{  
   }, [CurrentUserState, ShowState])
+  
+  if(CurrentUserState.user.is_artist) {
+    history.push('/companies')
+  }
+  if(ShowState.shows == null) {
+    getShows()
+  }
 
   return (
     <>

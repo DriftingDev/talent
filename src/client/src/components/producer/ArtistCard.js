@@ -14,10 +14,11 @@ const ArtistCard = ({ artist }) => {
   const { state: ShowState, getShows } = useContext(ShowContext)
 
   useEffect(() => {
-    if(!ShowState.loaded){
-      getShows()
-    }
   },[ShowState])
+  
+  if(!ShowState.loaded){
+    getShows()
+  }
 
   function handleNameClick() {
     history.push(`/artists/${artist._id}`);

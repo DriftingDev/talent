@@ -21,15 +21,16 @@ const DisplayVenue = () => {
   );
 
   useEffect(() => {
-    if (!VenueState.loaded) {
-      getVenuesByCompany();
-    }
-    if (VenueState.loaded) {
-      if (!ShowState.loaded) {
-        CurrentUserState.user.is_artist ? getShowsByUser() : getShows();
-      }
-    }
   }, [VenueState, ShowState, CurrentUserState]);
+  
+  if (!VenueState.loaded) {
+    getVenuesByCompany();
+  }
+  if (VenueState.loaded) {
+    if (!ShowState.loaded) {
+      CurrentUserState.user.is_artist ? getShowsByUser() : getShows();
+    }
+  }
 
   if (ShowState.loaded && VenueState.loaded) {
     venueById = VenueState.venues.filter((venue) => venue._id === id);

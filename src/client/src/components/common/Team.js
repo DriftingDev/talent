@@ -23,18 +23,19 @@ function Team() {
   let producers;
 
   useEffect(() => {
-    if (
-      CompanyState.currentCompany === null &&
-      localStorage.getItem('currentCompany')
-    ) {
-      fetchCurrentCompany();
-    } else if (
-      CompanyState.currentCompany === null &&
-      !localStorage.getItem('currentCompany')
-    ) {
-      history.push('/companies');
-    }
   }, [CompanyState]);
+  
+  if (
+    CompanyState.currentCompany === null &&
+    localStorage.getItem('currentCompany')
+  ) {
+    fetchCurrentCompany();
+  } else if (
+    CompanyState.currentCompany === null &&
+    !localStorage.getItem('currentCompany')
+  ) {
+    history.push('/companies');
+  }
 
   if (CompanyState.currentCompany != null) {
 

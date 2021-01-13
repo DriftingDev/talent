@@ -2,7 +2,6 @@ import axios from 'axios';
 import {API_URL, authHeader } from '../actionUtils'
 
 export const axiosCreateCompany = (user, dispatch) => {
-  console.log('in the create company axios call');
   axios
     .post(
       `${API_URL}/company/new`,
@@ -20,7 +19,6 @@ export const axiosCreateCompany = (user, dispatch) => {
 };
 
 export const axiosGetAllCompanies = (dispatch) => {
-  console.log('in the axiosGetAllCompanies call');
   axios
     .get(`${API_URL}/company/userCompanies`, authHeader())
     .then(function (response) {
