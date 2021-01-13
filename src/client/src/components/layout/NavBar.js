@@ -5,6 +5,7 @@ import AuthOptions from '../auth/AuthOptions';
 import ArtistOptions from '../layout/ArtistOptions';
 import ProducerOptions from '../layout/ProducerOptions';
 import logo from '../../data/talentlogo2.png'
+import { TiThMenu } from 'react-icons/ti'
 import { CurrentUserContext } from '../../store/currentUser';
 import { ShowContext } from '../../store/show';
 import { CompanyContext } from '../../store/company';
@@ -56,7 +57,7 @@ function NavBar() {
         className="d-inline-block align-top invert" /> {companyState.currentCompany && <Button className="d-inline-block align-bottom">{'  '}{companyState.currentCompany.name} </Button>}
       </Navbar.Brand>
       {(currentUserState.user && localStorage.getItem('currentCompany')) &&
-      <NavDropdown title="ICON HERE" className='ml-auto'>
+      <NavDropdown alignRight title={<TiThMenu size={28} />} className='ml-auto'>
         <NavDropdown.Item onClick={() => history.push(`/team`)}>
           Team
         </NavDropdown.Item>
