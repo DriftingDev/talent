@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Alert } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import { CompanyContext } from '../../store/company';
 import Loading from '../layout/Loading';
@@ -47,7 +47,9 @@ function ArtistList() {
               ))
             ) : (
               <Col>
-                <h2>No artists have been added to this company yet.</h2>
+                <Alert variant='info'>
+                  No artists have been added to this company yet.
+                </Alert>
               </Col>
             )}
           </Row>

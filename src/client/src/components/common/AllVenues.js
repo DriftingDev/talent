@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../../store/currentUser';
 import { CompanyContext } from '../../store/company';
 import { VenueContext } from '../../store/venue';
 import Loading from '../layout/Loading';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row, Alert } from 'react-bootstrap';
 import VenueAccordion from './VenueAccordion';
 import NavBar from '../layout/NavBar';
 
@@ -18,9 +18,8 @@ const AllVenues = () => {
     VenueContext
   );
 
-  useEffect(() => {
-  }, [VenueState, CompanyState, CurrentUserState]);
-  
+  useEffect(() => {}, [VenueState, CompanyState, CurrentUserState]);
+
   if (!localStorage.getItem('currentCompany')) {
     history.push('/companies');
   }
@@ -28,9 +27,7 @@ const AllVenues = () => {
     fetchCurrentCompany();
   }
   if (!VenueState.loaded) {
-    CurrentUserState.user.is_artist
-      ? getVenuesByUser()
-      : getVenuesByCompany();
+    CurrentUserState.user.is_artist ? getVenuesByUser() : getVenuesByCompany();
   }
 
   return (
@@ -61,7 +58,7 @@ const AllVenues = () => {
                 {VenueState.venues.length > 0 ? (
                   <VenueAccordion venues={VenueState.venues} withLink={true} />
                 ) : (
-                  <h2>No Venues have been created yet.</h2>
+                  <Alert variant='info'>No Venues have been created yet.</Alert>
                 )}
               </Col>
             </Row>

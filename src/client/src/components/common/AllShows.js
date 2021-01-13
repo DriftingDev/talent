@@ -24,9 +24,8 @@ const AllShows = () => {
   const { state: VenueState, getVenuesByCompany } = useContext(VenueContext);
   const [errorState, setErrorState] = useState({ show: false, message: null });
 
-  useEffect(() => {
-  }, [CurrentUserState, ShowState, VenueState, CompanyState]);
-  
+  useEffect(() => {}, [CurrentUserState, ShowState, VenueState, CompanyState]);
+
   if (!localStorage.getItem('currentCompany')) {
     history.push('/companies');
   }
@@ -127,7 +126,7 @@ const AllShows = () => {
             <Row className='justify-content-around pt-2'>
               <Col className='d-flex justify-content-center'>
                 <Alert variant='info'>
-                  <h3>You don't have any shows with this company... yet.</h3>
+                  You don't have any shows with this company... yet.
                 </Alert>
               </Col>
             </Row>
