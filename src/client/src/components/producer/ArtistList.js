@@ -14,9 +14,8 @@ function ArtistList() {
     CompanyContext
   );
 
-  useEffect(() => {
-  }, [CompanyState]);
-  
+  useEffect(() => {}, [CompanyState]);
+
   if (
     CompanyState.currentCompany === null &&
     localStorage.getItem('currentCompany')
@@ -47,7 +46,9 @@ function ArtistList() {
                 </Col>
               ))
             ) : (
-              <h2>No artists have been added to this company yet.</h2>
+              <Col>
+                <h2>No artists have been added to this company yet.</h2>
+              </Col>
             )}
           </Row>
         </Col>
