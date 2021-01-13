@@ -5,7 +5,6 @@ import { useHistory } from 'react-router';
 import { useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../store/currentUser';
 import { CompanyContext } from '../../store/company';
-
 //Components
 import NavBar from '../layout/NavBar';
 import CurrentUserCard from './CurrentUserCard';
@@ -68,8 +67,6 @@ function Team() {
             </Col>
           }
         </Row>
-        
-
         {producers &&
           producers.map((user) => {
             return <YourTeamCard user={user} />;

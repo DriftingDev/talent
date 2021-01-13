@@ -4,7 +4,7 @@ import { useHistory } from 'react-router'
 import {Form, Button, Container, Alert} from 'react-bootstrap'
 //Formik & Yup
 import { Formik, Form as BaseForm, Field, FieldArray, getIn } from 'formik';
-import { object, string, array, date, ref, number } from 'yup';
+import { object, string, array, number } from 'yup';
 //Custom Component
 import NavBar from '../layout/NavBar';
 import Loading from '../layout/Loading';

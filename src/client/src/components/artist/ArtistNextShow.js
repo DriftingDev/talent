@@ -6,7 +6,6 @@ import { BsHouseDoor } from "react-icons/bs"
 
 const ArtistNextShow = ({shows}) => {
   const nextShows = shows.filter((show) => {
-    //if the current moment is "smaller" than the event moment, it is in the future
     return moment() < moment(show.eventStart)
   })
 

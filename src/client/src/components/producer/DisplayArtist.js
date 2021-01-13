@@ -13,7 +13,6 @@ function DisplayArtist() {
 
   const history = useHistory()
 
-  //current id from slug saved to variable declaration
   let { id } = useParams();
 
   const { state: CompanyState, fetchCurrentCompany } = useContext(CompanyContext)

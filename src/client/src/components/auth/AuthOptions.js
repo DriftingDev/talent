@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router'
 import { Nav } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { CurrentUserContext } from '../../store/currentUser';
 
 export default function AuthOptions() {
@@ -14,15 +13,6 @@ export default function AuthOptions() {
     currentUserDispatch({
       type: "clearUser"
     })
-    // showDispatch({
-    //   type: "clearShows"
-    // })
-    // companyDispatch({
-    //   type: 'clearCompanies'
-    // })
-    // venueDispatch({
-    //   type: 'clearVenues'
-    // })
     localStorage.removeItem('token')
     localStorage.removeItem('currentCompany')
     history.push('/')

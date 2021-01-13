@@ -34,11 +34,6 @@ const DisplayVenue = () => {
   if (ShowState.loaded && VenueState.loaded) {
     venueById = VenueState.venues.filter((venue) => venue._id === id);
     venueShows = ShowState.shows.filter((show) => show.venue._id === id);
-    // if(CurrentUserState.user.is_artist){
-    //   venueShows = ShowState.hows.filter(show => show.artists.includes(CurrentUserState.user._id))
-    // } else {
-
-    // }
   }
 
   return (

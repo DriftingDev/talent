@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 //Bootstrap
 import { Button, Modal, Form } from 'react-bootstrap';
-
 //Formik & Yup
 import { Formik, Form as BaseForm } from 'formik';
 import { CompanyContext } from '../../store/company';
@@ -33,7 +32,6 @@ function CompanyEditModal({ company }) {
       <Modal
         show={show}
         onHide={handleClose}
-        // aria-labelledby='contained-modal-title-vcenter'
         centered
       >
         <Modal.Header closeButton>

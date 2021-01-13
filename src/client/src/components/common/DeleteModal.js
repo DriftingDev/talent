@@ -28,7 +28,6 @@ function DeleteModal({ object, name, deleteFunc, dispatch }) {
       <Modal
         show={show}
         onHide={handleClose}
-        // aria-labelledby='contained-modal-title-vcenter'
         centered
       >
         <Modal.Header closeButton>

@@ -29,7 +29,7 @@ const CompanyItem = ({ company }) => {
       ? history.push('/shows')
       : history.push('/calendar');
   };
-  // console.log(company);
+
   return (
     <>
       <Card className='company-card' style={{ fontWeight: 200 }}>

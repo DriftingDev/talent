@@ -58,8 +58,6 @@ function ShowEditModal({ showObject }) {
       <Modal
         show={show}
         onHide={handleClose}
-        // aria-labelledby='contained-modal-title-vcenter'
-
         centered
       >
         <Modal.Header closeButton>

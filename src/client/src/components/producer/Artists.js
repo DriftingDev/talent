@@ -1,7 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-// import Link from 'react-router-dom'
 import { Button, Container, Row, Col } from 'react-bootstrap';
-// import artists from '../data/artists'
 import NavBar from '../layout/NavBar';
 import ArtistList from './ArtistList';
 import { useHistory } from 'react-router';

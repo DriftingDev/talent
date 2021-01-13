@@ -9,7 +9,9 @@ function NotFound() {
       <Container>
         <Col>
           <Row>
-            <h1>Page Not Found</h1>
+            <h1>404</h1>
+            <hr />
+            <h2>Page not found =[</h2>
           </Row>
         </Col>
       </Container>

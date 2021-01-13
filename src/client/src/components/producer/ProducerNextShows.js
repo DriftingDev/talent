@@ -34,7 +34,6 @@ const ProducerNextShows = ({ shows }) => {
   }
 
   const nextShows = shows.filter((show) => {
-    //if the current moment is "smaller" than the event moment, it is in the future
     return moment() < moment(show.eventEnd)
   }).slice(0,3).map((show) => {
     return (

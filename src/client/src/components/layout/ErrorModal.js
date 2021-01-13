@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 //Bootstrap
 import { Button, Modal } from 'react-bootstrap';
 
-
 function ErrorModal({ errorMessage, modalState, handleClose }) {
 
   return (

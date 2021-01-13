@@ -8,7 +8,6 @@ import { object, string, array, date, ref, number } from 'yup';
 //Custom Component
 import NavBar from '../layout/NavBar';
 import Loading from '../layout/Loading';
-//import DatePicker from 'react-datepicker'
 import DateTimePicker from 'react-datetime-picker'
 import "react-datepicker/dist/react-datepicker.css";
 // Context

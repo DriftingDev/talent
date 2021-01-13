@@ -2,7 +2,6 @@ import { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router'
 //Bootstrap
 import {Alert, Form, Button, Container} from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
 //Formik & Yup
 import { Formik, Form as BaseForm } from 'formik';
 import { object, string } from 'yup';
@@ -40,7 +39,6 @@ function Login() {
         initialValues={{
           email: '',
           password: ''
-          //rememberMe: false
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -88,13 +86,6 @@ function Login() {
               {errors.password}
             </Form.Control.Feedback>
           </Form.Group>
-          {/* <Form.Group controlId='rememberMe'>
-            <Form.Label>Remember Me</Form.Label>
-            <Form.Control
-              type='checkbox'
-              {...getFieldProps("rememberMe")}
-            />
-          </Form.Group> */}
           <Button
             variant='primary'
             size='lg'

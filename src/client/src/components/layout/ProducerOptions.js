@@ -4,7 +4,6 @@ import { Nav, Navbar } from 'react-bootstrap';
 import { BsCalendar, BsPersonLinesFill } from 'react-icons/bs'
 import { IoMdMicrophone } from 'react-icons/io'
 import { GiFamilyHouse } from 'react-icons/gi'
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ProducerOptions = () => {
 
@@ -33,18 +32,6 @@ const ProducerOptions = () => {
     <Navbar fixed='bottom' bg='dark' variant='dark'>
       <Nav variant='tabs' className='ml-auto'>
         {links}
-        {/* <Nav.Link onClick={() => {history.push('/calendar')}}>
-          Calendar
-        </Nav.Link>
-        <Nav.Link onClick={() => {history.push('/shows')}}>
-          Shows
-        </Nav.Link>
-        <Nav.Link onClick={() => {history.push('/artists')}}>
-          Artists
-        </Nav.Link>
-        <Nav.Link onClick={() => {history.push('/venues')}}>
-          Venues
-        </Nav.Link> */}
       </Nav>
     </Navbar>
   );

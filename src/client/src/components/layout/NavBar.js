@@ -1,6 +1,5 @@
 import { useContext, useEffect } from 'react';
 import { Button, Navbar, NavDropdown } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthOptions from '../auth/AuthOptions';
 import ArtistOptions from '../layout/ArtistOptions';
 import ProducerOptions from '../layout/ProducerOptions';
@@ -11,8 +10,6 @@ import { ShowContext } from '../../store/show';
 import { CompanyContext } from '../../store/company';
 import { useHistory } from 'react-router';
 import { VenueContext } from '../../store/venue';
-
-import { BsPersonFill } from 'react-icons/bs';
 
 function NavBar() {
   const history = useHistory();

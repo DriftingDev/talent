@@ -7,8 +7,6 @@ import { ShowContext } from '../../store/show';
 import Loading from '../layout/Loading';
 import moment from 'moment'
 
-// import { LinkContainer } from 'react-router-bootstrap'
-
 const ArtistCard = ({ artist }) => {
 
   let history = useHistory();

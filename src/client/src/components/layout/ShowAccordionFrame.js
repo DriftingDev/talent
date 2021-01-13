@@ -5,11 +5,9 @@ import ShowAccordion from '../common/ShowAccordion'
 const ShowAccordionFrame = ({shows, showOptions}) => {
 
   let futureShows = shows.filter((show) => {
-    //if the current moment is "smaller" than the event moment, it is in the future
     return moment() < moment(show.eventEnd)
   })
   let pastShows = shows.filter((show) => {
-    //if the current moment is "larger" than the event moment, it is in the past
     return moment() > moment(show.eventEnd)
   })
 

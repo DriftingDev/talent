@@ -24,7 +24,6 @@ const ShowAccordion = ({ shows, showOptions }) => {
           <Accordion.Toggle as={Button} eventKey={index + 1}>
             {date}
           </Accordion.Toggle>
-          {/* <Badge>{showsToMap[date].length}</Badge> */}
         </Card.Header>
         <Accordion.Collapse eventKey={index + 1}>
           <Card.Body className='accordian-custom'>
