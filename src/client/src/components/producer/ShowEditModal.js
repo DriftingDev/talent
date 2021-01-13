@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router';
 //Bootstrap
 import { Button, Modal, Form } from 'react-bootstrap';
 //Formik & Yup
 import { Formik, Form as BaseForm, Field, getIn } from 'formik';
-import { object, string, array, date, ref, number } from 'yup';
+import { object, string, array, date, ref } from 'yup';
 //Context
 import { ShowContext } from '../../store/show';
 import { CompanyContext } from '../../store/company';
@@ -12,11 +11,10 @@ import { CompanyContext } from '../../store/company';
 import DateTimePicker from 'react-datetime-picker';
 
 function ShowEditModal({ showObject }) {
-  const history = useHistory();
 
   const [show, setShow] = useState(false);
 
-  const { state: showState, dispatch: showDispatch, updateShow } = useContext(ShowContext);
+  const { dispatch: showDispatch, updateShow } = useContext(ShowContext);
   const { state: companyState } = useContext(CompanyContext)
 
   const handleClose = () => setShow(false);

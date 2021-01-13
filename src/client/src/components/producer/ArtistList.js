@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import { CompanyContext } from '../../store/company';
-import { UsersContext } from '../../store/user';
 import Loading from '../layout/Loading';
 import ArtistCard from './ArtistCard';
 

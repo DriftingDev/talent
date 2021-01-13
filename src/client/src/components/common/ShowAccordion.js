@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, Card, Button, Badge } from 'react-bootstrap';
+import { Accordion, Card, Button } from 'react-bootstrap';
 import ShowCard from '../layout/ShowCard';
 import moment from 'moment';
 

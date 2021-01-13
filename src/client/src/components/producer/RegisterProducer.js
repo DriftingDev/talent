@@ -17,7 +17,7 @@ const RegisterProducer = () => {
 
   const history = useHistory()
 
-  const { state, createUser } = useContext(CurrentUserContext);
+  const { createUser } = useContext(CurrentUserContext);
   const { dispatch: companyDispatch } = useContext(CompanyContext)
 
   const [ modalState, setModalState ] = useState(false)

@@ -16,7 +16,7 @@ function NavBar() {
   const { state: currentUserState, dispatch: currentUserDispatch } = useContext(
     CurrentUserContext
   );
-  const { state: showState, dispatch: showDispatch } = useContext(ShowContext);
+  const { dispatch: showDispatch } = useContext(ShowContext);
   const { state: companyState, dispatch: companyDispatch, fetchCurrentCompany } = useContext(CompanyContext);
   const { dispatch: venueDispatch } = useContext(VenueContext);
 
