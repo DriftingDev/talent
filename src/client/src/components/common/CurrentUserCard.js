@@ -16,10 +16,8 @@ function CurrentUserCard({ user }) {
               </Col>
               <Col xs={8} className='noPadding '>
                 <Card.Title>{user.accname}</Card.Title>
-                <Card.Text>
-                  <p className='truncate'>
-                    <BsEnvelope /> {user.email}
-                  </p>
+                <Card.Text className='truncate'>
+                  <BsEnvelope /> {user.email}
                 </Card.Text>
                 <Card.Text>
                   <FiPhone /> {user.contact}

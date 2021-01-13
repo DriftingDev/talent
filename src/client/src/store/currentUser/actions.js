@@ -44,7 +44,6 @@ export const axiosAddUserToCompany = (userId, companyDispatch) => {
   }, authHeader())
   .then((resp) => {
     axiosFetchCurrentCompany(companyDispatch)
-    console.log(resp)
   })
   .catch(console.log)
 }
@@ -53,7 +52,6 @@ export const axiosCreateUser = (user, companyDispatch) => {
   axios
     .post(`${API_URL}/auth/register`, user)
     .then(function (response) {
-      console.log(response)
       axiosAddUserToCompany(response.data.user._id, companyDispatch)
     })
     .catch(console.log);
@@ -75,7 +73,6 @@ export const axiosGetAllUsers = (dispatch) => {
   axios
     .get(`${API_URL}/user/all`, authHeader())
     .then((response) => {
-      console.log(response.data);
       dispatch({
         type: 'fetchAllUsers',
         payload: response.data,

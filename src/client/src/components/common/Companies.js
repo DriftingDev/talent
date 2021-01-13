@@ -113,9 +113,12 @@ const Companies = () => {
               ))}
             </>
           ) : (
+            <>
+            {localStorage.removeItem('currentCompany')}
             <h4 className='no-records'>
               This account doesn't have any companies attached to it.
             </h4>
+            </>
           )
         ) : (
           <Loading />
