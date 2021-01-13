@@ -13,7 +13,6 @@ const Context = createContext({
   dispatch: () => {},
   createCompany: () => {},
   getAllCompanies: () => {},
-  /// THESE NEED TO CHANGE
   updateCompany: () => {},
   deleteCompany: () => {},
   fetchCurrentCompany: () => {}
