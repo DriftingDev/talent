@@ -18,7 +18,7 @@ const ProducerOptions = () => {
   const links = options.map((opt, i) => {
     return (
     history.location.pathname.slice(1, opt[1].length + 1) === opt[1].toLowerCase() ?
-    <Nav.Link key={i} active onClick={() => {history.push(`/{${opt[1].toLowerCase()}}`)}}>
+    <Nav.Link key={i} active onClick={() => {history.push(`/${opt[1].toLowerCase()}`)}}>
       {opt[0]}{" "}{opt[1]}
     </Nav.Link>
     :

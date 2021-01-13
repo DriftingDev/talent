@@ -61,10 +61,8 @@ const ArtistCard = ({ artist }) => {
           </Col>
           <Col xs={8} className='noPadding '>
             <Card.Title onClick={handleNameClick}>{artist.accname}</Card.Title>
-            <Card.Text>
-              <p className='truncate'>
-                <BsEnvelope /> {artist.email}
-              </p>
+            <Card.Text className='truncate'>
+              <BsEnvelope /> {artist.email}
             </Card.Text>
             <Card.Text>
               <FiPhone /> {artist.contact}

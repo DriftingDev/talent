@@ -59,7 +59,7 @@ function DisplayArtist() {
     <>
       <NavBar />
       <Container>
-        <h1>Artists</h1>
+        <h1>Artist</h1>
         <Row>
           <ArtistCard artist={artist[0]} />
         </Row>

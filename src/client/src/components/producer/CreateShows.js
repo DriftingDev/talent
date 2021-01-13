@@ -47,7 +47,7 @@ const CreateShows = () => {
   if (currentUserState.user.is_artist){
     history.push('/shows')
   }  
-  if (companyState.currentCompany === null) {
+  if (companyState.currentCompany === null || companyState.currentCompany.venues.length < 1) {
     fetchCurrentCompany()
   }
   if (!venueState.loaded) {
@@ -113,7 +113,6 @@ const CreateShows = () => {
         <Loading />
         :
         <Container  bg='dark' fluid>
-          {console.log(venueState.venues)}
           <Formik
             initialValues={{
               artists: [],
