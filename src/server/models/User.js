@@ -29,6 +29,9 @@ const User = new Schema ({
   link: {
     type: String
   },
+  colour: {
+    type: String
+  },
   companies: [{
     type: Schema.Types.ObjectId,
     ref: 'Company'

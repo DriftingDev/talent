@@ -18,8 +18,8 @@ passport.use(
     },
     async (req, email, password, done) => {
       try {
-        const { accname, nickname, is_artist, contact, link } = req.body
-        const user = await User.create({email, password, accname, nickname, is_artist, contact, link});
+        const { accname, nickname, is_artist, contact, colour, link } = req.body
+        const user = await User.create({email, password, accname, nickname, is_artist, contact, colour, link});
         return done(null, user);
       } catch (error) {
         done(error)

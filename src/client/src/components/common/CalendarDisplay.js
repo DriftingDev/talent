@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Calendar, momentLocalizer} from 'react-big-calendar'
-import { randomColor, contrastingColor } from '../../data/calendarUtils'
+import { contrastingColor, hexAverage } from '../../data/calendarUtils'
 import moment from 'moment'
 import EventModal from './EventModal'
 
@@ -38,24 +38,16 @@ const CalendarDisplay = ({events}) => {
     setModalShow(true)
   }
 
-  let colour
-  let contrast
-  let artist_no = 0
-  let artist_id = ""
-
   const artistColorControl = (event) => {
-    if(event.artists.length !== artist_no || event.artists[0]._id !== artist_id) {
-      if(event.artists.length !== artist_no){
-        artist_no = event.artists.length
-      }
-      if(event.artists[0]._id !== artist_id) {
-        artist_id = event.artists[0]._id
-      }
-
-      colour = randomColor()
-      contrast = contrastingColor(colour.slice(1))
+    colour = event.artists[0].colour
+    if (event.artists.length > 1){
+      event.artists.forEach((artist, i, arr) => {
+        colour = hexAverage(colour, artist.colour)
+      })
     }
   }
+
+  let colour;
 
   return (
     <div>
@@ -74,7 +66,7 @@ const CalendarDisplay = ({events}) => {
             artistColorControl(event)
             let newStyle = {
               backgroundColor: colour,
-              color: contrast,
+              color: contrastingColor(colour),
               borderRadius: "0px",
               border: "none"
             };
