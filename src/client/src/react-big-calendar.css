@@ -371,7 +371,9 @@ button.rbc-input::-moz-focus-inner {
   flex: none; }
 
 .rbc-label {
-  padding: 0 5px; }
+  padding: 0 5px; 
+  color: #ffffff;
+}
 
 .rbc-day-slot {
   position: relative; }
