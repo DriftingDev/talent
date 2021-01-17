@@ -123,10 +123,12 @@ const AllShows = () => {
             )}
           </Row>
           {ShowState.shows.length === 0 && (
-            <Row className='justify-content-around pt-2'>
-              <Col className='d-flex justify-content-center'>
+            <Row >
+              <Col >
                 <Alert variant='info'>
-                  You don't have any shows with this company... yet.
+                  <h4 className='text-center'>
+                    You don't have any shows with this company... yet.
+                  </h4>
                 </Alert>
               </Col>
             </Row>

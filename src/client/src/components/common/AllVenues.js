@@ -58,7 +58,11 @@ const AllVenues = () => {
                 {VenueState.venues.length > 0 ? (
                   <VenueAccordion venues={VenueState.venues} withLink={true} />
                 ) : (
-                  <Alert variant='info'>No Venues have been created yet.</Alert>
+                  <Alert variant='info'>
+                    <h4 className='text-center'>
+                      No venues have been created... yet.
+                    </h4>
+                  </Alert>
                 )}
               </Col>
             </Row>
