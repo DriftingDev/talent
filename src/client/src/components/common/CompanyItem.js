@@ -43,26 +43,25 @@ const CompanyItem = ({ company }) => {
                 variant='primary'
                 size='sm'
                 type='submit'
-                className='mb-2'
                 onClick={() => {
                   selectCompany(company);
                 }}
-                >
+              >
                 Select
               </Button>
-                {!currentUserState.user.is_artist && (
-                  <>
-                    <CompanyEditModal company={company} />
-                    <DeleteModal
-                      object={company}
-                      name={'company'}
-                      deleteFunc={deleteCompany}
-                      dispatch={() => {
-                        companyDispatch({ type: 'clearCompanies' });
-                      }}
-                    />
-                  </>
-                )}
+              {!currentUserState.user.is_artist && (
+                <>
+                  <CompanyEditModal company={company} />
+                  <DeleteModal
+                    object={company}
+                    name={'company'}
+                    deleteFunc={deleteCompany}
+                    dispatch={() => {
+                      companyDispatch({ type: 'clearCompanies' });
+                    }}
+                  />
+                </>
+              )}
             </Col>
             <Col className='light-gray-box text-center noPadding'>
               <div className='py-3'>
@@ -79,7 +78,7 @@ const CompanyItem = ({ company }) => {
             <Col className='light-gray-box text-center noPadding'>
               <div className='py-3'>
                 <p>Artists</p>
-                <h3>{company.users.filter(u => u.is_artist).length}</h3>
+                <h3>{company.users.filter((u) => u.is_artist).length}</h3>
               </div>
             </Col>
           </Row>

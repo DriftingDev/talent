@@ -25,15 +25,10 @@ function CompanyEditModal({ company }) {
         size='sm'
         type='submit'
         onClick={handleShow}
-        className='mb-2'
       >
         Edit
       </Button>{' '}
-      <Modal
-        show={show}
-        onHide={handleClose}
-        centered
-      >
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Edit Company</Modal.Title>
         </Modal.Header>

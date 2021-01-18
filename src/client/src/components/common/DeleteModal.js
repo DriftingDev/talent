@@ -21,7 +21,7 @@ function DeleteModal({ object, name, deleteFunc, dispatch }) {
         type='submit'
         size='sm'
         onClick={handleShow}
-        className='mb-2 ml-auto'
+        className='ml-auto'
       >
         <MdDeleteForever />
       </Button>{' '}

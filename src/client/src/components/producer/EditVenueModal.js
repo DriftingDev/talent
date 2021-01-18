@@ -24,19 +24,10 @@ function EditVenueModal({ venue }) {
 
   return (
     <>
-      <Button
-        type='submit'
-        onClick={handleShow}
-        size='sm'
-        className='mb-2 ml-auto'
-      >
+      <Button type='submit' onClick={handleShow} size='sm' className='ml-auto'>
         <ImPencil />
       </Button>{' '}
-      <Modal
-        show={show}
-        onHide={handleClose}
-        centered
-      >
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Edit Venue</Modal.Title>
         </Modal.Header>
