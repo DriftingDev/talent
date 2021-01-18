@@ -47,7 +47,9 @@ const RegisterProducer = () => {
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            companyDispatch({type: "clearCurrentCompany"})
+            setTimeout(() => {
+              companyDispatch({type: "clearCurrentCompany"})
+            },1000)
             createUser(values, companyDispatch);
             setModalState(true)
             //history.push('/team')
