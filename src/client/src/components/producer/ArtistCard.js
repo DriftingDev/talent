@@ -47,13 +47,13 @@ const ArtistCard = ({ artist }) => {
     <Card className='my-3 p-3 rounded' border='primary'>
       <Card.Body>
         <Row>
-          <Col xs={4} className='noPadding '>
+          <Col xs={4} className='noPadding'>
             {ShowState.loaded ? (
               <>
-                <p>Shows: {artistShows.length}</p>
-                <p>Upcoming: {upcomingShows.length}</p>
-                <p>Ongoing: {ongoingShows}</p>
-                <p>Past: {pastShows.length}</p>
+                <p><b>Shows:</b> {artistShows.length}</p>
+                <p><b>Upcoming:</b> {upcomingShows.length}</p>
+                <p><b>Ongoing:</b> {ongoingShows}</p>
+                <p><b>Past:</b> {pastShows.length}</p>
               </>
             ) : (
               <Loading />
@@ -64,7 +64,7 @@ const ArtistCard = ({ artist }) => {
               {artist.accname}
             </Card.Title>
             <Card.Text className='truncate'>
-              <BsEnvelope />
+              <BsEnvelope />:
               <a href={`mailto:${artist.email}`}> {artist.email}</a>
             </Card.Text>
             <Card.Text>

@@ -222,7 +222,7 @@ const CreateShows = () => {
                               setFieldValue(`shows[${i}].eventStartDate`, e);
                               setFieldTouched(`shows[${i}].eventStartDate`, true);
                             }}
-                          className="form-control"
+                          className="form-control bg-light text-dark"
                           disableClock={true}
                           minDate={today}
                         />
@@ -238,7 +238,7 @@ const CreateShows = () => {
                               setFieldValue(`shows[${i}].eventEndDate`, e);
                               setFieldTouched(`shows[${i}].eventEndDate`, true);
                             }}
-                          className="form-control"
+                          className="form-control bg-light text-dark"
                           disableClock={true}
                           minDate={today}
                         />
@@ -251,6 +251,7 @@ const CreateShows = () => {
               </FieldArray>
 
               <Button
+                className="mt-3"
                 variant='primary'
                 size='lg'
                 type='submit'

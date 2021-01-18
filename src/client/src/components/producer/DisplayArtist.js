@@ -69,6 +69,8 @@ function DisplayArtist() {
           <Container>
             <Row className='mx-auto mt-2'>
               <h1>{artist[0].accname}</h1>
+            </Row>
+            <Row>
               <ArtistCard artist={artist[0]} />
             </Row>
             <Row>
