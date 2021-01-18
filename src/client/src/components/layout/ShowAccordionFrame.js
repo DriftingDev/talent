@@ -6,10 +6,10 @@ const ShowAccordionFrame = ({shows, showOptions}) => {
 
   let futureShows = shows.filter((show) => {
     return moment() < moment(show.eventEnd)
-  })
+  }).sort((a,b) => a.eventStart > b.eventStart)
   let pastShows = shows.filter((show) => {
     return moment() > moment(show.eventEnd)
-  })
+  }).sort((a,b) => a.eventStart > b.eventStart)
 
   return (
     <>
