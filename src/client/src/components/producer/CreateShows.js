@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router'
 //Bootstrap
-import {Form, Button, Container} from 'react-bootstrap'
+import {Form, Button, Container, Alert} from 'react-bootstrap'
 //Formik & Yup
 import { Formik, Form as BaseForm, Field, FieldArray, getIn } from 'formik';
 import { object, string, array, date, ref, number } from 'yup';
@@ -214,7 +214,7 @@ const CreateShows = () => {
                     {values.shows.map((show,i) => (
                       <div key={i}>
                         <hr></hr>
-                        <h3>Show {i + 1}</h3>
+                        <Alert variant="info">Show {i + 1}</Alert>
                         <h5>Start Date</h5>
                         <DateTimePicker
                           value={values.shows[i].eventStartDate}

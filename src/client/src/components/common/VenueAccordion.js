@@ -52,7 +52,7 @@ const VenueAccordion = ({ venues, withLink }) => {
             <Col className='d-flex'>
               <Badge pill variant='Info' className='ml-auto'>
                 <span className='white'>
-                  Capacity {venue.capacity && <> {venue.capacity}</>}
+                  Capacity: {venue.capacity || "N/A"}
                 </span>
               </Badge>
             </Col>
@@ -62,28 +62,21 @@ const VenueAccordion = ({ venues, withLink }) => {
           <Card.Body className='accordian-custom d-flex'>
             <Row>
               <Col>
-                {venue.address && (
                   <p>
-                    <ImLocation2 /> {venue.address}
+                    <ImLocation2 />: {venue.address || "N/A"}
                   </p>
-                )}
-                {venue.contactEmail && (
                   <p>
-                    <MdEmail /> {venue.contactEmail}
-                  </p>
-                )}
-                {venue.contactPhone && (
+                    <MdEmail />: {venue.contactEmail || "N/A"}
+                  </p>                                
                   <p>
-                    <ImPhone /> {venue.contactPhone}
-                  </p>
-                )}
-                {venue.details && (
+                    <ImPhone />: {venue.contactPhone || "N/A"}
+                  </p>               
                   <>
                     <hr></hr>
-                    <p>Details</p>
-                    <p>{venue.details}</p>
+                    <h5>Details</h5>
+                    <p>{venue.details || "N/A"}</p>
                   </>
-                )}
+                
                 { !history.location.pathname.slice(8) &&
                 <Button
                   variant='info'

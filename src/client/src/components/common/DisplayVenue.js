@@ -39,7 +39,6 @@ const DisplayVenue = () => {
 
   return (
     <>
-      {console.log('in return', venueById)}
       <NavBar />
       <Container bg='dark'>
         <Row className='py-2 align-items-center'></Row>

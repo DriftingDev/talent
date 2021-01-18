@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import moment from 'moment';
+import { BsPersonLinesFill } from 'react-icons/bs'
+import { GiFamilyHouse } from 'react-icons/gi'
+import { IoMdMicrophone } from 'react-icons/io'
 import { useHistory } from 'react-router';
 import ShowEditModal from '../producer/ShowEditModal';
 import DeleteModal from '../common/DeleteModal';
@@ -13,56 +16,63 @@ const ShowCard = ({ show, showOptions }) => {
 
   return (
     <Card border='info' bg='dark' className='px-3 py-2 mb-2'>
-      {showOptions.withTitle && <Card.Title>{show.showName}</Card.Title>}
-      {showOptions.withTime && (
-        <Card.Subtitle>
-          @ {moment(show.eventStart).format('MMMM Do, h:mm a')}
-        </Card.Subtitle>
-      )}
-      {showOptions.withEndTime && (
-        <Card.Subtitle>
-          until {moment(show.eventStart).format('MMMM Do, h:mm a')}
-        </Card.Subtitle>
-      )}
-      <Card.Text>
-        <hr></hr>
-        {showOptions.withVenue && (
-          <p>
-            Venue: {show.venue.name}{' '}
-            {show.venue.address && '@ ' + show.venue.address}
-          </p>
-        )}
-        {showOptions.withArtists &&
-          show.artists.map((artist, index) => {
-            return (
-              <p
-                key={index}
-                onClick={() => {
-                  history.push(`/artists/${artist._id}`);
-                }}
-              >
-                Artist {index + 1}: {artist.accname}
-              </p>
-            );
-          })}
-        {showOptions.withDescrip && show.descrip && <p>{show.descrip}</p>}
-      </Card.Text>
-      <Card.Footer>
+      <Card.Title className="font-weight-bold d-flex justify-content-between">
+      {showOptions.withTitle && 
+      <div><IoMdMicrophone /> {show.showName}</div>}
+
       { showOptions.withAllShowsLink && 
         <>
         <Button variant={'info'} onClick={() => {history.push(`/shows/${show.showNameSlug}`)}}>
           All show times
         </Button>
-        <hr></hr>
+        
         </>
       }
       { showOptions.withDeleteEdit &&
-        <>
+        <span>
         <DeleteModal object={show} name='show' deleteFunc={deleteShow} dispatch={() => {showDispatch({type: "clearShows"})}} />
         <ShowEditModal showObject={show}/>
-        </>
+        </span>
       }
-      </Card.Footer>
+      </Card.Title>
+      
+      {showOptions.withTime && (
+        <Card.Subtitle className="font-weight-bold">
+          From: {moment(show.eventStart).format(' h:mm a')}
+        </Card.Subtitle>
+      )}
+      
+      {showOptions.withEndTime && (
+        <>
+        <hr></hr>
+        <Card.Subtitle className="font-weight-bold">
+          Until: {moment(show.eventStart).format('h:mm a, MMMM Do')}
+        </Card.Subtitle>
+        </>
+      )}
+      
+      <hr></hr>
+      {showOptions.withVenue && (
+        <div>
+          <span className="font-weight-bold"><GiFamilyHouse /> Venue:</span> {show.venue.name}{' '}
+          {show.venue.address && '@ ' + show.venue.address}
+        </div>
+      )}
+      {showOptions.withArtists &&
+        show.artists.map((artist, index) => {
+          return (
+            <div
+              key={index}
+              onClick={() => {
+                history.push(`/artists/${artist._id}`);
+              }}
+            >
+              <span className="font-weight-bold"><BsPersonLinesFill /> Artist {index + 1}:</span> {artist.accname}
+            </div>
+          );
+        })}
+      {showOptions.withDescrip && show.descrip && <p>{show.descrip}</p>}
+      
     </Card>
   );
 };
