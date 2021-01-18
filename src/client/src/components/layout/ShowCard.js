@@ -8,11 +8,13 @@ import { useHistory } from 'react-router';
 import ShowEditModal from '../producer/ShowEditModal';
 import DeleteModal from '../common/DeleteModal';
 import { ShowContext } from '../../store/show';
+import { CurrentUserContext } from '../../store/currentUser';
 
 const ShowCard = ({ show, showOptions }) => {
   const history = useHistory();
 
   const { dispatch: showDispatch, deleteShow } = useContext(ShowContext)
+  const { state: currentUserState } = useContext(CurrentUserContext)
 
   return (
     <Card border='info' bg='dark' className='px-3 py-2 mb-2'>
@@ -28,7 +30,7 @@ const ShowCard = ({ show, showOptions }) => {
         
         </>
       }
-      { showOptions.withDeleteEdit &&
+      { (showOptions.withDeleteEdit && !currentUserState.user.is_artist) &&
         <span>
         <DeleteModal object={show} name='show' deleteFunc={deleteShow} dispatch={() => {showDispatch({type: "clearShows"})}} />
         <ShowEditModal showObject={show}/>

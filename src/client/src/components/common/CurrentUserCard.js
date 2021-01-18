@@ -11,9 +11,6 @@ function CurrentUserCard({ user }) {
         <Card className='my-3 p-3 rounded' border='primary'>
           <Card.Body>
             <Row>
-              <Col xs={4} className='noPadding '>
-                <EditUserModal user={user}/>
-              </Col>
               <Col xs={8} className='noPadding '>
                 <Card.Title>{user.accname}</Card.Title>
                 <Card.Text className='truncate'>
@@ -23,6 +20,9 @@ function CurrentUserCard({ user }) {
                   <FiPhone /> {user.contact}
                 </Card.Text>
                 <Card.Text>{user.fringe_link}</Card.Text>
+              </Col>
+              <Col xs={4} className='noPadding '>
+                <EditUserModal user={user}/>
               </Col>
             </Row>
           </Card.Body>

@@ -54,10 +54,13 @@ function Team() {
       <NavBar />
       {CompanyState.currentCompany != null ?
       <Container>
+        <Row className="bg-dark p-2 my-2 rounded">
         <div>
           <h1 className='d-flex justify-content-center'>My Profile</h1>
         </div>
         <CurrentUserCard user={currentUser[0]} />
+        </Row>
+
         <Row>
           <Col><h1>My Team</h1></Col>
           { !currentUserState.user.is_artist &&

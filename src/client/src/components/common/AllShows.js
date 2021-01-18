@@ -67,7 +67,7 @@ const AllShows = () => {
       CompanyState.currentCompany != null ? (
         <Container bg='dark'>
           {CurrentUserState.user.is_artist && ShowState.shows.length > 0 && (
-            <Row>
+            <Row className="mt-3">
               <Col>
                 <ArtistNextShow shows={ShowState.shows} />
               </Col>
@@ -142,6 +142,7 @@ const AllShows = () => {
               </Col>
             </Row>
           )}
+          <div className="mt-4">
           <ShowAccordionFrame
             shows={ShowState.shows}
             showOptions={{
@@ -155,6 +156,7 @@ const AllShows = () => {
               withAllShowsLink: true,
             }}
           />
+          </div>
         </Container>
       ) : (
         <Loading />

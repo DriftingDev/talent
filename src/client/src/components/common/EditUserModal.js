@@ -29,6 +29,7 @@ function EditUserModal({ user }) {
       <Button
         type='submit'
         onClick={handleShow}
+        className="float-right"
       >
         Edit Account
       </Button>{' '}
