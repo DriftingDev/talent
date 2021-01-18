@@ -44,7 +44,23 @@ mongoose.connect(dbConn, {
   }
 );
 
-app.use(cors())
+const allowList = [
+  "http://localhost:3000",
+  "https://talent-app.netlify.app/",
+];
+app.set("trust proxy", 1);
+app.use(cookieParser());
+
+const corsOptions = {
+  credentials: true,
+  origin: function (origin, callback) {
+    const allowListIndex = allowList.findIndex((url) => url.includes(origin));
+    callback(null, allowListIndex > -1);
+  },
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize())
