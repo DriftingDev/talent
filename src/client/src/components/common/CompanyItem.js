@@ -39,19 +39,6 @@ const CompanyItem = ({ company }) => {
               <div className='px-1 '>
                 <p>{company.name}</p>
               </div>
-              {!currentUserState.user.is_artist && (
-                <>
-                  <CompanyEditModal company={company} />
-                  <DeleteModal
-                    object={company}
-                    name={'company'}
-                    deleteFunc={deleteCompany}
-                    dispatch={() => {
-                      companyDispatch({ type: 'clearCompanies' });
-                    }}
-                  />
-                </>
-              )}
               <Button
                 variant='primary'
                 size='sm'
@@ -60,9 +47,22 @@ const CompanyItem = ({ company }) => {
                 onClick={() => {
                   selectCompany(company);
                 }}
-              >
+                >
                 Select
               </Button>
+                {!currentUserState.user.is_artist && (
+                  <>
+                    <CompanyEditModal company={company} />
+                    <DeleteModal
+                      object={company}
+                      name={'company'}
+                      deleteFunc={deleteCompany}
+                      dispatch={() => {
+                        companyDispatch({ type: 'clearCompanies' });
+                      }}
+                    />
+                  </>
+                )}
             </Col>
             <Col className='light-gray-box text-center noPadding'>
               <div className='py-3'>
