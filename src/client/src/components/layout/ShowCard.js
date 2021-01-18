@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { Card, Button, Row, Col } from 'react-bootstrap';
+import { Card, Button, Col } from 'react-bootstrap';
 import moment from 'moment';
 import { BsPersonLinesFill } from 'react-icons/bs';
 import { GiFamilyHouse } from 'react-icons/gi';
 import { IoMdMicrophone } from 'react-icons/io';
+import { HiPencilAlt } from 'react-icons/hi'
 import { useHistory } from 'react-router';
 import ShowEditModal from '../producer/ShowEditModal';
 import DeleteModal from '../common/DeleteModal';
@@ -70,7 +71,11 @@ const ShowCard = ({ show, showOptions }) => {
               </div>
             );
           })}
-        {showOptions.withDescrip && show.descrip && <p>{show.descrip}</p>}
+        {showOptions.withDescrip && show.descrip && 
+        <>
+        <span className='font-weight-bold pb-1'><HiPencilAlt/>{" "}Description:</span>
+        <span>{show.descrip}</span>
+        </>}
         <Col className='noPadding mt-2 d-flex justify-content-end'>
           {showOptions.withAllShowsLink && (
             <>
