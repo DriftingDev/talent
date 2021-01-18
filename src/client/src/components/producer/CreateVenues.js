@@ -139,7 +139,7 @@ const CreateVenues = () => {
                 values.venues[i].company = companyState.currentCompany._id
                 return (
                   <div key={i}>
-                    <Alert variant='primary'></Alert>
+                    <Alert variant='primary'>Venue {i + 1}</Alert>
                     <Form.Group controlId={`venues[${i}].name`}>
                       <Form.Label>Venue Name</Form.Label>
                       <Form.Control
@@ -178,7 +178,7 @@ const CreateVenues = () => {
                     </Form.Group>
 
                     <Form.Group controlId={`venues[${i}].details`}>
-                      <Form.Label>details / description</Form.Label>
+                      <Form.Label>Details / Description</Form.Label>
                       <Form.Control
                         {...getFieldProps(`venues[${i}].details`)}
                       />
