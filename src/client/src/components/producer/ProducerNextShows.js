@@ -41,7 +41,7 @@ const ProducerNextShows = ({ shows }) => {
         <Alert variant="danger" className="px-1 py-2" onClick={() => {displayEventModal(show)}}>
           <div className='d-flex justify-content-between px-3'>
             <h5 className='px-2 m-0'>
-              <BiTime /> {moment(show.eventStart).format('MMMM Do YYYY @ h:mm:ss a')} 
+              <BiTime /> {moment(show.eventStart).format('MMMM Do YYYY @ h:mm a')} 
             </h5>
             <h5 className='px-2 m-0'>
               <AiFillSound /> {show.showName}

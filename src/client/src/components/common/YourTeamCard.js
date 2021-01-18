@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Card, Col, Row } from 'react-bootstrap';
 import { BsEnvelope } from 'react-icons/bs';
 import { FiPhone } from 'react-icons/fi';
+import { HiLink } from 'react-icons/hi'
 
 function YourTeamCard({ user }) {
   return (
@@ -10,17 +11,17 @@ function YourTeamCard({ user }) {
         <Card className='my-3 p-3 rounded' border='primary'>
           <Card.Body>
             <Row>
-              <Col xs={12} className='noPadding '>
+            <Col xs={8} className='noPadding '>
                 <Card.Title>{user.accname}</Card.Title>
-                <Card.Text>
-                  <p className='truncate'>
-                    <BsEnvelope /> {user.email}
-                  </p>
+                <Card.Text className='truncate'>
+                  <BsEnvelope />: <a href={`mailto:${user.email}`}>{user.email}</a>
                 </Card.Text>
                 <Card.Text>
-                  <FiPhone /> {user.contact}
+                  <FiPhone />: {user.contact || "N/A"}
                 </Card.Text>
-                <Card.Text>{user.fringe_link}</Card.Text>
+                <Card.Text>
+                  <HiLink />: {user.link ? <span className='btn-link' onClick={() => {window.open("http://" + user.link)}}>{user.link}</span> : "N/A"}
+                </Card.Text>
               </Col>
             </Row>
           </Card.Body>
