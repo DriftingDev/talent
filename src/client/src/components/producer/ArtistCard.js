@@ -71,7 +71,6 @@ const ArtistCard = ({ artist }) => {
               <FiPhone />: {artist.contact || "N/A"}
             </Card.Text>
             <Card.Text>
-              {console.log(artist)}
               <HiLink />: {artist.link ? <span className='btn-link' onClick={() => {window.open("http://" + artist.link)}}>{artist.link}</span> : "N/A"}
             </Card.Text>
           </Col>
