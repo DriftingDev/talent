@@ -118,7 +118,7 @@ const CreateShows = () => {
               artists: [],
               venue: venueState.venues[0].name,
               showName: '',
-              showDescrip: '',
+              descrip: '',
               showNum: 0,
               shows: []
             }}
@@ -184,10 +184,10 @@ const CreateShows = () => {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Form.Group controlId='showDescrip'>
+              <Form.Group controlId='descrip'>
                 <Form.Label>Show Description</Form.Label>
                 <Form.Control
-                  {...getFieldProps("showDescrip")}
+                  {...getFieldProps("descrip")}
                   placeholder='Enter a description for the show'
                 />
               </Form.Group>
