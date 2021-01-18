@@ -59,10 +59,12 @@ function Team() {
         </div>
         <CurrentUserCard user={currentUser[0]} />
         <Row>
-          <Col><h1 className='d-flex justify-content-center'>My Team</h1></Col>
+          <Col><h1>My Team</h1></Col>
           { !currentUserState.user.is_artist &&
             <Col>
-            <Button onClick={() => {history.push('/team/create')}}>
+            <Button 
+            onClick={() => {history.push('/team/create')}}
+            className='float-right'>
               Add Team Member
             </Button>
             </Col>
