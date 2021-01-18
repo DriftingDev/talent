@@ -25,11 +25,7 @@ function DeleteModal({ object, name, deleteFunc, dispatch }) {
       >
         <MdDeleteForever />
       </Button>{' '}
-      <Modal
-        show={show}
-        onHide={handleClose}
-        centered
-      >
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>WARNING</Modal.Title>
         </Modal.Header>
@@ -45,7 +41,7 @@ function DeleteModal({ object, name, deleteFunc, dispatch }) {
           >
             Yes
           </Button>
-          <Button variant='danger' onClick={handleClose}>
+          <Button variant='danger' onClick={handleClose} className='mx-2'>
             Noooo!!!
           </Button>
         </Modal.Body>
