@@ -8,6 +8,7 @@ import DeleteModal from '../common/DeleteModal';
 import EditVenueModal from '../producer/EditVenueModal';
 import { ImLocation2, ImPhone } from 'react-icons/im';
 import { MdEmail } from 'react-icons/md';
+import { HiPencilAlt, HiLink } from 'react-icons/hi'
 
 const VenueAccordion = ({ venues, withLink }) => {
   const history = useHistory();
@@ -70,12 +71,14 @@ const VenueAccordion = ({ venues, withLink }) => {
                   </p>                                
                   <p>
                     <ImPhone />: {venue.contactPhone || "N/A"}
-                  </p>               
-                  <>
-                    <hr></hr>
-                    <h5>Details</h5>
+                  </p>  
+                  <p>
+                    <HiLink />: {<span className='btn-link' onClick={() => {window.open("http://" + venue.website)}}>{venue.website}</span> || "N/A"}
+                  </p>                  
+                  <Card border='light' bg='dark' className='px-3 pt-2 mb-2 white'>
+                    <h5><HiPencilAlt />{" "}<u>Details:</u></h5>
                     <p>{venue.details || "N/A"}</p>
-                  </>
+                  </Card>
                 
                 { !history.location.pathname.slice(8) &&
                 <Button
