@@ -18,7 +18,7 @@ function CurrentUserCard({ user }) {
                   <BsEnvelope />: <a href={`mailto:${user.email}`}>{user.email}</a>
                 </Card.Text>
                 <Card.Text>
-                  <FiPhone />: {user.contact || ""}
+                  <FiPhone />: {user.contact || "N/A"}
                 </Card.Text>
                 <Card.Text>
                   <HiLink />: {user.link ? <span className='btn-link' onClick={() => {window.open("http://" + user.link)}}>{user.link}</span> : "N/A"}
