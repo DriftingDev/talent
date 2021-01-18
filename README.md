@@ -291,6 +291,44 @@ MVP Features that were eventually culled from the project were:
 
 Unfortunately, we were not able to implement any of the stretch features into the application.
 
+## Local installation
+
+Talent can be cloned from this repo and run on your local machine, as long as a few conditions are met.
+Before trying to run this, you will need to have MongoDB installed on you local machine. You can find details of how to do this here :
+https://docs.mongodb.com/manual/installation/
+
+-  First, clone the entire repo onto you local machine
+
+-  Second, open up two terminal windows. One of these windows will run the server, the other will run the client. 
+
+__SERVER__
+
+- In the first terminal window, from the root of the cloned directory, navigate to the server file
+  ```
+  cd src/server
+  ```
+
+-  From here, you will need to run ```npm i``` to install the required dependencies.
+-  you will need to create a .env file in the server directory and input your local mongoDB connection string. You can find out what this string is by running the mongo shell in another terminal and checking what the connection string is on line 2.
+-  once you have created a .env file, input 
+  ```
+  LOCAL_DB_URI=*your mongo db address*/talent_app
+  NODE_ENV=development
+  JWT_SECRET=*secret of your choice*
+  ```
+- If your connection string is different to "mongodb://127.0.0.1:27017/", you will need to open the server.js file in your code editor and change line 25 to reflect this change.
+- From here, you should be able to run ```npm start``` on the src/server terminal. The server should run on port 3010 and will tell you if it has successfully connected to the database or not. 
+
+__CLIENT__
+
+-  In the second terminal window, you should similarly navigate to the client
+  ```
+  cd src/client
+  ```
+
+-  From here, you will need to run ```npm i``` to install the required dependencies.
+-  You should be able to run ```npm start``, and react will start a local server and tell you what localhost port it is running on.
+
 ## Libraries
 
 The following section describes the libraries that were used for both the server and client respectively
@@ -328,6 +366,14 @@ __Client__
 -  react-datetime-picker: This component allowed easy selection of date and time within our formik forms for show start and end times.
 -  react-dom: This library was used to easily implement the needed code to make our application a "one page app", mounting and unmounting components according to the URL.
 -  react-icons: This library was used to access a large range of icons, easily importable as components.
+
+## Testing
+
+The testing for talent was done in two parts. The back end was tested using chai-http, with end-to-end style integration tests that tested each route as well as breakpoints for input specific routes. In conjunction with nyc, we were able to reach 90% code coverage.
+
+The front end react application took much longer than expected, so testing was done manually using a table that tested the key CRUD features of the application in order to ensure functionality. This was done informally many times before being formally done, noting any last minute changes in styling and flow that needed to be implemented before the project was handed over to the client.
+
+These manual tests were done for both the production environment, and on the final day of development, the production environment.
 
 
 
