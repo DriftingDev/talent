@@ -99,6 +99,7 @@ const AllShows = () => {
                             'You must add an artist to the company before you can add a show',
                         });
                       }}
+                      className='float-right'
                     >
                       Create New Show
                     </Button>
@@ -114,6 +115,7 @@ const AllShows = () => {
                             'You must add a venue to the company before you can add a show',
                         });
                       }}
+                      className='float-right'
                     >
                       Create New Show
                     </Button>
@@ -126,7 +128,7 @@ const AllShows = () => {
             <Row >
               <Col >
                 <Alert variant='info'>
-                  <h4 className='text-center'>
+                  <h4 className='text-center text-dark'>
                     You don't have any shows with this company... yet.
                   </h4>
                 </Alert>

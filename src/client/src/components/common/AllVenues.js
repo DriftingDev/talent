@@ -59,7 +59,7 @@ const AllVenues = () => {
                   <VenueAccordion venues={VenueState.venues} withLink={true} />
                 ) : (
                   <Alert variant='info'>
-                    <h4 className='text-center'>
+                    <h4 className='text-center text-dark'>
                       No venues have been created... yet.
                     </h4>
                   </Alert>

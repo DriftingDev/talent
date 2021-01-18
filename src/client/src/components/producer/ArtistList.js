@@ -48,7 +48,7 @@ function ArtistList() {
             ) : (
               <Col>
                 <Alert variant='info'>
-                  <h4 className='text-center'>
+                  <h4 className='text-center text-dark'>
                     There are no artists connected to this company.
                   </h4>
                 </Alert>

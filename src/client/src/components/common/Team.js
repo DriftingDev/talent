@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import { Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 //Context
 import { useContext, useEffect } from 'react';
@@ -68,10 +68,17 @@ function Team() {
             </Col>
           }
         </Row>
-        {producers &&
+        {producers.length > 1 ? 
           producers.map((user) => {
             return <YourTeamCard user={user} />;
-          })}
+          })
+          :
+          <Alert variant='info'>
+            <h4 className='text-center text-dark'>
+              No producers have been attached to this company.
+            </h4>
+          </Alert>
+          }
       </Container>
       :
       <Loading/>
