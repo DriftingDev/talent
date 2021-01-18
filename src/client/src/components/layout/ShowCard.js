@@ -71,7 +71,7 @@ const ShowCard = ({ show, showOptions }) => {
               </div>
             );
           })}
-        {showOptions.withDescrip && show.descrip && 
+        {(showOptions.withDescrip && show.descrip) && 
         <>
         <span className='font-weight-bold pb-1'><HiPencilAlt/>{" "}Description:</span>
         <span>{show.descrip}</span>

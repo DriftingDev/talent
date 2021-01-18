@@ -35,7 +35,7 @@ const ProducerNextShows = ({ shows }) => {
 
   const nextShows = shows.filter((show) => {
     return moment() < moment(show.eventEnd)
-  }).slice(0,3).map((show) => {
+  }).sort((a,b) => a.eventStart > b.eventStart).slice(0,3).map((show) => {
     return (
       <div key={show._id} >
         <Alert variant="danger" className="px-1 py-2" onClick={() => {displayEventModal(show)}}>

@@ -2,6 +2,7 @@ import {Modal, Button} from 'react-bootstrap'
 import {useHistory} from 'react-router'
 import { IoMdMicrophone } from 'react-icons/io'
 import { GiFamilyHouse } from 'react-icons/gi'
+import { HiPencilAlt } from 'react-icons/hi'
 import { BsPersonLinesFill } from 'react-icons/bs'
 
 const EventModal = (props) => {
@@ -45,9 +46,12 @@ const EventModal = (props) => {
           <div onClick={() => {history.push(`venues/${details.venue._id}`)}}><p class="font-weight-bold"><GiFamilyHouse/>{" "}Venue:</p> <button className="btn btn-link">{details.venue.name}</button></div>
           }
           <div>
-            { details.descip != null &&
-            details.descrip
-              }
+            { details.descrip != null &&
+             <>
+             <span className='font-weight-bold pb-1'><HiPencilAlt/>{" "}Description: </span>
+             <span>{details.descrip}</span>
+             </>}
+              
           </div>
         </div>
       </Modal.Body>
