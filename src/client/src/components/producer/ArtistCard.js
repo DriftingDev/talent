@@ -59,9 +59,12 @@ const ArtistCard = ({ artist }) => {
             )}
           </Col>
           <Col xs={8} className='noPadding '>
-            <Card.Title onClick={handleNameClick}>{artist.accname}</Card.Title>
+            <Card.Title className='btn-link' onClick={handleNameClick}>
+              {artist.accname}
+            </Card.Title>
             <Card.Text className='truncate'>
-              <BsEnvelope /> {artist.email}
+              <BsEnvelope />
+              <a href={`mailto:${artist.email}`}> {artist.email}</a>
             </Card.Text>
             <Card.Text>
               <FiPhone /> {artist.contact}
