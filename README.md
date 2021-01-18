@@ -274,3 +274,10 @@ You can access the full Figma file for our wireframe design here:
 And get access to just the prototype here:
 -  https://www.figma.com/proto/T5HOM9IrUyHqvRUAxnjtAf/Talent-App-Coder-Final-Project?node-id=76%3A52&scaling=scale-down
 
+
+----------------------------
+
+# Talent Implementation and Final Product
+
+
+
