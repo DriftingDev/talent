@@ -326,7 +326,8 @@ __Client__
 -  React-big-calendar: This component allowed us to implement an easy to use and customise calendar for the homepage of the application
 -  react-bootstrap: This component library helps streamline many of the bootstrap classes into easy to use react components that can be imported. 
 -  react-datetime-picker: This component allowed easy selection of date and time within our formik forms for show start and end times.
--  react-dom: This library was used to easily implement the needed code to make our application a "one page app", streamlining routing and using the url navigation bar
+-  react-dom: This library was used to easily implement the needed code to make our application a "one page app", mounting and unmounting components according to the URL.
+-  react-icons: This library was used to access a large range of icons, easily importable as components.
 
 
 
