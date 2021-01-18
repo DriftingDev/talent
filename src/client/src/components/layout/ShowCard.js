@@ -48,7 +48,7 @@ const ShowCard = ({ show, showOptions }) => {
         <>
         <hr></hr>
         <Card.Subtitle className="font-weight-bold">
-          Until: {moment(show.eventStart).format('h:mm a, MMMM Do')}
+          Until: {moment(show.eventEnd).format('h:mm a, MMMM Do')}
         </Card.Subtitle>
         </>
       )}
