@@ -40,12 +40,12 @@ const ProducerNextShows = ({ shows }) => {
       <div key={show._id} >
         <Alert variant="danger" className="px-1 py-2" onClick={() => {displayEventModal(show)}}>
           <div className='d-flex justify-content-between px-3'>
-            <p className='px-2 m-0'>
+            <h5 className='px-2 m-0'>
               <BiTime /> {moment(show.eventStart).format('MMMM Do YYYY @ h:mm:ss a')} 
-            </p>
-            <p className='px-2 m-0'>
+            </h5>
+            <h5 className='px-2 m-0'>
               <AiFillSound /> {show.showName}
-            </p>
+            </h5>
           </div>
         </Alert>
       </div>
@@ -56,12 +56,21 @@ const ProducerNextShows = ({ shows }) => {
 
   return (
     <>
+    {nextShows.length > 0 ?
+    <>
+    <h2>
+      Next Shows:
+    </h2>
     {nextShows}
     <EventModal 
         details={modalDetails}
         show={modalShow}
         onHide={() => setModalShow(false)}
     />
+    </>
+    :
+    <h2>No upcoming shows</h2>
+    }
     </>
   )
 

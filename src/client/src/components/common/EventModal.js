@@ -1,20 +1,27 @@
 import {Modal, Button} from 'react-bootstrap'
 import {useHistory} from 'react-router'
+import { IoMdMicrophone } from 'react-icons/io'
+import { GiFamilyHouse } from 'react-icons/gi'
+import { BsPersonLinesFill } from 'react-icons/bs'
 
 const EventModal = (props) => {
   const details = props.details
 
   const history = useHistory()
   const artists = details.artists.map((artist, index, array) => {
-    if (index + 1 === array.length ){
-      return (
-        <span onClick={() => {history.push(`/artist/${artist._id}`)}}>{artist.accname}</span>
-        )
-    } else {
-      return(
-        <span onClick={() => {history.push(`/artist/${artist._id}`)}}>{`${artist.accname}, `}</span>
+    return (
+      <button className="btn btn-link" onClick={() => {history.push(`/artists/${artist._id}`)}}>{artist.accname}</button>
       )
-    }
+    // if (index + 1 === array.length ){
+      
+    //   return (
+    //     <button className="btn btn-link" onClick={() => {history.push(`/artists/${artist._id}`)}}>{artist.accname}</button>
+    //     )
+    // } else {
+    //   return(
+    //     <button className="btn btn-link" onClick={() => {history.push(`/artists/${artist._id}`)}}>{`${artist.accname}, `}</button>
+    //   )
+    // }
   })
 
   return (
@@ -26,21 +33,23 @@ const EventModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-        {details.title}
+        <IoMdMicrophone/>{" "}{details.title}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <ul>
-          <li>Start: {details.eventStart}</li>
-          <li>Finish: {details.eventEnd}</li>
-          <li>Artists: {artists}</li>
-          { details.venue != null &&
-            <li onClick={() => {history.push(`venue/${details.venue._id}`)}}>Venue: {details.venue.name}</li>
-            }
-        </ul>
-        <p>
-          {details.descrip}
-        </p>
+        <div>
+          <div><span class="font-weight-bold">Start:</span> <span>{details.eventStart}</span></div>
+          <div><span class="font-weight-bold">Finish:</span> {details.eventEnd}</div><br/>
+          <div><p class="font-weight-bold"><BsPersonLinesFill/>{" "}Artists:</p> {artists}</div>
+          {details.venue != null &&
+          <div onClick={() => {history.push(`venues/${details.venue._id}`)}}><p class="font-weight-bold"><GiFamilyHouse/>{" "}Venue:</p> <button className="btn btn-link">{details.venue.name}</button></div>
+          }
+          <div>
+            { details.descip != null &&
+            details.descrip
+              }
+          </div>
+        </div>
       </Modal.Body>
       <Modal.Footer className='justify-content-between'>
         <Button onClick={() => {history.push(`/shows/${details.slug}`)}}>All show times</Button>

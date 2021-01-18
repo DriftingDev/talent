@@ -80,7 +80,6 @@ export const axiosUpdateShow = (dispatch, showsObject, currentCompany) => {
   axios
     .post(`${API_URL}/show/${showsObject._id}`, data, authHeader())
     .then((resp) => {
-      console.log(resp)
       axiosGetShows(dispatch)
     })
     .catch(console.log)
