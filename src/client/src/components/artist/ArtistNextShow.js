@@ -6,8 +6,8 @@ import { BsHouseDoor } from "react-icons/bs"
 
 const ArtistNextShow = ({shows}) => {
   const nextShows = shows.filter((show) => {
-    return moment() < moment(show.eventStart)
-  })
+    return moment() < moment(show.eventEnd)
+  }).sort((a, b) => a.eventStart > b.eventStart)
 
   
   return (
