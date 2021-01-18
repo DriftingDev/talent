@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import moment from 'moment'
 //Bootstrap
 import { Button, Modal, Form } from 'react-bootstrap';
 //Formik & Yup
@@ -65,8 +66,8 @@ function ShowEditModal({ showObject }) {
           <Formik
             initialValues={{
               _id: showObject._id,
-              eventEnd: showObject.eventEnd,
-              eventStart: showObject.eventStart,
+              eventEnd: moment(showObject.eventEnd).toDate(),
+              eventStart: moment(showObject.eventStart).toDate(),
               showName: showObject.showName,
               venue: showObject.venue.name,
               artists: showObject.artists.map((artist) => artist.accname),
