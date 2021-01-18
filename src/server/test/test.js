@@ -286,7 +286,7 @@ describe('Route testing', () => {
           })
       })
 
-      it("Should return 500 and a string if passed a non matching ID", (done) => {
+      it("Should return 501 if passed a non matching ID", (done) => {
         chai.request(app)
         .get('/company/:id')
         .set({"Authorization": `Bearer ${producerToken}`})
@@ -294,8 +294,7 @@ describe('Route testing', () => {
           if (err) {
             console.log(err)
           }
-          expect(res).to.have.status(500)
-          expect(res.body).to.equal('No company found')
+          expect(res).to.have.status(501)
           done()
         })
       }) 
@@ -332,7 +331,7 @@ describe('Route testing', () => {
           
       })
 
-      it("should return 500 if passed an invalid id", (done) => {
+      it("should return 501 if passed an invalid id", (done) => {
         chai.request(app)
           .post(`/company/notanid`)
           .set({"Authorization": `Bearer ${producerToken}`})
@@ -343,7 +342,7 @@ describe('Route testing', () => {
             if (err) {
               console.log(err)
             }
-            expect(res).to.have.status(500)
+            expect(res).to.have.status(501)
             done()
           })
       })
@@ -397,7 +396,7 @@ describe('Route testing', () => {
           })
       })
 
-      it("Should return 500 and a string if no company matches the parameter ID", (done) => {
+      it("Should return 501 if no company matches the parameter ID", (done) => {
         chai.request(app)
           .get(`/company/companyUsers/notanid`)
           .set({"Authorization": `Bearer ${producerToken}`})
@@ -405,8 +404,7 @@ describe('Route testing', () => {
             if (err) {
               console.log(err)
             }
-            expect(res).to.have.status(500)
-            expect(res.body).to.equal("No company found")
+            expect(res).to.have.status(501)
             done()
           })
       })

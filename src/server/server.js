@@ -49,7 +49,6 @@ const allowList = [
   "https://talent-app.netlify.app/",
 ];
 app.set("trust proxy", 1);
-app.use(cookieParser());
 
 const corsOptions = {
   credentials: true,
@@ -71,6 +70,11 @@ app.use('/user', passport.authenticate('jwt', { session: false }), userRouter);
 app.use('/company', passport.authenticate('jwt', { session: false }), companyRouter);
 app.use('/show', passport.authenticate('jwt', { session: false }), showRouter);
 app.use('/venue', passport.authenticate('jwt', { session: false }), venueRouter)
+
+app.use((err,req,res,next) => {
+  // console.log("error!", err)
+  return res.status(err.status || 500).json(err)
+})
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`)
