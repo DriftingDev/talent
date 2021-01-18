@@ -9,7 +9,7 @@ import { object, string, array, date, ref, number } from 'yup';
 import NavBar from '../layout/NavBar';
 import Loading from '../layout/Loading';
 import DateTimePicker from 'react-datetime-picker'
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datetime/css/react-datetime.css";
 // Context
 import { CompanyContext } from '../../store/company'
 import { ShowContext } from '../../store/show'
