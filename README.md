@@ -279,5 +279,56 @@ And get access to just the prototype here:
 
 # Talent Implementation and Final Product
 
+The actual implemented version of Talent ended up differing in a few ways than was outlined in the previous documentation. This was mainly due to time and knowledge constraints, as well as needing to rework the authentication system a few times before we found something that worked. 
+
+MVP Features that were eventually culled from the project were:
+
+-  Producers can add existing producers to a company.
+-  Producers can add existing artists to a company.
+-  Venues will have an a map displaying their location if one is assigned.
+-  Artists can look at ticket sales for upcoming and past shows.
+-  Artists can access producer information for the company.
+
+Unfortunately, we were not able to implement any of the stretch features into the application.
+
+## Libraries
+
+The following section describes the libraries that were used for both the server and client respectively
+
+__Server__
+
+-  Express: Express was used as the JS server framework on top of Node, to allow flexible, un-opinionated construction of the Talent back end.
+
+-  Mocha / Chai / Chai-http: Mocha was used as the overarching testing framework used in conjunction with Node to test our express server. Chai was added as an assertion library to enhance testing capability. Chai-http was added on top of this to allow easy, straight forward end-to-end testing of the application
+-  Bcrypt: Bcrypt was used explicitly in the encryption of passwords for the mongoose user model, which allowed one way encryption and comparison within the server.
+-  Mongoose: Mongoose was used to interface with and translate information to and from the MongoDB NoSQL database into and out of the Express server.
+-  Body-parser: body parser was used to populate the req.body object of all incoming reqs for parsing of encoded form data.
+-  CORS: The cors package was used initially to ensure no connections were blocked to the server, before finally creating a whitelist that will only accept requests from the netlify front end client. 
+-  Dotenv: Dotenv was used to help define and access environment variables in the development environment.
+-  jsonwebtoken: This package was integral in creating and signing json web tokens that are send and stored on the client side. This was an important part of the authentication system used by Talent.
+-  moment: moment was used to translate all submitted times into utc before being stored in the database. In this way, the database always runs on one "timezone" and the client is responsible for translating these utc times to the local timezone.
+-  passport: passport was used as the authentication library and framework for our express server.
+-  passport-jwt: This library was integral to the extraction and authentication of jwt tokens and setting up of authentication middleware for the express server. This allows the server to recognize whether a request has a valid token attached to the request and what information this token contains.
+-  passport-local: This library adds a lot of functionality and middleware to registering and logging in users to the server. Usually this is used hand in hand with sessions, but with the JWT it was simply being used to help create and login users in a passport opinionated way before sending back a valid JWT.
+-  nyc: nyc was used to help analyze the code coverage of the back end integration tests.
+
+__Client__
+
+-  React: The overall front-end framework used to create a dynamic, fast, component based front end
+
+
+-  Axios: Axios was used as a http client for making async requests to the express server.
+-  Bootstrap: Bootstrap was added to the project to help us quickly and easily style the application.
+-  Formik: Formik was used in an attempt to streamline the use of forms in react. It handles much of the state automatically, however was trickier to use in conjunction with react-bootstrap and some of the funny ways I was implementing forms.
+-  Yup: Yup was used as a validation library in conjunction with Formik to provide easy validation for our form fields. 
+-  Moment: Moment was implemented in ensuring that there was localisation of time for all values that were passed to the calendar, as well as data that was being sent to and coming from the server. It was also used to ensure easy comparison and sorting of dates within the application.
+-  Node-sass: Was added to the project to allow us to easily use SASS language in the stylesheets of the application.
+-  React-big-calendar: This component allowed us to implement an easy to use and customise calendar for the homepage of the application
+-  react-bootstrap: This component library helps streamline many of the bootstrap classes into easy to use react components that can be imported. 
+-  react-datetime-picker: This component allowed easy selection of date and time within our formik forms for show start and end times.
+-  react-dom: This library was used to easily implement the needed code to make our application a "one page app", streamlining routing and using the url navigation bar
+
+
+
 
 
