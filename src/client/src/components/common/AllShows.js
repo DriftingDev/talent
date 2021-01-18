@@ -67,7 +67,7 @@ const AllShows = () => {
       CompanyState.currentCompany != null ? (
         <Container bg='dark'>
           {CurrentUserState.user.is_artist && ShowState.shows.length > 0 && (
-            <Row className="mt-3">
+            <Row className='mt-3'>
               <Col>
                 <ArtistNextShow shows={ShowState.shows} />
               </Col>
@@ -91,7 +91,7 @@ const AllShows = () => {
                 ) : VenueState.venues.length > 0 ? (
                   <>
                     <Button
-                      variant='secondary'
+                      variant='primary'
                       onClick={() => {
                         setErrorState({
                           show: true,
@@ -107,7 +107,7 @@ const AllShows = () => {
                 ) : (
                   <>
                     <Button
-                      variant='secondary'
+                      variant='primary'
                       onClick={() => {
                         setErrorState({
                           show: true,
@@ -125,8 +125,8 @@ const AllShows = () => {
             )}
           </Row>
           {ShowState.shows.length === 0 && (
-            <Row >
-              <Col >
+            <Row>
+              <Col>
                 <Alert variant='info'>
                   <h4 className='text-center text-dark'>
                     You don't have any shows with this company... yet.
@@ -142,20 +142,20 @@ const AllShows = () => {
               </Col>
             </Row>
           )}
-          <div className="mt-4">
-          <ShowAccordionFrame
-            shows={ShowState.shows}
-            showOptions={{
-              withTitle: true,
-              withTime: true,
-              withArtists: true,
-              withVenue: true,
-              withEndTime: false,
-              withDescrip: true,
-              withDeleteEdit: true,
-              withAllShowsLink: true,
-            }}
-          />
+          <div className='mt-4'>
+            <ShowAccordionFrame
+              shows={ShowState.shows}
+              showOptions={{
+                withTitle: true,
+                withTime: true,
+                withArtists: true,
+                withVenue: true,
+                withEndTime: false,
+                withDescrip: true,
+                withDeleteEdit: true,
+                withAllShowsLink: true,
+              }}
+            />
           </div>
         </Container>
       ) : (
