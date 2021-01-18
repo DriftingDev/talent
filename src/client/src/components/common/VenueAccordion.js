@@ -73,7 +73,7 @@ const VenueAccordion = ({ venues, withLink }) => {
                     <ImPhone />: {venue.contactPhone || "N/A"}
                   </p>  
                   <p>
-                    <HiLink />: {<span className='btn-link' onClick={() => {window.open("http://" + venue.website)}}>{venue.website}</span> || "N/A"}
+                    <HiLink />: {venue.website ? <span className='btn-link' onClick={() => {window.open("http://" + venue.website)}}>{venue.website}</span> : "N/A"}
                   </p>                  
                   <Card border='light' bg='dark' className='px-3 pt-2 mb-2 white'>
                     <h5><HiPencilAlt />{" "}<u>Details:</u></h5>
