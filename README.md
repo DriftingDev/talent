@@ -276,8 +276,19 @@ And get access to just the prototype here:
 
 
 ----------------------------
+----------------------------
+----------------------------
+----------------------------
 
 # Talent Implementation and Final Product
+
+You can find the deployed version of the application here: https://talent-app.netlify.app/
+
+You can find the repo on github here: https://github.com/DriftingDev/talent
+
+The production application currently has test data in it. You can login with these fake "emails", which have matching passwords:
+Producers: producer1, producer2, producer3, producer4
+Artists: artist1, artist2
 
 The actual implemented version of Talent ended up differing in a few ways than was outlined in the previous documentation. This was mainly due to time and knowledge constraints, as well as needing to rework the authentication system a few times before we found something that worked. 
 
@@ -290,6 +301,30 @@ MVP Features that were eventually culled from the project were:
 -  Artists can access producer information for the company.
 
 Unfortunately, we were not able to implement any of the stretch features into the application.
+
+<details>
+<summary>Screenshots</summary>
+<br>
+
+![Screenshot 1](docs/talent_screenshot_1.png)
+
+![Screenshot 2](docs/talent_screenshot_2.png)
+
+![Screenshot 3](docs/talent_screenshot_3.png)
+
+![Screenshot 4](docs/talent_screenshot_4.png)
+
+![Screenshot 5](docs/talent_screenshot_5.png)
+
+![Screenshot 6](docs/talent_screenshot_6.png)
+
+![Screenshot 7](docs/talent_screenshot_7.png)
+
+![Screenshot 8](docs/talent_screenshot_8.png)
+
+</details>
+
+<br>
 
 ## Local installation
 
@@ -319,6 +354,10 @@ __SERVER__
 - If your connection string is different to "mongodb://127.0.0.1:27017/", you will need to open the server.js file in your code editor and change line 25 to reflect this change.
 - From here, you should be able to run ```npm start``` on the src/server terminal. The server should run on port 3010 and will tell you if it has successfully connected to the database or not. 
 
+TESTING
+
+- Optionally, you can run the scripted tests with nyc using the command ```npm test```
+
 __CLIENT__
 
 -  In the second terminal window, you should similarly navigate to the client
@@ -329,15 +368,35 @@ __CLIENT__
 -  From here, you will need to run ```npm i``` to install the required dependencies.
 -  You should be able to run ```npm start``, and react will start a local server and tell you what localhost port it is running on.
 
+## Workflow and planning
+
+__Trello__
+
+Trello was again used for division of labour and task tracking throughout the project. This looked like creating a list of requirements to work off of, then attempting to plan out the entire implementation of the front and back end in separate columns. 
+
+From here we started adding cards to the backlog that reflected where we were up to in terms of implementation. As the project progressed and evolved, the needs and demands of the project began to fully crystallize. From here we moved away from the implementation columns, especially after the server had been built. We ended up creating cards in the backlog almost exclusively and working through the figma wireframes in order to create the application. 
+
+This was useful, as we could essentially stand up each day, agree what the goals were for the day, tweak any cards and begin working. If we were working in off hours or asynchronously, we could modify and create issue/bug cards in the backlog for the other to look at when they got a chance.  
+
+You can access the Trello here: https://trello.com/b/qExm8rzv/talent-pt-2
+
+__Git__
+
+Git was used as our source control framework. We went through 2 different methods during the development of talent.
+
+Initially we were using a forking workflow, first forking the main repo onto our local machines and then pushing the changes up to the remote repo when we were done. This worked fairly well when we were working on the back end and front end separately, as they were essentially acting as "separate" repos within the main repo. However, once we both began working on the React front end, this workflow became confusing and inhibitive. We switched to a branching workflow at this stage, but redefining our origin repo as the remote repository, so we could commit, branch, pull and push directly without having to submit pull requests each time and risk unnecessary conflicts arising.
+
+You can find the git repo here: https://github.com/DriftingDev/talent
+
 ## Libraries
 
 The following section describes the libraries that were used for both the server and client respectively
 
 __Server__
 
--  Express: Express was used as the JS server framework on top of Node, to allow flexible, un-opinionated construction of the Talent back end.
+-  Express: Express was used as the JS server framework on top of Node, to allow flexible, un-opinionated construction of the Talent back end. This provided the backbone to the entire server.
 
--  Mocha / Chai / Chai-http: Mocha was used as the overarching testing framework used in conjunction with Node to test our express server. Chai was added as an assertion library to enhance testing capability. Chai-http was added on top of this to allow easy, straight forward end-to-end testing of the application
+-  Mocha / Chai / Chai-http: Mocha was used as the overarching testing framework used in conjunction with Node to test our express server. Chai was added as an assertion library to enhance testing capability. Chai-http was added on top of this to allow easy, straight forward end-to-end testing of the application.
 -  Bcrypt: Bcrypt was used explicitly in the encryption of passwords for the mongoose user model, which allowed one way encryption and comparison within the server.
 -  Mongoose: Mongoose was used to interface with and translate information to and from the MongoDB NoSQL database into and out of the Express server.
 -  Body-parser: body parser was used to populate the req.body object of all incoming reqs for parsing of encoded form data.
@@ -375,7 +434,41 @@ The front end react application took much longer than expected, so testing was d
 
 These manual tests were done for both the production environment, and on the final day of development, the production environment.
 
+<details>
+<summary> 
 
+__Manual Testing Logs__ 
+
+</summary>
+<br>
+
+![Testing Log 1](docs/talent_testing-01.png)
+
+![Testing Log 2](docs/talent_testing-02.png)
+
+![Testing Log 3](docs/talent_testing-03.png)
+
+![Testing Log 4](docs/talent_testing-04.png)
+
+![Testing Log 5](docs/talent_testing-05.png)
+
+![Testing Log 6](docs/talent_testing-06.png)
+
+![Testing Log 7](docs/talent_testing-07.png)
+
+![Testing Log 8](docs/talent_testing-08.png)
+
+![Testing Log 9](docs/talent_testing-09.png)
+
+![Testing Log 10](docs/talent_testing-10.png)
+
+![Testing Log 11](docs/talent_testing-11.png)
+
+</details>
+
+__Automated Back End Testing Screenshot__
+
+![Talent BE testing screenshot](docs/talent_backend_testing.png)
 
 
 
