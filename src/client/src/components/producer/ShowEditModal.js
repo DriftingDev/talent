@@ -115,9 +115,12 @@ function ShowEditModal({ showObject }) {
 
                 <Form.Group controlId='venue'>
                   <Form.Label>Venue</Form.Label>
-                  <Form.Control as='select' {...getFieldProps('venue')}>
+                  <Form.Control 
+                    as='select' 
+                    className="bg-primary text-white"
+                    {...getFieldProps('venue')}>
                     {companyState.currentCompany.venues.map((venue) => (
-                      <option value={venue.name} label={venue.name} />
+                      <option value={venue.name} label={venue.name} className="text-white" />
                     ))}
                   </Form.Control>
                 </Form.Group>
@@ -149,13 +152,14 @@ function ShowEditModal({ showObject }) {
                 </Form.Group>
 
                 <h5>Start Date</h5>
+                
                 <DateTimePicker
+                  className="form-control bg-light text-dark"
                   value={values.eventStart}
                   onChange={(e) => {
                     setFieldValue(`eventStart`, e);
                     setFieldTouched(`eventStart`, true);
                   }}
-                  className='form-control'
                   disableClock={true}
                 />
                 <ErrorMessage name={`values.eventStart`} />
@@ -171,7 +175,7 @@ function ShowEditModal({ showObject }) {
                     setFieldValue(`eventEnd`, e);
                     setFieldTouched(`eventEnd`, true);
                   }}
-                  className='form-control'
+                  className="form-control bg-light text-dark"
                   disableClock={true}
                 />
                 <ErrorMessage name={`eventEnd`} />
