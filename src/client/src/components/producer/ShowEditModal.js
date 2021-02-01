@@ -158,6 +158,7 @@ function ShowEditModal({ showObject }) {
                   value={values.eventStart}
                   onChange={(e) => {
                     setFieldValue(`eventStart`, e);
+                    setFieldValue(`eventEnd`, new Date(moment(e).add(1, 'hours')));
                     setFieldTouched(`eventStart`, true);
                   }}
                   disableClock={true}

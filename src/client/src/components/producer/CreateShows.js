@@ -216,6 +216,7 @@ const CreateShows = () => {
                   <>
                     {values.shows.map((show,i) => (
                       <div key={i}>
+                        
                         <hr></hr>
                         <Alert variant="info">Show {i + 1}</Alert>
                         <h5>Start Date</h5>
@@ -223,6 +224,7 @@ const CreateShows = () => {
                           value={values.shows[i].eventStartDate}
                           onChange={(e) => {
                               setFieldValue(`shows[${i}].eventStartDate`, e);
+                              setFieldValue(`shows[${i}].eventEndDate`, new Date(moment(e).add(1, 'hours')));
                               setFieldTouched(`shows[${i}].eventStartDate`, true);
                             }}
                           className="form-control bg-light text-dark"
@@ -234,8 +236,8 @@ const CreateShows = () => {
                         <h5>End Date</h5>
                         <DateTimePicker
                           value={
-                            values.shows[i].eventStartDate > values.shows[i].eventEndDate ?
-                            moment(values.shows[i].eventStartDate).add(1, 'hours') : values.shows[i].eventEndDate
+                            values.shows[i].eventStartDate >= values.shows[i].eventEndDate ?
+                            new Date(moment(values.shows[i].eventStartDate).add(1, 'hours')) : values.shows[i].eventEndDate
                           }
                           onChange={(e) => {
                               setFieldValue(`shows[${i}].eventEndDate`, e);
@@ -245,7 +247,6 @@ const CreateShows = () => {
                           disableClock={true}
                           minDate={today}
                         />
-                        {console.log(values.shows[i].eventStartDate)}
                         <ErrorMessage name={`shows[${i}].eventEndDate`} />
                       </div>
                     ))}
