@@ -163,6 +163,7 @@ const CreateShows = () => {
                   <Form.Label>Venue</Form.Label>
                     <Form.Control
                       as='select'
+                      className="bg-primary text-white"
                       {...getFieldProps("venue")}
                     >
                     {venueState.venues.map(venue => <option value={venue.name} label={venue.name}/>)}
