@@ -16,6 +16,8 @@ import { ShowContext } from '../../store/show'
 import { CurrentUserContext } from '../../store/currentUser';
 import { VenueContext } from '../../store/venue';
 
+import moment from 'moment'
+
 const ErrorMessage = ({ name }) => (
   <Field
     name={name}
@@ -233,7 +235,7 @@ const CreateShows = () => {
                         <DateTimePicker
                           value={
                             values.shows[i].eventStartDate > values.shows[i].eventEndDate ?
-                            values.shows[i].eventStartDate : values.shows[i].eventEndDate
+                            moment(values.shows[i].eventStartDate).add(1, 'hours') : values.shows[i].eventEndDate
                           }
                           onChange={(e) => {
                               setFieldValue(`shows[${i}].eventEndDate`, e);
@@ -243,6 +245,7 @@ const CreateShows = () => {
                           disableClock={true}
                           minDate={today}
                         />
+                        {console.log(values.shows[i].eventStartDate)}
                         <ErrorMessage name={`shows[${i}].eventEndDate`} />
                       </div>
                     ))}
