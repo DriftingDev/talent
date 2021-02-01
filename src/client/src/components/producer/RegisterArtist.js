@@ -13,6 +13,8 @@ import { CurrentUserContext } from '../../store/currentUser';
 import { CompanyContext } from '../../store/company'
 import { useHistory } from 'react-router';
 
+import {SliderPicker} from 'react-color'
+
 const RegisterArtist = () => {
 
   const history = useHistory()
@@ -44,6 +46,7 @@ const RegisterArtist = () => {
             accname: '',
             contact: '',
             link: '',
+            colour: "#228B22"
           }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
@@ -53,7 +56,7 @@ const RegisterArtist = () => {
             setModalState(true)
           }}
         >
-          {({ getFieldProps, errors, touched, values }) => (
+          {({ getFieldProps, errors, touched, values, setFieldValue }) => (
             <>
             <PasswordModal 
               password={values.password}
@@ -119,6 +122,16 @@ const RegisterArtist = () => {
                   {errors.password}
                 </Form.Control.Feedback>
               </Form.Group>
+              <Form.Group controlId='colour'>
+                <Form.Label>Calendar Colour</Form.Label>
+                <SliderPicker
+                  onChangeComplete={(e) => {
+                    setFieldValue('colour', e.hex)
+                  }}
+                  color={values.colour}
+                />
+              </Form.Group>
+
               <Button variant='primary' size='lg' type='submit' block>
                 Create Artist
               </Button>

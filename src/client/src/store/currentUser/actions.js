@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { axiosFetchCurrentCompany } from '../company/actions';
-import {API_URL, authHeader, randomColor } from '../actionUtils'
+import {API_URL, authHeader } from '../actionUtils'
 
 export const axiosLoginUser = (user, dispatch) => {
   axios
@@ -49,7 +49,7 @@ export const axiosAddUserToCompany = (userId, companyDispatch) => {
 }
 
 export const axiosCreateUser = (user, companyDispatch) => {
-  user.colour = randomColor()
+  //user.colour = randomColor()
   axios
     .post(`${API_URL}/auth/register`, user)
     .then(function (response) {
